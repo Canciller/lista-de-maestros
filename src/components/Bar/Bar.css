@@ -1,0 +1,17 @@
+.bar {
+    display: flex;
+    width: 100vw;
+    height: 10vh;
+    background-color: #2f3136;
+    margin: auto;
+}
+
+.bar h2 {
+    margin: auto;
+    margin-right: 82vw;
+    text-align: center;
+}
+
+.bar-logo {
+    color: #dcddde;
+}
