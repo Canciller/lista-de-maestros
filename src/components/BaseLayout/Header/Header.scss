@@ -1,17 +1,28 @@
-.bar {
+.Header-container {
     display: flex;
-    width: 100vw;
-    height: 10vh;
+    justify-content: flex-end;
+    height: 100px;
     background-color: #2f3136;
-    margin: auto;
+    margin: 0 auto;
+    padding-right: 50px;
+    color: white;
 }
 
-.bar h2 {
-    margin: auto;
-    margin-right: 82vw;
-    text-align: center;
+.Settings, .Profile {
+    margin: auto 0 auto 0;
+    font-weight: bold;
 }
 
-.bar-logo {
-    color: #dcddde;
+.Settings {
+    margin-right: 40px;
+}
+
+.Profile-pic {
+    height: 40px;
+    width: 40px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 100px;
+    margin: auto 10px auto 0;
 }
