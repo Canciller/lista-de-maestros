@@ -1,9 +1,8 @@
 import React from 'react';
-import './Bar.css';
 
-import './Bar.css';
+import './Header.scss';
 
-function Bar(props) {
+function Header(props) {
     return (
         <div className="bar-container">
             <div className="bar">
@@ -13,4 +12,4 @@ function Bar(props) {
     );
 }
 
-export default Bar;
+export default Header;

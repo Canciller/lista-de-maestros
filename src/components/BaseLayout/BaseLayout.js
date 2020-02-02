@@ -1,14 +1,18 @@
 import React from 'react';
 
 import Sidebar from './Sidebar';
+import Header from './Header';
 import './BaseLayout.scss';
 
 class BaseLayout extends React.Component {
     render() {
         return (
-            <div>
+            <div className="BaseLayout">
                 <Sidebar></Sidebar>
-                <div>{this.props.children}</div>
+                <div className="BaseLayout-main">
+                    <Header></Header>
+                    <div>{this.props.children}</div>
+                </div>
             </div>
         );
     }

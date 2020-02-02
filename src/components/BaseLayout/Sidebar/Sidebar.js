@@ -4,7 +4,7 @@ import './Sidebar.scss';
 
 class Sidebar extends React.Component {
     render() {
-        return <div>Sidebar</div>;
+        return <div className="Sidebar">Sidebar</div>;
     }
 }
 
