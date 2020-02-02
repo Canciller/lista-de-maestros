@@ -1,7 +1,7 @@
 import React from 'react';
 
-import Sidebar from './sidebar';
-import './base-layout.scss';
+import Sidebar from './Sidebar';
+import './BaseLayout.scss';
 
 class BaseLayout extends React.Component {
     render() {

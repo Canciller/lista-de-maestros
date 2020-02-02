@@ -1,10 +1,10 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-import BaseLayout from 'components/base-layout';
-import Home from 'components/routes/home';
-import Login from 'components/routes/login';
-import './app.scss';
+import BaseLayout from 'components/BaseLayout';
+import Home from 'components/routes/Home';
+import Login from 'components/routes/Login';
+import './App.scss';
 
 function App() {
     return (
