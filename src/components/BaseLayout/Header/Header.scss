@@ -10,23 +10,33 @@
     padding: 0 20px;
     display: flex;
     align-items: center;
+
+    .IconButton {
+        margin-left: 20px;
+    }
+}
+
+.Header-separator {
+    margin: auto 0;
+    width: 0.5px;
+    height: 80%;
+    border-radius: 50%;
 }
 
 .Profile {
     display: flex;
-    border-left: 1px solid;
     cursor: pointer;
 }
 
 .Avatar {
     height: 35px;
     width: 35px;
-    background: white;
     border-radius: 50%;
     margin-right: 10px;
+    border: 1px solid;
 }
 
-.Header-settings-button {
+.Header-icon {
     cursor: pointer;
     font-size: 18px;
 }

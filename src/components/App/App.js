@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import BaseLayout from 'components/BaseLayout';
-import Home from 'components/routes/Home';
-import Login from 'components/routes/Login';
-import List from 'components/routes/List';
+import Home from 'routes/Home';
+import Login from 'routes/Login';
+import List from 'routes/List';
 import theme from 'utils/theme';
 import './App.scss';
 

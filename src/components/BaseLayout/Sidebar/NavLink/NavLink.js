@@ -31,8 +31,16 @@ const NavLink = ({ children, className, to }) => {
     const link = theme.navigation.link;
 
     return (
-        <div className={classNames(className, 'NavLink')}>
+        <div
+            className={classNames(className, 'NavLink', {
+                'NavLink-active': match,
+            })}
+        >
             <LinkStyled style={match ? link.active : undefined} to={to}>
+                <div
+                    className="NavLink-line"
+                    style={match ? link.active.line : undefined}
+                />
                 {children}
             </LinkStyled>
         </div>

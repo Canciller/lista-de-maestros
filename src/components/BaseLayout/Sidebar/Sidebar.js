@@ -7,9 +7,10 @@ import {
     faHeart,
     faEye,
 } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
 
+import Logo from './Logo';
 import NavLink from './NavLink';
+import Separator from './Separator';
 import './Sidebar.scss';
 
 class Sidebar extends React.Component {
@@ -19,10 +20,9 @@ class Sidebar extends React.Component {
         return (
             <div className="Sidebar" style={sidebar}>
                 <div className="Sidebar-header" style={sidebar.header}>
-                    <Link className="Sidebar-logo" to="/">
-                        Lista de maestros
-                    </Link>
+                    <Logo />
                 </div>
+                <Separator />
                 <div className="Sidebar-nav" style={sidebar.nav}>
                     <NavLink to="/">
                         <FontAwesomeIcon icon={faHome} />

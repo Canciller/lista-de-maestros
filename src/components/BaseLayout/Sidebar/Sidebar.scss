@@ -3,7 +3,6 @@
 .Sidebar {
     min-width: $sidebar-width;
     user-select: none;
-    //background-color: #282A36;
 }
 
 .Sidebar-header {
@@ -11,16 +10,6 @@
     display: flex;
 }
 
-.Sidebar-logo {
-    margin: auto auto;
-    font-size: 16px;
-    text-decoration: none;
-    text-transform: uppercase;
-    color: white;
-    letter-spacing: 2px;
-}
-
-.Sidebar-link-notification {
-    flex: 1;
-    text-align: right;
+.Sidebar-nav {
+    margin-top: 20px;
 }
