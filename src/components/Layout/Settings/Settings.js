@@ -2,7 +2,7 @@ import React from 'react';
 import { withTheme } from 'styled-components';
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-import Separator from 'components/BaseLayout/Sidebar/Separator';
+import Separator from 'components/Layout/SideNav/Separator';
 import IconButton from 'components/IconButton';
 
 import './Settings.scss';

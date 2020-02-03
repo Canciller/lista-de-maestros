@@ -1,13 +1,13 @@
 import React from 'react';
 import { withTheme } from 'styled-components';
 
-import Sidebar from './Sidebar';
+import SideNav from './SideNav';
 import Header from './Header';
 import Settings from './Settings';
 
 import './BaseLayout.scss';
 
-class BaseLayout extends React.Component {
+class Layout extends React.Component {
     state = {
         settingsWidth: 0,
     };
@@ -17,7 +17,7 @@ class BaseLayout extends React.Component {
 
         return (
             <div className="BaseLayout">
-                <Sidebar />
+                <SideNav />
                 <Settings
                     width={this.state.settingsWidth}
                     onClose={e => this.setState({ settingsWidth: 0 })}
@@ -37,4 +37,4 @@ class BaseLayout extends React.Component {
     }
 }
 
-export default withTheme(BaseLayout);
+export default withTheme(Layout);

@@ -1,13 +1,13 @@
 import React from 'react';
 
-class List extends React.Component {
+class Lista extends React.Component {
     render() {
         return (
             <div>
-                <h1></h1>
+                <h1>Lista</h1>
             </div>
         );
     }
 }
 
-export default List;
+export default Lista;

@@ -8,22 +8,37 @@ import {
     faEye,
 } from '@fortawesome/free-solid-svg-icons';
 
+import Sidebar from 'components/Sidebar';
 import Logo from './Logo';
 import NavLink from './NavLink';
-import Separator from './Separator';
-import './Sidebar.scss';
 
-class Sidebar extends React.Component {
+class SideNav extends React.Component {
     render() {
         const sidebar = this.props.theme.sidebar;
 
         return (
-            <div className="Sidebar" style={sidebar}>
-                <div className="Sidebar-header" style={sidebar.header}>
-                    <Logo />
-                </div>
-                <Separator />
-                <div className="Sidebar-nav" style={sidebar.nav}>
+            <Sidebar
+                width={250}
+                title={<Logo />}
+                separator={{
+                    color: sidebar.separator.background,
+                }}
+                styles={{
+                    root: {
+                        userSelect: 'none',
+                        background: sidebar.background,
+                    },
+                    title: {
+                        height: 60, // sames as header height
+                        display: 'flex',
+                    },
+                }}
+            >
+                <Sidebar.Section
+                    style={{
+                        marginTop: 20,
+                    }}
+                >
                     <NavLink to="/">
                         <FontAwesomeIcon icon={faHome} />
                         <span>Inicio</span>
@@ -40,10 +55,10 @@ class Sidebar extends React.Component {
                         <FontAwesomeIcon icon={faEye} />
                         <span>Revision</span>
                     </NavLink>
-                </div>
-            </div>
+                </Sidebar.Section>
+            </Sidebar>
         );
     }
 }
 
-export default withTheme(Sidebar);
+export default withTheme(SideNav);
