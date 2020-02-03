@@ -1,0 +1,13 @@
+.NavLink a
+{
+    font-size: 14px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    padding: 10px 25px;
+    transition: all 50ms ease-in-out;
+
+    span {
+        margin-left: 18px;
+    }
+}

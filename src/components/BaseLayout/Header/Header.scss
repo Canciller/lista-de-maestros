@@ -1,28 +1,41 @@
-.Header-container {
+@import 'components/BaseLayout/layout';
+
+.Header {
     display: flex;
     justify-content: flex-end;
-    height: 100px;
-    background-color: #2f3136;
-    margin: 0 auto;
-    padding-right: 50px;
-    color: white;
+    height: $header-height;
 }
 
-.Settings, .Profile {
-    margin: auto 0 auto 0;
-    font-weight: bold;
+.Header-section {
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
 }
 
-.Settings {
-    margin-right: 40px;
+.Profile {
+    display: flex;
+    border-left: 1px solid;
+    cursor: pointer;
 }
 
-.Profile-pic {
-    height: 40px;
-    width: 40px;
-    background-color: #bbb;
+.Avatar {
+    height: 35px;
+    width: 35px;
+    background: white;
     border-radius: 50%;
-    display: inline-block;
-    margin-left: 100px;
-    margin: auto 10px auto 0;
+    margin-right: 10px;
+}
+
+.Header-settings-button {
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.User {
+    font-size: 12px;
+}
+
+.User-type {
+    font-size: 0.8em;
+    margin-top: 2px;
 }

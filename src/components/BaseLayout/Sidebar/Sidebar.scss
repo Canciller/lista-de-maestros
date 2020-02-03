@@ -1,45 +1,33 @@
-$sidebar-width: 200px;
-$header-height: 100px;
-
-.NavLink-link
-{
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-
-    color: white;
-}
+@import 'components/BaseLayout/layout';
 
 .Sidebar {
     min-width: $sidebar-width;
-
-    background-color: #292b2f;
+    user-select: none;
+    //background-color: #282A36;
 }
 
 .Sidebar-header {
     height: $header-height;
     display: flex;
-    margin-bottom: 15px;
-    background: rgb(63,94,251);
-    background: linear-gradient(90deg, rgba(63,94,251,1) 0%, rgba(252,70,107,1) 100%);
 }
 
 .Sidebar-logo {
-    font-weight: bold;
     margin: auto auto;
+    font-size: 16px;
+    text-decoration: none;
+    color: white;
 }
 
-.Sidebar-link a {
-    font-size: 12px;
-    padding: 8px 0;
-    padding-left: 20px;
-    color: #9c9c9c;
+.Sidebar-link-notification {
+    flex: 1;
+    text-align: right;
+}
 
-    span {
-        margin-left: 6px;
-    }
-
-    &:hover {
-        color: white;
-    }
+.Badge {
+    font-size: 10px;
+    border-radius: 2px;
+    color: #282a36;
+    background: #ff6e67;
+    padding: 2px 4px;
+    font-weight: bold;
 }

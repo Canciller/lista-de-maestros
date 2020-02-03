@@ -1,89 +1,52 @@
 import React from 'react';
-import classNames from 'classnames';
-import { Link, useRouteMatch } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { withTheme } from 'styled-components';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
+    faHome,
     faStream,
     faHeart,
-    faEye
-} from '@fortawesome/free-solid-svg-icons'
+    faEye,
+} from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
 
+import NavLink from './NavLink';
 import './Sidebar.scss';
-
-const NavLink = ({ children, className, to }) => {
-    let match = useRouteMatch({
-        path: to,
-        exact: true
-    });
-
-    return (
-        <div className={
-            classNames(
-                className,
-                "NavLink",
-                { active: match }
-            )}
-        >
-            <Link
-                className={
-                    classNames(
-                        className ? className + "-link" : undefined,
-                        "NavLink-link",
-                        { active: match }
-                    )}
-                to={to}
-            >
-                {children}
-            </Link>
-        </div>
-    );
-}
 
 class Sidebar extends React.Component {
     render() {
+        const sidebar = this.props.theme.sidebar;
+
         return (
-            <div
-                className="Sidebar"
-            >
-                <div
-                    className="Sidebar-header"
-                >
-                    <NavLink
-                        className="Sidebar-logo"
-                        to="/"
-                    >
+            <div className="Sidebar" style={sidebar}>
+                <div className="Sidebar-header" style={sidebar.header}>
+                    <Link className="Sidebar-logo" to="/">
                         Lista de maestros
-                    </NavLink>
+                    </Link>
                 </div>
-                <div className="Sidebar-nav">
-                    <NavLink
-                        className="Sidebar-link"
-                    >
-                        <FontAwesomeIcon icon={faStream}/>
-                        <span>
-                            Lista
-                        </span>
+                <div className="Sidebar-nav" style={sidebar.nav}>
+                    <NavLink to="/">
+                        <FontAwesomeIcon icon={faHome} />
+                        <span>Inicio</span>
                     </NavLink>
-                    <NavLink
-                        className="Sidebar-link"
-                    >
-                        <FontAwesomeIcon icon={faHeart}/>
-                        <span>
-                            Mis aportes
-                        </span>
+                    <NavLink to="/list">
+                        <FontAwesomeIcon icon={faStream} />
+                        <span>Lista</span>
                     </NavLink>
-                    <NavLink
-                        className="Sidebar-link"
-                    >
-                        <FontAwesomeIcon icon={faEye}/>
-                        <span>
-                            Revision
-                        </span>
+                    <NavLink>
+                        <FontAwesomeIcon icon={faHeart} />
+                        <span>Mis aportes</span>
+                    </NavLink>
+                    <NavLink>
+                        <FontAwesomeIcon icon={faEye} />
+                        <span>Revision</span>
+                        <div className="Sidebar-link-notification">
+                            <span className="Badge">10</span>
+                        </div>
                     </NavLink>
                 </div>
             </div>
-        )
+        );
     }
 }
 
-export default Sidebar;
+export default withTheme(Sidebar);
