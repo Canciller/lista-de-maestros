@@ -28,7 +28,7 @@ class Sidebar extends React.Component {
                         <FontAwesomeIcon icon={faHome} />
                         <span>Inicio</span>
                     </NavLink>
-                    <NavLink to="/list">
+                    <NavLink to="/lista">
                         <FontAwesomeIcon icon={faStream} />
                         <span>Lista</span>
                     </NavLink>
@@ -39,9 +39,6 @@ class Sidebar extends React.Component {
                     <NavLink>
                         <FontAwesomeIcon icon={faEye} />
                         <span>Revision</span>
-                        <div className="Sidebar-link-notification">
-                            <span className="Badge">10</span>
-                        </div>
                     </NavLink>
                 </div>
             </div>

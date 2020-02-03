@@ -15,19 +15,12 @@
     margin: auto auto;
     font-size: 16px;
     text-decoration: none;
+    text-transform: uppercase;
     color: white;
+    letter-spacing: 2px;
 }
 
 .Sidebar-link-notification {
     flex: 1;
     text-align: right;
-}
-
-.Badge {
-    font-size: 10px;
-    border-radius: 2px;
-    color: #282a36;
-    background: #ff6e67;
-    padding: 2px 4px;
-    font-weight: bold;
 }

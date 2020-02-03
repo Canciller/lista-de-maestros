@@ -1,7 +1,7 @@
 import React from 'react';
 import { withTheme } from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faCog } from '@fortawesome/free-solid-svg-icons'
+import { faCog, faBell } from '@fortawesome/free-solid-svg-icons'
 
 import './Header.scss';
 
@@ -19,6 +19,13 @@ class Header extends React.Component
                         color: colors.gray
                     }}
                     className="Header-settings-button" icon={faCog}/>
+                </div>
+                <div className="Header-section">
+                    <FontAwesomeIcon
+                    style={{
+                        color: colors.gray
+                    }}
+                    className="Header-settings-button" icon={faBell}/>
                 </div>
                 <div className="Header-section Profile" style={header.profile}>
                     <div className="Avatar">
