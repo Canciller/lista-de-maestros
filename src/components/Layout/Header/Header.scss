@@ -1,9 +1,7 @@
-@import 'components/Layout/layout';
-
 .Header {
     display: flex;
     justify-content: flex-end;
-    height: $header-height;
+    height: 60px;
 }
 
 .Header-section {

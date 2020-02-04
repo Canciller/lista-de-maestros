@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
 import mergeStyles from 'utils/mergeStyles';
-import { faBorderNone } from '@fortawesome/free-solid-svg-icons';
 
 const defaultStyles = {
     root: {
@@ -12,7 +10,7 @@ const defaultStyles = {
     separator: {
         margin: '0 auto',
         width: '80%',
-        height: '0.5px',
+        height: '1px',
         borderRadius: '50%',
     },
 };

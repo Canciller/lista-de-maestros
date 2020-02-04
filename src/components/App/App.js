@@ -1,31 +1,33 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import { ThemeProvider } from 'styled-components';
 
 import Routes from 'routes';
-
 import Layout from 'components/Layout';
-import Home from 'routes/Home';
-import Login from 'routes/Login';
-import Lista from 'routes/Lista';
-import theme from 'utils/theme';
+import Theme from 'components/Theme';
 
 import './App.scss';
 
 function App() {
     return (
-        <ThemeProvider theme={theme.default}>
+        <Theme>
             <Router>
                 <Layout>
                     <Switch>
                         {Object.keys(Routes).map(key => {
                             const route = Routes[key];
-                            return <Route exact path={route.path} component={route.component} />
+                            return (
+                                <Route
+                                    key={key}
+                                    exact
+                                    path={route.path}
+                                    component={route.component}
+                                />
+                            );
                         })}
                     </Switch>
                 </Layout>
             </Router>
-        </ThemeProvider>
+        </Theme>
     );
 }
 

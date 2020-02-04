@@ -1,36 +1,30 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
+import { withTheme } from 'components/Theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faHome,
-    faStream,
-    faHeart,
-    faEye,
-} from '@fortawesome/free-solid-svg-icons';
-
+import Routes from 'routes';
 import Sidebar from 'components/Sidebar';
 import Logo from './Logo';
-import NavLink from './NavLink';
+import Link from './Link';
 
 class SideNav extends React.Component {
     render() {
-        const sidebar = this.props.theme.sidebar;
+        const { theme, layout } = this.props;
 
         return (
             <Sidebar
                 width={250}
                 title={<Logo />}
                 separator={{
-                    color: sidebar.separator.background,
+                    color: theme.nav.separator.background,
                 }}
                 styles={{
                     root: {
                         userSelect: 'none',
-                        background: sidebar.background,
+                        ...theme.nav,
                     },
                     title: {
-                        height: 60, // sames as header height
                         display: 'flex',
+                        ...layout.header,
                     },
                 }}
             >
@@ -39,22 +33,22 @@ class SideNav extends React.Component {
                         marginTop: 20,
                     }}
                 >
-                    <NavLink to="/">
-                        <FontAwesomeIcon icon={faHome} />
-                        <span>Inicio</span>
-                    </NavLink>
-                    <NavLink to="/lista">
-                        <FontAwesomeIcon icon={faStream} />
-                        <span>Lista</span>
-                    </NavLink>
-                    <NavLink>
-                        <FontAwesomeIcon icon={faHeart} />
-                        <span>Mis aportes</span>
-                    </NavLink>
-                    <NavLink>
-                        <FontAwesomeIcon icon={faEye} />
-                        <span>Revision</span>
-                    </NavLink>
+                    {Object.keys(Routes).map(key => {
+                        const route = Routes[key];
+                        if (route.name === undefined) return undefined;
+                        return (
+                            <Link to={route.path} key={key}>
+                                <FontAwesomeIcon icon={route.icon} />
+                                <span
+                                    style={{
+                                        marginLeft: 18,
+                                    }}
+                                >
+                                    {route.name}
+                                </span>
+                            </Link>
+                        );
+                    })}
                 </Sidebar.Section>
             </Sidebar>
         );
