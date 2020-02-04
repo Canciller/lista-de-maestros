@@ -39,7 +39,7 @@ class Sidebar extends React.Component {
         return (
             <div
                 style={mergeStyles(
-                    { minWidth: width },
+                    { width: width },
                     defaultStyles.root,
                     styles.root,
                     style

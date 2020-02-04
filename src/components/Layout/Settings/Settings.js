@@ -1,49 +1,87 @@
 import React from 'react';
-import { withTheme } from 'styled-components';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
-
-import Separator from 'components/Layout/SideNav/Separator';
+import PropTypes from 'prop-types';
+import { withTheme } from 'components/Theme';
+import mergeStyles from 'utils/mergeStyles';
+import { faTimes, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import Sidebar from 'components/Sidebar';
 import IconButton from 'components/IconButton';
+import Switch from 'components/Switch';
 
-import './Settings.scss';
-
+const defaultStyles = {
+    root: {
+        position: 'absolute',
+        top: 0,
+        bottom: 0,
+        right: 0,
+        overflowX: 'hidden',
+    },
+    close: {},
+    section: {
+        display: 'flex',
+        padding: '20px 30px',
+        alignItems: 'center',
+    },
+    title: {
+        fontSize: 12,
+        marginBottom: 10,
+    },
+    mode: {
+        fontSize: 16,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flex: 1,
+    },
+};
 class Settings extends React.Component {
+    state = {
+        dark: false,
+    };
+
     render() {
-        const settings = this.props.theme.settings,
-            onClose = this.props.onClose,
-            width = this.props.width;
+        const { width, onClose, style, theme, layout } = this.props;
+        const { dark } = this.state;
 
         return (
-            <div
-                className="Settings"
-                style={{
-                    ...settings,
-                    width,
-                }}
+            <Sidebar
+                width={width}
+                style={mergeStyles(theme.settings, defaultStyles.root, style)}
             >
-                {width != 0 && (
-                    <React.Fragment>
-                        {' '}
-                        <div className="Settings-section">
-                            <IconButton
-                                className="Settings-close"
-                                icon={faTimes}
-                                size="lg"
-                                onClick={onClose}
-                            />
-                            <p
-                                className="Settings-title"
-                                style={settings.title}
-                            >
-                                Configuracion
-                            </p>
-                        </div>
-                        <Separator style={settings.separator} />
-                    </React.Fragment>
-                )}
-            </div>
+                <Sidebar.Section style={defaultStyles.section}>
+                    <IconButton
+                        className="Settings-close"
+                        icon={faTimes}
+                        size="lg"
+                        onClick={onClose}
+                        style={defaultStyles.close}
+                    />
+                    <div style={defaultStyles.mode}>
+                        <IconButton icon={faSun} size="lg" />
+                        <Switch
+                            onChange={e => {
+                                this.setState({ dark: !dark }, () => {
+                                    if (this.state.dark) theme.setTheme('dark');
+                                    else theme.setTheme('light');
+                                });
+                            }}
+                            style={{
+                                margin: '0 8px',
+                            }}
+                        />
+                        <IconButton icon={faMoon} />
+                    </div>
+                </Sidebar.Section>
+            </Sidebar>
         );
     }
 }
+
+Settings.defaultProps = {
+    onClose: () => {},
+};
+
+Settings.propTypes = {
+    onClose: PropTypes.func,
+};
 
 export default withTheme(Settings);

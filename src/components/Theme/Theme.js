@@ -10,7 +10,7 @@ const ThemeContext = React.createContext();
 
 class Theme extends React.Component {
     state = {
-        themes: [light, dark],
+        themes: { light, dark },
         theme: light,
         colors,
         layout,

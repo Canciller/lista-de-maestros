@@ -1,16 +1,11 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import {
-    faCog,
-    faBell,
-    faSignInAlt,
-    faHandPointRight,
-} from '@fortawesome/free-solid-svg-icons';
+import { faCog, faBell, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { withTheme, ThemeContext } from 'components/Theme';
 import mergeStyles from 'utils/mergeStyles';
 import Button from 'components/Button';
-//import IconButton from 'components/IconButton';
+import IconButton from 'components/IconButton';
 
 const defaultStyles = {
     root: {
@@ -47,7 +42,9 @@ const defaultStyles = {
         fontSize: '0.8em',
         marginTop: 2,
     },
-    buttons: {},
+    button: {
+        marginLeft: 20,
+    },
 };
 
 const Profile = ({ user }) => {
@@ -89,11 +86,7 @@ const Profile = ({ user }) => {
                 </React.Fragment>
             ) : (
                 <React.Fragment>
-                    <Button
-                        hover={theme.button.blue.hover}
-                        to="/login"
-                        style={theme.button.blue}
-                    >
+                    <Button to="/login" variant="blue">
                         <FontAwesomeIcon icon={faSignInAlt} />
                         <span
                             style={{
@@ -105,10 +98,10 @@ const Profile = ({ user }) => {
                     </Button>
                     <Button
                         to="/register"
-                        hover={theme.button.green.hover}
-                        style={mergeStyles(theme.button.green, {
+                        variant="green"
+                        style={{
                             marginLeft: 3,
-                        })}
+                        }}
                     >
                         Register
                     </Button>
@@ -136,7 +129,20 @@ class Header extends React.Component {
                     defaultStyles.root
                 )}
             >
-                <div></div>
+                <div style={defaultStyles.section}>
+                    <IconButton
+                        icon={faCog}
+                        size="lg"
+                        onClick={onOpenSettings}
+                        style={defaultStyles.button}
+                    />
+                    <IconButton
+                        icon={faBell}
+                        size="lg"
+                        onClick={onOpenNotifications}
+                        style={defaultStyles.button}
+                    />
+                </div>
                 <div
                     style={mergeStyles(
                         theme.header.separator,
@@ -146,35 +152,6 @@ class Header extends React.Component {
                 <Profile user={user} />
             </div>
         );
-        /*
-        return (
-            <div className="Header" style={header}>
-                <div className="Header-section">
-                    <IconButton
-                        icon={faCog}
-                        size="lg"
-                        onClick={onSettingsClick}
-                    />
-                    <IconButton icon={faBell} size="lg" />
-                </div>
-                <div className="Header-separator" style={header.separator} />
-                <div className="Header-section Profile" style={header.profile}>
-                    <div className="Avatar" style={header.profile.avatar}></div>
-                    <div className="User">
-                        <div
-                            className="User-name"
-                            style={header.profile.username}
-                        >
-                            Gabriel Emilio
-                        </div>
-                        <div className="User-type" style={header.profile.type}>
-                            Administrador
-                        </div>
-                    </div>
-                </div>
-            </div>
-        );
-        */
     }
 }
 

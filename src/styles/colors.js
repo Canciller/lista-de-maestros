@@ -1,5 +1,5 @@
 export default {
-    foreground: 'rgba(0, 0, 0, 0.5)',
+    foreground: 'rgba(0, 0, 0, 0.6)',
     gray: {
         light: '#bfbfbf',
         dark: '#b3b3b3',

@@ -23,22 +23,26 @@ const defaultStyles = {
 };
 
 class Layout extends React.Component {
-    state = {};
+    state = {
+        width: 0,
+    };
 
-    openSettings() {
+    openSettings = () => {
         this.setState({ width: this.props.layout.settings.width });
-    }
+    };
 
-    closeSettings() {
+    closeSettings = () => {
         this.setState({ width: 0 });
-    }
+    };
 
     render() {
         const { theme, user, children } = this.props;
+        const { width } = this.state;
 
         return (
             <div style={defaultStyles.root}>
                 <SideNav />
+                <Settings width={width} onClose={this.closeSettings} />
                 <div style={defaultStyles.main}>
                     <Header user={user} onOpenSettings={this.openSettings} />
                     <div

@@ -1,73 +1,37 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import mergeStyles from 'utils/mergeStyles';
-
-const defaultStyle = {
-    root: {
-        display: 'inlineBlock',
-        textDecoration: 'none',
-    },
-};
+import { withTheme } from 'components/Theme';
+import BaseButton from 'shared/Button';
 
 class Button extends React.Component {
-    state = {};
-
-    onMouseEnter = () => {
-        this.setState({ hover: this.props.hover });
-    }
-
-    onMouseLeave = () => {
-        this.setState({ hover: undefined });
-    }
-
     render() {
         const {
             children,
-            borderRadius,
-            padding,
-            margin,
+            theme,
+            colors,
+            variant,
             style,
-            styles,
             ...props
         } = this.props;
 
-        const { hover } = this.state;
+        const button = variant ? theme.button[variant] : theme.button;
+        const hover = button && button.hover;
 
         return (
-            <Link
+            <BaseButton
+                hover={hover}
+                style={mergeStyles(button, style)}
                 {...props}
-                style={mergeStyles(
-                    defaultStyle.root,
-                    styles.root,
-                    {
-                        padding,
-                        borderRadius,
-                    },
-                    style,
-                    hover
-                )}
-                onMouseEnter={this.onMouseEnter}
-                onMouseLeave={this.onMouseLeave}
             >
                 {children}
-            </Link>
+            </BaseButton>
         );
     }
 }
 
-Button.defaultProps = {
-    styles: {},
-    padding: '5px 8px',
-    margin: 0,
-    borderRadius: 0,
-};
-
 Button.propTypes = {
-    styles: PropTypes.object,
-    padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    variant: PropTypes.string,
 };
 
-export default Button;
+export default withTheme(Button);

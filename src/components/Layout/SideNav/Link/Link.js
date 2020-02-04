@@ -1,5 +1,4 @@
 import React, { useContext } from 'react';
-import classNames from 'classnames';
 import { Link as NavLink, useRouteMatch } from 'react-router-dom';
 import { ThemeContext, withTheme } from 'components/Theme';
 import mergeStyles from 'utils/mergeStyles';

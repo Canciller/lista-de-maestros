@@ -6,10 +6,9 @@ import Register from './Register';
 import {
     faHome, // Home icon
     faStream, // Lista icon
-    faHeart,
-    faEye,
+    //faHeart,
+    //faEye,
 } from '@fortawesome/free-solid-svg-icons';
-import Logo from 'components/Layout/SideNav/Logo';
 
 export default {
     home: {

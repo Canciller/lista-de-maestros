@@ -33,6 +33,7 @@ theme.nav = {
 };
 
 theme.header = {
+    transition: '300ms',
     background: colors.white.light,
     separator: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -51,22 +52,32 @@ theme.header = {
 };
 
 theme.settings = {
+    transition: '300ms',
     background: theme.header.background,
+    borderLeftWidth: 1,
+    borderLeftStyle: 'solid',
     borderColor: theme.header.separator.background,
     title: {
         color: colors.foreground,
     },
     separator: theme.header.separator,
+    section: {
+        title: {
+            color: colors.foreground,
+        },
+    },
 };
 
 theme.content = {
+    transition: '0.5s',
     background: colors.white.dark,
 };
 
-theme.icon = {
-    color: 'rgba(0, 0, 0, 0.4)',
+theme.iconButton = {
+    transition: 'all 150ms ease-in-out',
+    color: 'rgba(0, 0, 0, 0.5)',
     hover: {
-        color: 'rgba(0, 0, 0, 0.5)',
+        color: 'rgba(0, 0, 0, 0.6)',
     },
 };
 
@@ -76,6 +87,10 @@ theme.button = {
     borderStyle: 'solid',
     borderColor: colors.foreground,
     color: colors.foreground,
+    hover: {
+        borderColor: 'rgba(0, 0, 0, 0.8)',
+        color: 'rgba(0, 0, 0, 0.8)',
+    },
 };
 
 theme.button.cyan = {
