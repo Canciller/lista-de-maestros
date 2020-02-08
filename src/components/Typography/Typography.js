@@ -15,6 +15,7 @@ class Typography extends React.Component {
                     {
                         fontSize: size,
                         color: theme.foreground.dark,
+                        transition: 'all 150ms ease-in-out',
                     },
                     style
                 )}
