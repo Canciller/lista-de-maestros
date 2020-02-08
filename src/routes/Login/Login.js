@@ -5,7 +5,7 @@ class Login extends React.Component {
     render() {
         return (
             <div>
-                <Typography component='h1'>Sign in</Typography>
+                <Typography component="h1">Sign in</Typography>
             </div>
         );
     }

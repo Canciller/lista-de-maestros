@@ -5,7 +5,7 @@ class Home extends React.Component {
     render() {
         return (
             <div>
-                <Typography component='h1'>Inicio</Typography>
+                <Typography component="h1">Inicio</Typography>
             </div>
         );
     }

@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import PropTypes, { oneOfType } from 'prop-types';
+import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faBell, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { withTheme, ThemeContext } from 'components/Theme';
@@ -47,7 +47,7 @@ const defaultStyles = {
         padding: '0 10px',
     },
     action: {
-        margin: '0 10px',
+        margin: '0 5px',
     },
 };
 
@@ -116,8 +116,6 @@ const User = ({ user }) => {
 };
 
 const Action = ({ icon, onClick }) => {
-    const theme = useContext(ThemeContext);
-
     return (
         <IconButton
             icon={icon}

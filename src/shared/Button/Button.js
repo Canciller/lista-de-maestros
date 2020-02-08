@@ -7,6 +7,7 @@ const defaultStyle = {
     root: {
         display: 'inlineBlock',
         textDecoration: 'none',
+        fontSize: 12,
     },
 };
 
@@ -37,12 +38,12 @@ class Button extends React.Component {
             <Link
                 {...props}
                 style={mergeStyles(
-                    defaultStyle.root,
-                    styles.root,
                     {
                         padding,
                         borderRadius,
                     },
+                    defaultStyle.root,
+                    styles.root,
                     style,
                     hover
                 )}

@@ -8,6 +8,15 @@ const defaultStyles = {
     root: {
         textDecoration: 'none',
         cursor: 'pointer',
+        fontSize: 12,
+        padding: 5,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        background: 'none',
+        height: 28,
+        width: 28,
+        borderRadius: '50%',
     },
 };
 

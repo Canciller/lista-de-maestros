@@ -6,11 +6,12 @@ const defaultStyles = {
     root: {
         display: 'flex',
         flexDirection: 'column',
+        zIndex: 9999,
     },
     separator: {
         margin: '0 auto',
         width: '75%',
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderBottomStyle: 'solid',
     },
 };

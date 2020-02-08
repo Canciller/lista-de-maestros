@@ -9,7 +9,7 @@ const defaultStyles = {
     },
     indicator: {
         position: 'absolute',
-        width: 4,
+        width: 2,
         height: '100%',
         left: 0,
     },

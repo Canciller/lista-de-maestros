@@ -5,7 +5,7 @@ class Lista extends React.Component {
     render() {
         return (
             <div>
-                <Typography component='h1'>Lista</Typography>
+                <Typography component="h1">Lista</Typography>
             </div>
         );
     }

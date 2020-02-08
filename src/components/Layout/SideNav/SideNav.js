@@ -22,6 +22,7 @@ class SideNav extends React.Component {
                     root: {
                         userSelect: 'none',
                         background: theme.primary.normal,
+                        transition: 'all 150ms ease-in-out',
                     },
                     title: {
                         display: 'flex',

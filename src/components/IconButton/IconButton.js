@@ -3,7 +3,6 @@ import React, { Component } from 'react';
 import { withTheme } from 'components/Theme';
 import mergeStyles from 'utils/mergeStyles';
 import BaseIconButton from 'shared/IconButton';
-import { faChargingStation } from '@fortawesome/free-solid-svg-icons';
 
 class IconButton extends Component {
     render() {
@@ -11,9 +10,16 @@ class IconButton extends Component {
 
         return (
             <BaseIconButton
-                hover={mergeStyles({ color: theme.foreground.light }, hover)}
+                hover={mergeStyles(
+                    {
+                        transition: 'all 150ms ease-in-out',
+                        background: 'rgba(0, 0, 0, 0.1)',
+                    },
+                    hover
+                )}
                 style={mergeStyles(
                     {
+                        padding: 5,
                         color: theme.foreground.dark,
                         transition: 'all 150ms ease-in-out',
                     },

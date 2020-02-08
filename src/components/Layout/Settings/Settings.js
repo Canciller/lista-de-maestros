@@ -40,7 +40,7 @@ class Settings extends React.Component {
     };
 
     render() {
-        const { width, onClose, style, theme, layout } = this.props;
+        const { width, onClose, style, theme } = this.props;
         const { dark } = this.state;
 
         return (
