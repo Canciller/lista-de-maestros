@@ -9,9 +9,9 @@ const defaultStyles = {
     },
     separator: {
         margin: '0 auto',
-        width: '80%',
-        height: '1px',
-        borderRadius: '50%',
+        width: '75%',
+        borderBottomWidth: 1,
+        borderBottomStyle: 'solid',
     },
 };
 
@@ -71,7 +71,7 @@ Sidebar.Separator = class extends React.Component {
         return (
             <div
                 style={mergeStyles(
-                    { background: color },
+                    { borderColor: color },
                     defaultStyles.separator,
                     styles.separator,
                     style

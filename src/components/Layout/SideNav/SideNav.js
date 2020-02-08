@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Routes from 'routes';
@@ -8,23 +9,23 @@ import Link from './Link';
 
 class SideNav extends React.Component {
     render() {
-        const { theme, layout } = this.props;
+        const { theme } = this.props;
 
         return (
             <Sidebar
                 width={250}
                 title={<Logo />}
                 separator={{
-                    color: theme.nav.separator.background,
+                    color: theme.colors.white.light,
                 }}
                 styles={{
                     root: {
                         userSelect: 'none',
-                        ...theme.nav,
+                        background: theme.primary.normal,
                     },
                     title: {
                         display: 'flex',
-                        ...layout.header,
+                        ...theme.layout.header,
                     },
                 }}
             >
@@ -54,5 +55,9 @@ class SideNav extends React.Component {
         );
     }
 }
+
+SideNav.propTypes = {
+    theme: PropTypes.object.isRequired,
+};
 
 export default withTheme(SideNav);

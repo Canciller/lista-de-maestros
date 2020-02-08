@@ -19,6 +19,7 @@ const defaultStyles = {
     content: {
         padding: 20,
         flex: 1,
+        transition: 'all 150ms ease-in-out',
     },
 };
 
@@ -28,7 +29,7 @@ class Layout extends React.Component {
     };
 
     openSettings = () => {
-        this.setState({ width: this.props.layout.settings.width });
+        this.setState({ width: this.props.theme.layout.settings.width });
     };
 
     closeSettings = () => {
@@ -46,10 +47,9 @@ class Layout extends React.Component {
                 <div style={defaultStyles.main}>
                     <Header user={user} onOpenSettings={this.openSettings} />
                     <div
-                        style={mergeStyles(
-                            defaultStyles.content,
-                            theme.content
-                        )}
+                        style={mergeStyles(defaultStyles.content, {
+                            background: theme.background.dark,
+                        })}
                     >
                         {children}
                     </div>
@@ -61,12 +61,9 @@ class Layout extends React.Component {
         return (
             <div style={defaultStyles.root}>
                 <SideNav />
-                <Settings
-                    width={this.state.settingsWidth}
-                    onClose={this.toggleSettings}
-                />
+                <Settings width={width} onClose={this.closeSettings} />
                 <div style={defaultStyles.main}>
-                    <Header onSettingsClick={this.toggleSettings} />
+                    <Header user={user} onOpenSettings={this.openSettings} />
                     <div
                         style={mergeStyles(
                             defaultStyles.content,

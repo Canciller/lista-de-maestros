@@ -14,6 +14,7 @@ const defaultStyles = {
         bottom: 0,
         right: 0,
         overflowX: 'hidden',
+        transition: 'all 150ms ease-in-out',
     },
     close: {},
     section: {
@@ -45,7 +46,13 @@ class Settings extends React.Component {
         return (
             <Sidebar
                 width={width}
-                style={mergeStyles(theme.settings, defaultStyles.root, style)}
+                style={mergeStyles(
+                    {
+                        background: theme.background.normal,
+                    },
+                    defaultStyles.root,
+                    style
+                )}
             >
                 <Sidebar.Section style={defaultStyles.section}>
                     <IconButton

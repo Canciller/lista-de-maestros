@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCog, faBell, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
 import { withTheme, ThemeContext } from 'components/Theme';
@@ -11,6 +11,7 @@ const defaultStyles = {
     root: {
         display: 'flex',
         justifyContent: 'flex-end',
+        transition: 'all 150ms ease-in-out',
     },
     section: {
         padding: '0 20px',
@@ -19,11 +20,11 @@ const defaultStyles = {
     },
     separator: {
         margin: 'auto 0',
-        width: 1,
-        height: '80%',
-        borderRadius: '50%',
+        borderLeftWidth: 1,
+        borderLeftStyle: 'solid',
+        height: '70%',
     },
-    profile: {
+    userSection: {
         display: 'flex',
         cursor: 'pointer',
     },
@@ -42,114 +43,132 @@ const defaultStyles = {
         fontSize: '0.8em',
         marginTop: 2,
     },
-    button: {
-        marginLeft: 20,
+    actionsSection: {
+        padding: '0 10px',
+    },
+    action: {
+        margin: '0 10px',
     },
 };
 
-const Profile = ({ user }) => {
-    const { theme } = useContext(ThemeContext);
+const NoUser = () => {
+    return (
+        <React.Fragment>
+            <Button to="/login" variant="blue">
+                <FontAwesomeIcon icon={faSignInAlt} />
+                <span
+                    style={{
+                        marginLeft: 5,
+                    }}
+                >
+                    Sign in
+                </span>
+            </Button>
+            <Button
+                to="/register"
+                variant="green"
+                style={{
+                    marginLeft: 3,
+                }}
+            >
+                Register
+            </Button>
+        </React.Fragment>
+    );
+};
+
+const User = ({ user }) => {
+    const theme = useContext(ThemeContext);
+    return (
+        <React.Fragment>
+            <div
+                style={mergeStyles(
+                    {
+                        borderColor: theme.foreground.light,
+                    },
+                    defaultStyles.avatar
+                )}
+            ></div>
+            <div style={mergeStyles(defaultStyles.user)}>
+                <div
+                    style={mergeStyles(
+                        {
+                            color: theme.foreground.normal,
+                        },
+                        defaultStyles.username
+                    )}
+                >
+                    {user.name}
+                </div>
+                <div
+                    style={mergeStyles(
+                        {
+                            color: theme.foreground.light,
+                        },
+                        defaultStyles.usertype
+                    )}
+                >
+                    {user.type}
+                </div>
+            </div>
+        </React.Fragment>
+    );
+};
+
+const Action = ({ icon, onClick }) => {
+    const theme = useContext(ThemeContext);
 
     return (
-        <div
-            style={mergeStyles(
-                defaultStyles.section,
-                user && defaultStyles.profile
-            )}
-        >
-            {user !== undefined ? (
-                <React.Fragment>
-                    <div
-                        style={mergeStyles(
-                            theme.header.profile.avatar,
-                            defaultStyles.avatar
-                        )}
-                    ></div>
-                    <div style={mergeStyles(defaultStyles.user)}>
-                        <div
-                            style={mergeStyles(
-                                theme.header.profile.username,
-                                defaultStyles.username
-                            )}
-                        >
-                            {user.name}
-                        </div>
-                        <div
-                            style={mergeStyles(
-                                theme.header.profile.type,
-                                defaultStyles.usertype
-                            )}
-                        >
-                            {user.type}
-                        </div>
-                    </div>
-                </React.Fragment>
-            ) : (
-                <React.Fragment>
-                    <Button to="/login" variant="blue">
-                        <FontAwesomeIcon icon={faSignInAlt} />
-                        <span
-                            style={{
-                                marginLeft: 5,
-                            }}
-                        >
-                            Sign in
-                        </span>
-                    </Button>
-                    <Button
-                        to="/register"
-                        variant="green"
-                        style={{
-                            marginLeft: 3,
-                        }}
-                    >
-                        Register
-                    </Button>
-                </React.Fragment>
-            )}
-        </div>
+        <IconButton
+            icon={icon}
+            size="lg"
+            onClick={onClick}
+            style={defaultStyles.action}
+        />
     );
 };
 
 class Header extends React.Component {
     render() {
-        const {
-            theme,
-            layout,
-            user,
-            onOpenSettings,
-            onOpenNotifications,
-        } = this.props;
+        const { theme, user, onOpenSettings, onOpenNotifications } = this.props;
 
         return (
             <div
                 style={mergeStyles(
-                    theme.header,
-                    layout.header,
+                    {
+                        background: theme.background.light,
+                    },
+                    theme.layout.header,
                     defaultStyles.root
                 )}
             >
-                <div style={defaultStyles.section}>
-                    <IconButton
-                        icon={faCog}
-                        size="lg"
-                        onClick={onOpenSettings}
-                        style={defaultStyles.button}
-                    />
-                    <IconButton
-                        icon={faBell}
-                        size="lg"
-                        onClick={onOpenNotifications}
-                        style={defaultStyles.button}
-                    />
+                <div
+                    style={mergeStyles(
+                        defaultStyles.section,
+                        defaultStyles.actionsSection
+                    )}
+                >
+                    <Action icon={faCog} onClick={onOpenSettings} />
+                    <Action icon={faBell} onClick={onOpenNotifications} />
                 </div>
                 <div
                     style={mergeStyles(
-                        theme.header.separator,
+                        {
+                            borderColor: theme.foreground.light,
+                        },
                         defaultStyles.separator
                     )}
                 ></div>
-                <Profile user={user} />
+                <div
+                    style={mergeStyles(
+                        defaultStyles.section,
+                        user
+                            ? defaultStyles.userSection
+                            : defaultStyles.noUserSection
+                    )}
+                >
+                    {user ? <User user={user} /> : <NoUser />}
+                </div>
             </div>
         );
     }
@@ -162,6 +181,7 @@ Header.defaultProps = {
 
 Header.propTypes = {
     user: PropTypes.object,
+    theme: PropTypes.object.isRequired,
     onOpenNotifications: PropTypes.func,
     onOpenSettings: PropTypes.func,
 };

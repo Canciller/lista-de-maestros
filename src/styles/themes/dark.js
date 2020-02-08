@@ -1,8 +1,11 @@
-import colors from 'styles/colors';
-import light from 'styles/themes/light';
+import { lightTheme } from 'styles/themes/light';
+import { Color } from 'styles/helpers';
 
-const theme = {
-    ...light,
-};
+const theme = lightTheme;
 
-export default theme;
+theme.foreground = theme.background;
+theme.background = new Color(29, 30, 36);
+
+export { theme as darkTheme };
+
+export default theme.css();

@@ -35,8 +35,7 @@ const LinkBase = ({ style, styles, to, children, ...props }) => {
         exact: true,
     });
 
-    let context = useContext(ThemeContext);
-    const { nav } = context.theme;
+    let theme = useContext(ThemeContext);
 
     return (
         <div
@@ -45,10 +44,14 @@ const LinkBase = ({ style, styles, to, children, ...props }) => {
         >
             <NavLink
                 style={mergeStyles(
-                    nav.link,
+                    {
+                        color: theme.colors.white.normal,
+                    },
                     defaultStyles.link,
                     styles.link,
-                    match && nav.link.active,
+                    match && {
+                        background: theme.primary.light,
+                    },
                     match && defaultStyles.linkActive,
                     match && styles.linkActive
                 )}
@@ -56,10 +59,12 @@ const LinkBase = ({ style, styles, to, children, ...props }) => {
             >
                 <div
                     style={mergeStyles(
-                        nav.link.active.indicator,
+                        {},
                         defaultStyles.indicator,
                         styles.indicator,
-                        match && nav.link.active.indicator.active,
+                        match && {
+                            background: theme.colors.white.light,
+                        },
                         match && defaultStyles.indicatorActive,
                         match && styles.indicatorActive
                     )}
@@ -74,7 +79,11 @@ class Link extends React.Component {
     state = {};
 
     onMouseEnter = () =>
-        this.setState({ hover: this.props.theme.nav.link.hover });
+        this.setState({
+            hover: {
+                background: this.props.theme.primary.light,
+            },
+        });
 
     onMouseLeave = () => this.setState({ hover: undefined });
 

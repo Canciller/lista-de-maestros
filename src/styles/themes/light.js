@@ -1,5 +1,24 @@
-import colors from 'styles/colors';
+import { Theme, Color } from 'styles/helpers';
 
+let theme = new Theme(
+    new Color(41, 72, 255), // primary
+    new Color(41, 72, 255), // secondary
+    new Color(248, 248, 248), // background
+    new Color(80, 80, 80), // foreground
+    {
+        white: new Color(248, 248, 248),
+        red: new Color(239, 71, 58),
+        blue: new Color(57, 106, 252),
+        green: new Color(17, 153, 142),
+        gray: new Color(184, 184, 184),
+    }
+);
+
+export { theme as lightTheme };
+
+export default theme.css();
+
+/*
 const linearGradient = (a, b) => {
     return `linear-gradient(to top, ${b}, ${a}`;
 };
@@ -33,7 +52,6 @@ theme.nav = {
 };
 
 theme.header = {
-    transition: '300ms',
     background: colors.white.light,
     separator: {
         background: 'rgba(0, 0, 0, 0.2)',
@@ -52,32 +70,22 @@ theme.header = {
 };
 
 theme.settings = {
-    transition: '300ms',
     background: theme.header.background,
-    borderLeftWidth: 1,
-    borderLeftStyle: 'solid',
     borderColor: theme.header.separator.background,
     title: {
         color: colors.foreground,
     },
     separator: theme.header.separator,
-    section: {
-        title: {
-            color: colors.foreground,
-        },
-    },
 };
 
 theme.content = {
-    transition: '0.5s',
     background: colors.white.dark,
 };
 
-theme.iconButton = {
-    transition: 'all 150ms ease-in-out',
-    color: 'rgba(0, 0, 0, 0.5)',
+theme.icon = {
+    color: 'rgba(0, 0, 0, 0.4)',
     hover: {
-        color: 'rgba(0, 0, 0, 0.6)',
+        color: 'rgba(0, 0, 0, 0.5)',
     },
 };
 
@@ -87,10 +95,6 @@ theme.button = {
     borderStyle: 'solid',
     borderColor: colors.foreground,
     color: colors.foreground,
-    hover: {
-        borderColor: 'rgba(0, 0, 0, 0.8)',
-        color: 'rgba(0, 0, 0, 0.8)',
-    },
 };
 
 theme.button.cyan = {
@@ -142,5 +146,4 @@ theme.button.yellow = {
         color: colors.yellow.dark,
     },
 };
-
-export default theme;
+*/

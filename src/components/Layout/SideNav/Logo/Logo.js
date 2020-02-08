@@ -18,14 +18,23 @@ const defaultStyles = {
     },
 };
 
-export default props => {
-    const context = useContext(ThemeContext);
-    const { theme } = context;
+const Logo = () => {
+    const theme = useContext(ThemeContext);
 
     return (
-        <Link to="/" style={mergeStyles(theme.nav.logo, defaultStyles.root)}>
+        <Link
+            to="/"
+            style={mergeStyles(
+                {
+                    color: theme.colors.white.normal,
+                },
+                defaultStyles.root
+            )}
+        >
             <FontAwesomeIcon icon={faCube} />
             <span style={defaultStyles.logo}>Maestros.</span>
         </Link>
     );
 };
+
+export default Logo;

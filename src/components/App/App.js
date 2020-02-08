@@ -11,7 +11,9 @@ function App() {
     return (
         <Theme>
             <Router>
-                <Layout>
+                <Layout
+                    //user={{ name: 'Gabriel Emilio', type: 'Administrador' }}
+                >
                     <Switch>
                         {Object.keys(Routes).map(key => {
                             const route = Routes[key];

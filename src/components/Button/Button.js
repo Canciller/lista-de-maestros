@@ -1,27 +1,35 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { func } from 'prop-types';
 import mergeStyles from 'utils/mergeStyles';
 import { withTheme } from 'components/Theme';
 import BaseButton from 'shared/Button';
 
+function defaultStyle(color) {
+    return {
+        borderColor: color,
+        background: 'none',
+        color: color,
+    };
+}
+
 class Button extends React.Component {
     render() {
-        const {
-            children,
-            theme,
-            colors,
-            variant,
-            style,
-            ...props
-        } = this.props;
+        const { children, theme, variant, style, ...props } = this.props;
 
-        const button = variant ? theme.button[variant] : theme.button;
-        const hover = button && button.hover;
+        const color = theme.colors[variant] || theme.foreground;
 
         return (
             <BaseButton
-                hover={hover}
-                style={mergeStyles(button, style)}
+                hover={defaultStyle(color.light)}
+                style={mergeStyles(
+                    defaultStyle(color.dark),
+                    {
+                        transition: 'all 150ms ease-in-out',
+                        borderWidth: 1,
+                        borderStyle: 'solid',
+                    },
+                    style
+                )}
                 {...props}
             >
                 {children}

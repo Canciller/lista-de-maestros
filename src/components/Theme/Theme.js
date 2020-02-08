@@ -1,38 +1,47 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
-import colors from 'styles/colors';
 import layout from 'styles/layout';
-
-import light from 'styles/themes/light';
-import dark from 'styles/themes/dark';
+import { light, dark } from 'styles/themes';
 
 const ThemeContext = React.createContext();
 
 class Theme extends React.Component {
-    state = {
-        themes: { light, dark },
-        theme: light,
-        colors,
-        layout,
-    };
+    state = {};
+
+    constructor(props) {
+        super(props);
+
+        let themes = { light, dark };
+
+        this.state = {
+            themes,
+            theme: themes[props.theme],
+            name: props.theme,
+            layout: layout,
+        };
+    }
 
     setTheme = name => {
+        if (this.state.name === name) return;
+
         const theme = this.state.themes[name];
-        if (theme) this.setState({ theme });
+        if (theme) this.setState({ theme, name });
     };
 
     render() {
         const { children } = this.props;
-        const { themes, theme, colors, layout } = this.state;
+        const { themes, theme, layout, name } = this.state;
         const { setTheme } = this;
 
         return (
             <ThemeContext.Provider
                 value={{
+                    ...theme,
                     themes,
-                    theme: { ...theme, setTheme },
-                    colors,
                     layout,
+                    setTheme,
+                    name,
                 }}
             >
                 {children}
@@ -41,12 +50,20 @@ class Theme extends React.Component {
     }
 }
 
+Theme.defaultProps = {
+    theme: 'light',
+};
+
+Theme.propTypes = {
+    theme: PropTypes.string,
+};
+
 const withTheme = Component => {
     return props => {
         return (
             <ThemeContext.Consumer>
                 {context => {
-                    return <Component {...props} {...context} />;
+                    return <Component {...props} theme={context} />;
                 }}
             </ThemeContext.Consumer>
         );

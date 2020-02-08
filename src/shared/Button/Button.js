@@ -26,7 +26,6 @@ class Button extends React.Component {
             children,
             borderRadius,
             padding,
-            margin,
             style,
             styles,
             ...props
@@ -59,14 +58,12 @@ class Button extends React.Component {
 Button.defaultProps = {
     styles: {},
     padding: '5px 8px',
-    margin: 0,
     borderRadius: 0,
 };
 
 Button.propTypes = {
     styles: PropTypes.object,
     padding: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-    margin: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     borderRadius: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
