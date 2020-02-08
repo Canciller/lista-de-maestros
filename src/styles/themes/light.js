@@ -4,7 +4,7 @@ let theme = new Theme(
     new Color(41, 72, 255), // primary
     new Color(41, 72, 255), // secondary
     new Color(248, 248, 248), // background
-    new Color(80, 80, 80), // foreground
+    new Color(60, 60, 60), // foreground
     {
         white: new Color(248, 248, 248),
         red: new Color(239, 71, 58),

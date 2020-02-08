@@ -1,10 +1,11 @@
 import React from 'react';
+import Typography from 'components/Typography';
 
 class Home extends React.Component {
     render() {
         return (
             <div>
-                <h1>Inicio</h1>
+                <Typography component='h1'>Inicio</Typography>
             </div>
         );
     }

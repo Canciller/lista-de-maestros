@@ -1,10 +1,11 @@
 import React from 'react';
+import Typography from 'components/Typography';
 
 class Lista extends React.Component {
     render() {
         return (
             <div>
-                <h1>Lista</h1>
+                <Typography component='h1'>Lista</Typography>
             </div>
         );
     }

@@ -1,10 +1,11 @@
 import React from 'react';
+import Typography from 'components/Typography';
 
 class Register extends React.Component {
     render() {
         return (
             <div>
-                <h1>Register</h1>
+                <Typography component='h1'>Register</Typography>
             </div>
         );
     }
