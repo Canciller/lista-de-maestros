@@ -9,11 +9,10 @@ import Link from './Link';
 
 class SideNav extends React.Component {
     render() {
-        const { theme } = this.props;
+        const { theme, ...props } = this.props;
 
         return (
             <Sidebar
-                width={250}
                 title={<Logo />}
                 separator={{
                     color: theme.colors.white.light,
@@ -29,6 +28,7 @@ class SideNav extends React.Component {
                         ...theme.layout.header,
                     },
                 }}
+                {...props}
             >
                 <Sidebar.Section
                     style={{

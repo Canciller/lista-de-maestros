@@ -1,6 +1,6 @@
 export default {
     sideNav: {
-        width: 260,
+        width: 250,
     },
     header: {
         height: 60,

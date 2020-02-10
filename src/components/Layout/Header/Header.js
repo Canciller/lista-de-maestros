@@ -1,7 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCog, faBell, faSignInAlt } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCog,
+    faBell,
+    faSignInAlt,
+    faBars,
+} from '@fortawesome/free-solid-svg-icons';
 import { withTheme, ThemeContext } from 'components/Theme';
 import mergeStyles from 'utils/mergeStyles';
 import Button from 'components/Button';
@@ -115,20 +120,27 @@ const User = ({ user }) => {
     );
 };
 
-const Action = ({ icon, onClick }) => {
+const Action = ({ icon, onClick, style, ...props }) => {
     return (
         <IconButton
             icon={icon}
             size="lg"
             onClick={onClick}
-            style={defaultStyles.action}
+            style={mergeStyles(defaultStyles.action, style)}
+            {...props}
         />
     );
 };
 
 class Header extends React.Component {
     render() {
-        const { theme, user, onOpenSettings, onOpenNotifications } = this.props;
+        const {
+            theme,
+            user,
+            onOpenSideNav,
+            onOpenSettings,
+            onOpenNotifications,
+        } = this.props;
 
         return (
             <div
@@ -140,6 +152,13 @@ class Header extends React.Component {
                     defaultStyles.root
                 )}
             >
+                <div
+                    style={mergeStyles(defaultStyles.section, {
+                        flex: 1,
+                    })}
+                >
+                    <Action icon={faBars} onClick={onOpenSideNav} />
+                </div>
                 <div
                     style={mergeStyles(
                         defaultStyles.section,
@@ -173,13 +192,15 @@ class Header extends React.Component {
 }
 
 Header.defaultProps = {
-    onOpenNotifications: () => {},
-    onOpenSettings: () => {},
+    onOpenSideNav: e => {},
+    onOpenNotifications: e => {},
+    onOpenSettings: e => {},
 };
 
 Header.propTypes = {
     user: PropTypes.object,
     theme: PropTypes.object.isRequired,
+    onOpenSideNav: PropTypes.func,
     onOpenNotifications: PropTypes.func,
     onOpenSettings: PropTypes.func,
 };

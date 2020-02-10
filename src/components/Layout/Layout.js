@@ -5,6 +5,7 @@ import mergeStyles from 'utils/mergeStyles';
 import SideNav from './SideNav';
 import Header from './Header';
 import Settings from './Settings';
+import Button from 'components/Button';
 
 const defaultStyles = {
     root: {
@@ -24,28 +25,80 @@ const defaultStyles = {
 };
 
 class Layout extends React.Component {
-    state = {
-        width: 0,
-    };
+    state = {};
+
+    constructor(props) {
+        super(props);
+
+        const { theme } = props;
+
+        this.state = {
+            sideNavOpen: true,
+            settings: {
+                width: 0,
+            },
+            sideNav: {
+                width: theme.layout.sideNav.width,
+            },
+        };
+    }
 
     openSettings = () => {
-        this.setState({ width: this.props.theme.layout.settings.width });
+        this.setState({
+            settings: {
+                width: this.props.theme.layout.settings.width,
+            },
+        });
     };
 
     closeSettings = () => {
-        this.setState({ width: 0 });
+        this.setState({
+            settings: {
+                width: 0,
+            },
+        });
+    };
+
+    toggleSideNav = () => {
+        const { theme } = this.props;
+
+        if (this.state.sideNavOpen)
+            this.setState({
+                sideNavOpen: false,
+                sideNav: {
+                    width: 0,
+                    overflowX: 'hidden',
+                },
+                content: {
+                    marginLeft: theme.layout.sideNav.width,
+                },
+            });
+        else
+            this.setState({
+                sideNavOpen: true,
+                sideNav: {
+                    width: theme.layout.sideNav.width,
+                },
+                content: {
+                    marginLeft: 0,
+                },
+            });
     };
 
     render() {
         const { theme, user, children } = this.props;
-        const { width } = this.state;
+        const { settings, sideNav, content } = this.state;
 
         return (
             <div style={defaultStyles.root}>
-                <SideNav />
-                <Settings width={width} onClose={this.closeSettings} />
+                <SideNav style={sideNav} />
+                <Settings width={settings.width} onClose={this.closeSettings} />
                 <div style={defaultStyles.main}>
-                    <Header user={user} onOpenSettings={this.openSettings} />
+                    <Header
+                        user={user}
+                        onOpenSettings={this.openSettings}
+                        onOpenSideNav={this.toggleSideNav}
+                    />
                     <div
                         style={mergeStyles(defaultStyles.content, {
                             background: theme.background.dark,
@@ -56,26 +109,6 @@ class Layout extends React.Component {
                 </div>
             </div>
         );
-
-        /*
-        return (
-            <div style={defaultStyles.root}>
-                <SideNav />
-                <Settings width={width} onClose={this.closeSettings} />
-                <div style={defaultStyles.main}>
-                    <Header user={user} onOpenSettings={this.openSettings} />
-                    <div
-                        style={mergeStyles(
-                            defaultStyles.content,
-                            theme.content
-                        )}
-                    >
-                        {children}
-                    </div>
-                </div>
-            </div>
-        );
-        */
     }
 }
 
