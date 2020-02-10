@@ -5,7 +5,7 @@ import mergeStyles from 'utils/mergeStyles';
 
 const defaultStyle = {
     root: {
-        display: 'inlineBlock',
+        display: 'inline-block',
         textDecoration: 'none',
         fontSize: 12,
     },
