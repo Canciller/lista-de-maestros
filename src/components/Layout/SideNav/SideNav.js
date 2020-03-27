@@ -6,10 +6,11 @@ import Routes from 'routes';
 import Sidebar from 'components/Sidebar';
 import Logo from './Logo';
 import Link from './Link';
+import mergeStyles from 'utils/mergeStyles';
 
 class SideNav extends React.Component {
     render() {
-        const { theme, ...props } = this.props;
+        const { theme, styles, ...props } = this.props;
 
         return (
             <Sidebar
@@ -18,22 +19,33 @@ class SideNav extends React.Component {
                     color: theme.colors.white.light,
                 }}
                 styles={{
-                    root: {
-                        userSelect: 'none',
-                        background: theme.primary.normal,
-                        transition: 'all 150ms ease-in-out',
-                    },
-                    title: {
-                        display: 'flex',
-                        ...theme.layout.header,
-                    },
+                    root: mergeStyles(
+                        {
+                            userSelect: 'none',
+                            background: theme.primary.normal,
+                            transition: 'all 200ms ease-in-out',
+                            overflowX: 'hidden',
+                        },
+                        styles.root
+                    ),
+                    title: mergeStyles(
+                        {
+                            display: 'flex',
+                            ...theme.layout.header,
+                        },
+                        styles.title
+                    ),
+                    separator: styles.separator,
                 }}
                 {...props}
             >
                 <Sidebar.Section
-                    style={{
-                        marginTop: 20,
-                    }}
+                    style={mergeStyles(
+                        {
+                            marginTop: 20,
+                        },
+                        styles.content
+                    )}
                 >
                     {Object.keys(Routes).map(key => {
                         const route = Routes[key];
@@ -57,8 +69,13 @@ class SideNav extends React.Component {
     }
 }
 
+SideNav.defaultProps = {
+    styles: {},
+};
+
 SideNav.propTypes = {
     theme: PropTypes.object.isRequired,
+    styles: PropTypes.object,
 };
 
 export default withTheme(SideNav);

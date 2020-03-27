@@ -67,7 +67,6 @@ class Layout extends React.Component {
                 sideNavOpen: false,
                 sideNav: {
                     width: 0,
-                    overflowX: 'hidden',
                 },
                 content: {
                     marginLeft: theme.layout.sideNav.width,
@@ -87,7 +86,7 @@ class Layout extends React.Component {
 
     render() {
         const { theme, user, children } = this.props;
-        const { settings, sideNav, content } = this.state;
+        const { settings, sideNav } = this.state;
 
         return (
             <div style={defaultStyles.root}>

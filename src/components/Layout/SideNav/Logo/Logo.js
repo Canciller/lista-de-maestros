@@ -12,6 +12,7 @@ const defaultStyles = {
         fontSize: 24,
         textDecoration: 'none',
         letterSpacing: -1,
+        whiteSpace: 'nowrap',
     },
     logo: {
         marginLeft: 4,
@@ -31,10 +32,11 @@ const Logo = () => {
                 defaultStyles.root
             )}
         >
-            <FontAwesomeIcon icon={faCube} />
             <span style={defaultStyles.logo}>Maestros.</span>
         </Link>
     );
 };
+
+//<FontAwesomeIcon icon={faCube} />
 
 export default Logo;
