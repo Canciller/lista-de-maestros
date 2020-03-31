@@ -6,23 +6,7 @@ import SideNav from './SideNav';
 import Header from './Header';
 import Settings from './Settings';
 import Button from 'components/Button';
-
-const defaultStyles = {
-    root: {
-        minHeight: '100vh',
-        display: 'flex',
-    },
-    main: {
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-    },
-    content: {
-        padding: 20,
-        flex: 1,
-        transition: 'all 150ms ease-in-out',
-    },
-};
+import './Layout.scss';
 
 class Layout extends React.Component {
     state = {};
@@ -30,78 +14,61 @@ class Layout extends React.Component {
     constructor(props) {
         super(props);
 
-        const { theme } = props;
-
         this.state = {
-            sideNavOpen: true,
-            settings: {
-                width: 0,
-            },
-            sideNav: {
-                width: theme.layout.sideNav.width,
-            },
+            isSettingsOpen: false,
+            isSideNavOpen: false,
         };
     }
 
     openSettings = () => {
         this.setState({
-            settings: {
-                width: this.props.theme.layout.settings.width,
-            },
+            isSettingsOpen: true,
         });
     };
 
     closeSettings = () => {
         this.setState({
-            settings: {
-                width: 0,
-            },
+            isSettingsOpen: false,
         });
     };
 
-    toggleSideNav = () => {
-        const { theme } = this.props;
+    openSideNav = () => {
+        this.setState({
+            isSideNavOpen: true,
+        });
+    };
 
-        if (this.state.sideNavOpen)
-            this.setState({
-                sideNavOpen: false,
-                sideNav: {
-                    width: 0,
-                },
-                content: {
-                    marginLeft: theme.layout.sideNav.width,
-                },
-            });
-        else
-            this.setState({
-                sideNavOpen: true,
-                sideNav: {
-                    width: theme.layout.sideNav.width,
-                },
-                content: {
-                    marginLeft: 0,
-                },
-            });
+    closeSideNav = () => {
+        this.setState({
+            isSideNavOpen: false,
+        });
     };
 
     render() {
-        const { theme, user, children } = this.props;
-        const { settings, sideNav } = this.state;
+        const { theme, children } = this.props;
+        const { isSideNavOpen, isSettingsOpen } = this.state;
 
         return (
-            <div style={defaultStyles.root}>
-                <SideNav style={sideNav} />
-                <Settings width={settings.width} onClose={this.closeSettings} />
-                <div style={defaultStyles.main}>
+            <div className="Layout-root">
+                <Settings
+                    open={isSettingsOpen}
+                    onClose={this.closeSettings}
+                ></Settings>
+                <SideNav open={isSideNavOpen} onClose={this.closeSideNav} />
+                <div className="Layout-container">
                     <Header
-                        user={user}
                         onOpenSettings={this.openSettings}
-                        onOpenSideNav={this.toggleSideNav}
+                        onOpenSideNav={() =>
+                            isSideNavOpen
+                                ? this.closeSideNav()
+                                : this.openSideNav()
+                        }
                     />
                     <div
-                        style={mergeStyles(defaultStyles.content, {
+                        className="Layout-content"
+                        style={{
                             background: theme.background.dark,
-                        })}
+                        }}
                     >
                         {children}
                     </div>
@@ -112,7 +79,29 @@ class Layout extends React.Component {
 }
 
 Layout.propTypes = {
-    user: PropTypes.object,
+    theme: PropTypes.object.isRequired,
 };
+/*
+            <div className="Layout-root">
+                <SideNav style={sideNavStyle} onClose={this.toggleSideNav} />
+                <Settings width={settingsStyle.width} onClose={this.closeSettings} />
+                <div className="Layout-container">
+                    <Header
+                        user={user}
+                        onOpenSideNav={this.toggleSideNav}
+                        onOpenSettings={this.openSettings}
+                        isSideNavOpen={isSideNavOpen}
+                    />
+                    <div
+                        className="Layout-content"
+                        style={{
+                            background: theme.background.dark,
+                        }}
+                    >
+                        {children}
+                    </div>
+                </div>
+            </div>
+            */
 
 export default withTheme(Layout);

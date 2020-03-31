@@ -1,0 +1,53 @@
+.SideNav-root {
+	user-select: none;
+	transition: all 150ms ease-in-out;
+	overflow-x: hidden;
+	z-index: 9997;
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: 0;
+    height: 100vh;
+    
+    @media (min-width: 800px) {
+        position: relative;
+    }
+}
+
+.SideNav-click-outside {
+	transition: all 150ms ease-in-out;
+    background: rgba(0, 0, 0, 0.5);
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 9996;
+
+    @media (min-width: 800px) {
+        display: none;
+    }
+}
+
+.SideNav-header {
+    display: flex;
+    position: relative;
+}
+
+.SideNav-close-icon {
+    position: absolute;
+    right: 10px;
+    margin-top: -16px;
+    top: 50%;
+
+    @media (min-width: 800px) {
+        display: none !important;
+    }
+}
+
+.SideNav-Separator {
+    margin: 0 auto;
+    width: 75%;
+    border-bottom-width: 0.5px;
+    border-bottom-style: solid;
+}

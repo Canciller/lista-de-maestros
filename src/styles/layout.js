@@ -3,7 +3,7 @@ export default {
         width: 250,
     },
     header: {
-        height: 60,
+        height: 65,
     },
     settings: {
         width: 260,

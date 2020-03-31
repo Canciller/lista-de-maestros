@@ -9,13 +9,13 @@ const defaultStyles = {
     },
     indicator: {
         position: 'absolute',
-        width: 2,
+        width: 0,
         height: '100%',
         left: 0,
     },
     link: {
         fontWeight: 300,
-        fontSize: 14,
+        fontSize: '1.3em',
         textDecoration: 'none',
         display: 'flex',
         alignItems: 'center',

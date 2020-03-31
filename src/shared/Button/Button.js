@@ -7,7 +7,8 @@ const defaultStyle = {
     root: {
         display: 'inline-block',
         textDecoration: 'none',
-        fontSize: 12,
+        fontSize: '1.2em',
+        whiteSpace: 'nowrap',
     },
 };
 

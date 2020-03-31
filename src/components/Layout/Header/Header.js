@@ -1,5 +1,9 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
+import { withTheme, ThemeContext } from 'components/Theme';
+import mergeStyles from 'utils/mergeStyles';
+import classNames from 'classnames';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCog,
@@ -7,127 +11,32 @@ import {
     faSignInAlt,
     faBars,
 } from '@fortawesome/free-solid-svg-icons';
-import { withTheme, ThemeContext } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
-import Button from 'components/Button';
-import IconButton from 'components/IconButton';
 
-const defaultStyles = {
-    root: {
-        display: 'flex',
-        justifyContent: 'flex-end',
-        transition: 'all 150ms ease-in-out',
-    },
-    section: {
-        padding: '0 20px',
-        display: 'flex',
-        alignItems: 'center',
-    },
-    separator: {
-        margin: 'auto 0',
-        borderLeftWidth: 1,
-        borderLeftStyle: 'solid',
-        height: '70%',
-    },
-    userSection: {
-        display: 'flex',
-        cursor: 'pointer',
-    },
-    avatar: {
-        height: 35,
-        width: 35,
-        borderRadius: '50%',
-        marginRight: 10,
-        borderWidth: 1,
-        borderStyle: 'solid',
-    },
-    user: {
-        fontSize: 12,
-    },
-    usertype: {
-        fontSize: '0.8em',
-        marginTop: 2,
-    },
-    actionsSection: {
-        padding: '0 10px',
-    },
-    action: {
-        margin: '0 5px',
-    },
-};
+import Action from './Action';
+import User from './User';
 
-const NoUser = () => {
+import './Header.scss';
+
+const Section = ({ className, children, ...props }) => {
     return (
-        <React.Fragment>
-            <Button to="/login" variant="blue">
-                <FontAwesomeIcon icon={faSignInAlt} />
-                <span
-                    style={{
-                        marginLeft: 5,
-                    }}
-                >
-                    Sign in
-                </span>
-            </Button>
-            <Button
-                to="/register"
-                variant="green"
-                style={{
-                    marginLeft: 3,
-                }}
-            >
-                Register
-            </Button>
-        </React.Fragment>
+        <div className={classNames('Header-Section', className)} {...props}>
+            {children}
+        </div>
     );
 };
 
-const User = ({ user }) => {
+const Separator = ({ className, style, ...props }) => {
     const theme = useContext(ThemeContext);
-    return (
-        <React.Fragment>
-            <div
-                style={mergeStyles(
-                    {
-                        borderColor: theme.foreground.light,
-                    },
-                    defaultStyles.avatar
-                )}
-            ></div>
-            <div style={mergeStyles(defaultStyles.user)}>
-                <div
-                    style={mergeStyles(
-                        {
-                            color: theme.foreground.normal,
-                        },
-                        defaultStyles.username
-                    )}
-                >
-                    {user.name}
-                </div>
-                <div
-                    style={mergeStyles(
-                        {
-                            color: theme.foreground.light,
-                        },
-                        defaultStyles.usertype
-                    )}
-                >
-                    {user.type}
-                </div>
-            </div>
-        </React.Fragment>
-    );
-};
 
-const Action = ({ icon, onClick, style, ...props }) => {
     return (
-        <IconButton
-            icon={icon}
-            size="lg"
-            onClick={onClick}
-            style={mergeStyles(defaultStyles.action, style)}
-            {...props}
+        <div
+            className={classNames('Header-Separator', className)}
+            style={mergeStyles(
+                {
+                    borderColor: theme.foreground.light,
+                },
+                style
+            )}
         />
     );
 };
@@ -136,7 +45,6 @@ class Header extends React.Component {
     render() {
         const {
             theme,
-            user,
             onOpenSideNav,
             onOpenSettings,
             onOpenNotifications,
@@ -144,65 +52,57 @@ class Header extends React.Component {
 
         return (
             <div
+                className="Header-root"
                 style={mergeStyles(
                     {
                         background: theme.background.light,
                     },
-                    theme.layout.header,
-                    defaultStyles.root
+                    theme.layout.header
                 )}
             >
-                <div
-                    style={mergeStyles(defaultStyles.section, {
+                {/* Open SideNav */}
+                <Section
+                    style={{
                         flex: 1,
-                    })}
+                    }}
                 >
-                    <Action icon={faBars} onClick={onOpenSideNav} />
-                </div>
-                <div
-                    style={mergeStyles(
-                        defaultStyles.section,
-                        defaultStyles.actionsSection
-                    )}
-                >
-                    <Action icon={faCog} onClick={onOpenSettings} />
-                    <Action icon={faBell} onClick={onOpenNotifications} />
-                </div>
-                <div
-                    style={mergeStyles(
-                        {
-                            borderColor: theme.foreground.light,
-                        },
-                        defaultStyles.separator
-                    )}
-                ></div>
-                <div
-                    style={mergeStyles(
-                        defaultStyles.section,
-                        user
-                            ? defaultStyles.userSection
-                            : defaultStyles.noUserSection
-                    )}
-                >
-                    {user ? <User user={user} /> : <NoUser />}
-                </div>
+                    <Action onClick={onOpenSideNav} icon={faBars} />
+                </Section>
+                {/* Open Settings and Open Notifications */}
+                <Section className="Header-Section-actions">
+                    <Action
+                        className="Header-action"
+                        onClick={onOpenSettings}
+                        icon={faCog}
+                    />
+                    <Action className="Header-action" icon={faBell} />
+                </Section>
+                <Separator />
+                {/* User Section / Sign up Section or Register Section*/}
+                <Section>
+                    <User
+                        user={{
+                            username: 'Gabriel Emilio',
+                            type: 'Administrador',
+                        }}
+                    />
+                </Section>
             </div>
         );
     }
 }
 
 Header.defaultProps = {
+    onOpenSettings: e => {},
     onOpenSideNav: e => {},
     onOpenNotifications: e => {},
-    onOpenSettings: e => {},
 };
 
 Header.propTypes = {
-    user: PropTypes.object,
     theme: PropTypes.object.isRequired,
+    onOpenSettings: PropTypes.func,
     onOpenSideNav: PropTypes.func,
     onOpenNotifications: PropTypes.func,
-    onOpenSettings: PropTypes.func,
 };
 
 export default withTheme(Header);

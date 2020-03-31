@@ -1,36 +1,70 @@
 import React, { Component } from 'react';
-//import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
-import BaseIconButton from 'shared/IconButton';
+import classNames from 'classnames';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+const IconButtonBase = styled.span`
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: none;
+    transition: all 150ms ease-in-out;
+    font-size: ${({ size }) => size};
+    height: ${({ dimension }) => dimension + 'px'};
+    width: ${({ dimension }) => dimension + 'px'};
+    color: ${({ color }) => color.dark};
+    &:hover {
+        background: rgba(0, 0, 0, 0.1);
+    }
+`;
 
 class IconButton extends Component {
+    state = {};
+
+    constructor(props) {
+        super(props);
+        this.ref = React.createRef();
+    }
+
+    componentDidMount() {
+        if (this.ref && this.ref.current)
+            this.setState({
+                dimension: this.ref.current.clientHeight * 1.8,
+            });
+    }
+
     render() {
-        const { style, hover, theme, children, ...props } = this.props;
+        const { theme, icon, size, variant, className, ...props } = this.props;
 
         return (
-            <BaseIconButton
-                hover={mergeStyles(
-                    {
-                        transition: 'all 150ms ease-in-out',
-                        background: 'rgba(0, 0, 0, 0.1)',
-                    },
-                    hover
-                )}
-                style={mergeStyles(
-                    {
-                        padding: 5,
-                        color: theme.foreground.dark,
-                        transition: 'all 150ms ease-in-out',
-                    },
-                    style
-                )}
+            <IconButtonBase
+                ref={this.ref}
+                color={theme.colors[variant] || theme.foreground}
+                className={classNames(className)}
+                size={size}
+                dimension={this.state.dimension}
                 {...props}
             >
-                {children}
-            </BaseIconButton>
+                <FontAwesomeIcon icon={icon}></FontAwesomeIcon>
+            </IconButtonBase>
         );
     }
 }
+
+IconButton.defaultProps = {
+    size: '1.5em',
+};
+
+IconButton.propTypes = {
+    theme: PropTypes.object.isRequired,
+    icon: PropTypes.any.isRequired,
+    size: PropTypes.any,
+    variant: PropTypes.string,
+};
 
 export default withTheme(IconButton);

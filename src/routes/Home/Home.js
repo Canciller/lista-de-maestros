@@ -10,9 +10,7 @@ class Home extends React.Component {
                 style={{
                     minHeight: '100%',
                 }}
-            >
-                <TextField placeholder="Buscar maestro" icon={faSearch} />
-            </div>
+            ></div>
         );
     }
 }

@@ -58,12 +58,6 @@ class Switch extends React.Component {
         checked: false,
     };
 
-    onChange = e => {
-        this.setState({ checked: !this.state.checked }, () =>
-            this.props.onChange(e, this.state.checked)
-        );
-    };
-
     render() {
         const {
             theme,
@@ -72,11 +66,9 @@ class Switch extends React.Component {
             variant,
             width,
             height,
-            onChange,
+            checked,
             ...props
         } = this.props;
-
-        const { checked } = this.state;
 
         const color = theme.colors[variant] || {};
 
@@ -89,12 +81,7 @@ class Switch extends React.Component {
                         styles.switch
                     )}
                 >
-                    <Input
-                        type="checkbox"
-                        checked={checked}
-                        onChange={this.onChange}
-                        {...props}
-                    />
+                    <Input type="checkbox" checked={checked} {...props} />
                     <Slider
                         color={color.light}
                         checked={checked}

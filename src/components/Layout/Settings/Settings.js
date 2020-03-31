@@ -6,89 +6,83 @@ import { faTimes, faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import Sidebar from 'components/Sidebar';
 import IconButton from 'components/IconButton';
 import Switch from 'components/Switch';
+import './Settings.scss';
 
-const defaultStyles = {
-    root: {
-        position: 'absolute',
-        top: 0,
-        bottom: 0,
-        right: 0,
-        overflowX: 'hidden',
-        transition: 'all 150ms ease-in-out',
-    },
-    close: {},
-    section: {
-        display: 'flex',
-        padding: '20px 30px',
-        alignItems: 'center',
-    },
-    title: {
-        fontSize: 12,
-        marginBottom: 10,
-    },
-    mode: {
-        fontSize: 16,
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        flex: 1,
-    },
-};
 class Settings extends React.Component {
     state = {
-        dark: false,
+        isThemeDark: false,
+    };
+
+    toggleTheme = () => {
+        const { theme } = this.props;
+
+        this.setState({ isThemeDark: !this.state.isThemeDark }, () => {
+            if (this.state.isThemeDark) theme.setTheme('dark');
+            else theme.setTheme('light');
+        });
+    };
+
+    setLightTheme = () => {
+        if (this.state.isThemeDark)
+            this.setState({ isThemeDark: false }, () =>
+                this.props.theme.setTheme('light')
+            );
+    };
+
+    setDarkTheme = () => {
+        if (!this.state.isThemeDark)
+            this.setState({ isThemeDark: true }, () =>
+                this.props.theme.setTheme('dark')
+            );
     };
 
     render() {
-        const { width, onClose, style, theme } = this.props;
-        const { dark } = this.state;
+        const { theme, onClose, open, ...props } = this.props;
+        const { isThemeDark } = this.state;
 
         return (
-            <Sidebar
-                width={width}
-                style={mergeStyles(
-                    {
+            <React.Fragment>
+                <div
+                    className="Settings-click-outside"
+                    onClick={onClose}
+                    style={{
+                        visibility: open ? 'visible' : 'hidden',
+                        opacity: open ? 1 : 0,
+                    }}
+                />
+                <div
+                    className="Settings-root"
+                    style={{
                         background: theme.background.normal,
-                    },
-                    defaultStyles.root,
-                    style
-                )}
-            >
-                <Sidebar.Section style={defaultStyles.section}>
-                    <IconButton
-                        className="Settings-close"
-                        icon={faTimes}
-                        size="lg"
-                        onClick={onClose}
-                        style={defaultStyles.close}
-                    />
-                    <div style={defaultStyles.mode}>
-                        <IconButton icon={faSun} size="lg" />
+                        width: open ? theme.layout.sideNav.width : 0,
+                    }}
+                >
+                    <div className="Settings-theme-switch">
+                        <IconButton icon={faSun} onClick={this.setLightTheme} />
                         <Switch
-                            onChange={e => {
-                                this.setState({ dark: !dark }, () => {
-                                    if (this.state.dark) theme.setTheme('dark');
-                                    else theme.setTheme('light');
-                                });
-                            }}
+                            checked={this.state.isThemeDark}
+                            onChange={this.toggleTheme}
                             style={{
                                 margin: '0 8px',
                             }}
                         />
-                        <IconButton icon={faMoon} />
+                        <IconButton icon={faMoon} onClick={this.setDarkTheme} />
                     </div>
-                </Sidebar.Section>
-            </Sidebar>
+                </div>
+            </React.Fragment>
         );
     }
 }
 
 Settings.defaultProps = {
     onClose: () => {},
+    open: false,
 };
 
 Settings.propTypes = {
+    theme: PropTypes.object.isRequired,
     onClose: PropTypes.func,
+    open: PropTypes.bool,
 };
 
 export default withTheme(Settings);

@@ -60,7 +60,7 @@ Sidebar.defaultProps = {
 };
 
 Sidebar.propTypes = {
-    width: PropTypes.number.isRequired,
+    width: PropTypes.number,
     styles: PropTypes.object,
     separator: PropTypes.object,
 };

@@ -1,0 +1,39 @@
+.Header-User-root {
+    display: flex;
+    align-items: center;
+}
+
+.Header-User-avatar {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border-width: 1px;
+    border-style: solid;
+}
+
+.Header-User-data { 
+    display: none;
+}
+
+.Header-User-type {
+    font-size: 0.8em;
+    margin-top: 2px;
+}
+
+.Header-User {
+    &-avatar,
+    &-username,
+    &-type {
+        cursor: pointer;
+    }
+}
+
+@media (min-width: 800px) {
+    .Header-User-avatar {
+        margin-right: 10px;
+    }
+
+    .Header-User-data {
+        display: block;
+    }
+}

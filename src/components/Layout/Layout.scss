@@ -1,0 +1,16 @@
+.Layout-root {
+    min-height: 100vh;
+    display: flex;
+}
+
+.Layout-container {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.Layout-content {
+    padding: 20px;
+    flex: 1;
+    transition: all 150ms ease-in-out;
+}

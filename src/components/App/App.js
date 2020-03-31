@@ -12,7 +12,7 @@ function App() {
         <Theme>
             <Router>
                 <Layout
-                //user={{ name: 'Gabriel Emilio', type: 'Administrador' }}
+                    user={{ name: 'Gabriel Emilio', type: 'Administrador' }}
                 >
                     <Switch>
                         {Object.keys(Routes).map(key => {
