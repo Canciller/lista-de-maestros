@@ -2,6 +2,7 @@ import React from 'react';
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import Button from 'components/Button';
 
 class Home extends React.Component {
     render() {

@@ -55,7 +55,7 @@ class SideNav extends React.Component {
                         />
                             */}
                         {/* Logo */}
-                        <Logo onClick={onClose} />
+                        <Logo />
                     </div>
                     <Separator />
                     {/* Menu */}

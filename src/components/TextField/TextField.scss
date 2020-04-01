@@ -1,0 +1,19 @@
+.TextField-root {
+    position: relative;
+
+    label {
+        cursor: pointer;
+        position: absolute;
+        transition: 0.2s;
+        font-size: 0.9em;
+    }
+
+    input {
+        background: none;
+        outline: 0;
+        border: 0;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        padding: 1.6em 0 4px 0;
+    }
+}

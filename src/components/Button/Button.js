@@ -1,41 +1,63 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mergeStyles from 'utils/mergeStyles';
+import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
-import BaseButton from 'shared/Button';
+import { Link } from 'react-router-dom';
+
+const BaseButton = styled(Link)`
+    display: inline-block;
+    text-decoration: none;
+    font-size: 1em;
+    white-space: nowrap;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    transition: all 240ms ease-in-out;
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 0;
+    padding: 5px 8px;
+    border-color: ${({ color }) => color.dark};
+    color: ${({ color }) => color.dark};
+    background: none;
+    &:active,
+    &:focus {
+        border-width: 1px;
+        border-style: solid;
+    }
+    &:hover,
+    &:active {
+        border-color: ${({ color }) => color.light};
+        box-shadow: inset ${({ width }) => width}px 0 0 0
+            ${({ color }) => color.light};
+        color: ${({ color }) => color.foreground};
+    }
+`;
 
 class Button extends React.Component {
-    style = {
-        transition: 'all 250ms ease-in-out',
-        borderWidth: 0.5,
-        borderStyle: 'solid',
-    };
+    state = {};
+
+    constructor() {
+        super();
+        this.ref = React.createRef();
+    }
+
+    componentDidMount() {
+        if (this.ref && this.ref.current)
+            this.setState({
+                width: this.ref.current.clientWidth + 10,
+            });
+    }
 
     render() {
-        const { children, theme, variant, style, hover, ...props } = this.props;
-
-        const color = theme.colors[variant] || theme.foreground;
+        const { theme, variant, children, ...props } = this.props;
 
         return (
             <BaseButton
-                hover={mergeStyles(
-                    {
-                        borderColor: color.light,
-                        boxShadow: `inset 6.5em 0 0 0 ${color.light}`,
-                        color: theme.colors.white.normal,
-                    },
-                    hover
-                )}
-                style={mergeStyles(
-                    {
-                        borderColor: color.dark,
-                        background: 'none',
-                        color: color.dark,
-                    },
-                    this.style,
-                    style
-                )}
+                to=""
                 {...props}
+                ref={this.ref}
+                color={theme.colors[variant] || theme.foreground}
+                width={this.state.width}
             >
                 {children}
             </BaseButton>
@@ -44,6 +66,7 @@ class Button extends React.Component {
 }
 
 Button.propTypes = {
+    theme: PropTypes.object.isRequired,
     variant: PropTypes.string,
 };
 

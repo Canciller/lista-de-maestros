@@ -107,6 +107,13 @@ class Color {
 
         return new Color(rgb.r, rgb.g, rgb.b, this.a);
     }
+
+    foreground() {
+        let hsl = HSL(this);
+
+        if (hsl.l <= 60) return new Color(255, 255, 255, this.a);
+        else return new Color(0, 0, 0, this.a);
+    }
 }
 
 class Theme {
@@ -123,6 +130,7 @@ class Theme {
             light: color.light().css(),
             normal: color.css(),
             dark: color.dark().css(),
+            foreground: color.foreground().css(),
         };
     }
 

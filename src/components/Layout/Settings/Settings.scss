@@ -1,10 +1,10 @@
 .Settings-root {
-    position: absolute;
+    position: fixed;
 	transition: all 150ms ease-in-out;
 	overflow-x: hidden;
+    top: 0;
     right: 0;
     bottom: 0;
-    top: 0;
     height: 100vh;
     z-index: 9999;
 }
@@ -12,7 +12,7 @@
 .Settings-click-outside {
 	transition: all 150ms ease-in-out;
     //background: rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;

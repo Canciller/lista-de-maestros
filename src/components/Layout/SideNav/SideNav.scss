@@ -3,21 +3,21 @@
 	transition: all 150ms ease-in-out;
 	overflow-x: hidden;
 	z-index: 9997;
-	position: absolute;
+    position: fixed;
 	top: 0;
 	bottom: 0;
-	left: 0;
+    left: 0;
     height: 100vh;
     
     @media (min-width: 800px) {
-        position: relative;
+        position: sticky;
     }
 }
 
 .SideNav-click-outside {
 	transition: all 150ms ease-in-out;
     background: rgba(0, 0, 0, 0.5);
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     bottom: 0;

@@ -5,7 +5,7 @@ import { withTheme } from 'components/Theme';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const IconButtonBase = styled.span`
+const BaseIconButton = styled.span`
     text-decoration: none;
     cursor: pointer;
     border-radius: 50%;
@@ -14,6 +14,8 @@ const IconButtonBase = styled.span`
     align-items: center;
     background: none;
     transition: all 150ms ease-in-out;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
     font-size: ${({ size }) => size};
     height: ${({ dimension }) => dimension + 'px'};
     width: ${({ dimension }) => dimension + 'px'};
@@ -42,7 +44,7 @@ class IconButton extends Component {
         const { theme, icon, size, variant, className, ...props } = this.props;
 
         return (
-            <IconButtonBase
+            <BaseIconButton
                 ref={this.ref}
                 color={theme.colors[variant] || theme.foreground}
                 className={classNames(className)}
@@ -51,7 +53,7 @@ class IconButton extends Component {
                 {...props}
             >
                 <FontAwesomeIcon icon={icon}></FontAwesomeIcon>
-            </IconButtonBase>
+            </BaseIconButton>
         );
     }
 }

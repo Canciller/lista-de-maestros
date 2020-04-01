@@ -1,28 +1,18 @@
-import React, { Children } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
+import styled from 'styled-components';
 
 class Typography extends React.Component {
     render() {
-        const { theme, component, variant, style, size, children } = this.props;
+        const { theme, component, children, ...props } = this.props;
 
-        let Component = component;
+        const BaseTypography = styled(component)`
+            color: ${theme.foreground.dark};
+            transition: all 150ms ease-in-out;
+        `;
 
-        return (
-            <Component
-                style={mergeStyles(
-                    {
-                        fontSize: size,
-                        color: theme.foreground.dark,
-                        transition: 'all 150ms ease-in-out',
-                    },
-                    style
-                )}
-            >
-                {children}
-            </Component>
-        );
+        return <BaseTypography {...props}>{children}</BaseTypography>;
     }
 }
 
@@ -31,9 +21,8 @@ Typography.defaultProps = {
 };
 
 Typography.propTypes = {
+    theme: PropTypes.object.isRequired,
     component: PropTypes.any,
-    variant: PropTypes.string,
-    theme: PropTypes.object,
 };
 
 export default withTheme(Typography);

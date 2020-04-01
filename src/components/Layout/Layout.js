@@ -50,10 +50,7 @@ class Layout extends React.Component {
 
         return (
             <div className="Layout-root">
-                <Settings
-                    open={isSettingsOpen}
-                    onClose={this.closeSettings}
-                ></Settings>
+                <Settings open={isSettingsOpen} onClose={this.closeSettings} />
                 <SideNav open={isSideNavOpen} onClose={this.closeSideNav} />
                 <div className="Layout-container">
                     <Header
@@ -81,27 +78,5 @@ class Layout extends React.Component {
 Layout.propTypes = {
     theme: PropTypes.object.isRequired,
 };
-/*
-            <div className="Layout-root">
-                <SideNav style={sideNavStyle} onClose={this.toggleSideNav} />
-                <Settings width={settingsStyle.width} onClose={this.closeSettings} />
-                <div className="Layout-container">
-                    <Header
-                        user={user}
-                        onOpenSideNav={this.toggleSideNav}
-                        onOpenSettings={this.openSettings}
-                        isSideNavOpen={isSideNavOpen}
-                    />
-                    <div
-                        className="Layout-content"
-                        style={{
-                            background: theme.background.dark,
-                        }}
-                    >
-                        {children}
-                    </div>
-                </div>
-            </div>
-            */
 
 export default withTheme(Layout);
