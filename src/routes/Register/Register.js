@@ -7,7 +7,11 @@ class Register extends React.Component {
         return (
             <div>
                 <Typography component="h1">Register</Typography>
-                <div>
+                <div
+                    style={{
+                        height: 1000
+                    }}
+                >
                     <TextField
                         label="Name"
                         placeholder="Name"
