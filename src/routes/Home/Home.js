@@ -4,6 +4,8 @@ import TextField from 'components/TextField';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
 import Button from 'components/Button';
 
+import Review from 'components/Review';
+
 class Home extends React.Component {
     render() {
         return (
@@ -11,7 +13,9 @@ class Home extends React.Component {
                 style={{
                     minHeight: '100%',
                 }}
-            ></div>
+            >
+                <Review />
+            </div>
         );
     }
 }
