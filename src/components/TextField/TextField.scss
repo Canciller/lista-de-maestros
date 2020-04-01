@@ -1,19 +1,46 @@
 .TextField-root {
     position: relative;
+    margin-top: 24px;
+}
 
-    label {
-        cursor: pointer;
-        position: absolute;
-        transition: 0.2s;
-        font-size: 0.9em;
+.TextField-label,
+.TextField-input {
+    font-size: 1.2em;
+}
+
+.TextField-label {
+    cursor: text;
+    transition: 0.2s;
+    position: absolute;
+    font-size: 1em;
+    top: -15px;
+    left: 0;
+}
+
+.TextField-input {
+    background: none;
+    outline: 0;
+    border: 0;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    width: 100%;
+    padding-bottom: 3px;
+
+    &::placeholder {
+        color: transparent;
     }
 
-    input {
-        background: none;
-        outline: 0;
-        border: 0;
-        border-bottom-width: 1px;
-        border-bottom-style: solid;
-        padding: 1.6em 0 4px 0;
+    &:placeholder-shown {
+        ~ .TextField-label {
+            top: 0;
+            font-size: 1.2em;
+        }
+    }
+}
+
+.TextField-input:focus {
+    ~ .TextField-label {
+        top: -15px;
+        font-size: 1em;
     }
 }

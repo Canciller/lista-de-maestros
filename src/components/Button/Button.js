@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const BaseButton = styled(Link)`
     display: inline-block;
     text-decoration: none;
-    font-size: 1em;
+    font-size: 1.2em;
     white-space: nowrap;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -24,6 +24,8 @@ const BaseButton = styled(Link)`
         border-width: 1px;
         border-style: solid;
     }
+
+    &:focus,
     &:hover,
     &:active {
         border-color: ${({ color }) => color.light};
@@ -53,13 +55,13 @@ class Button extends React.Component {
 
         return (
             <BaseButton
-                to=""
                 {...props}
+                tabindex="0"
                 ref={this.ref}
                 color={theme.colors[variant] || theme.foreground}
                 width={this.state.width}
             >
-                {children}
+                <span>{children}</span>
             </BaseButton>
         );
     }
