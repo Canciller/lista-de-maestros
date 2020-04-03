@@ -24,7 +24,7 @@ class TextField extends React.Component {
                 ></input>
                 <label
                     className="TextField-label"
-                    for={id}
+                    htmlFor={id}
                     style={{
                         color: theme.foreground.normal,
                     }}

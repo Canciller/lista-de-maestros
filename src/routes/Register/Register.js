@@ -2,13 +2,14 @@ import React from 'react';
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
+import './Register.scss';
 
 class Register extends React.Component {
     render() {
         return (
-            <div>
-                <Typography component="h1">Register</Typography>
-                <div>
+            <div className="Register-root">
+                <div className="Register-form">
+                    <Typography component="h1">Register</Typography>
                     <TextField
                         label="Username"
                         placeholder="Name"
@@ -32,14 +33,12 @@ class Register extends React.Component {
                         type="password"
                     />
                     <Button
-                        style={{
-                            width: '100%',
-                            marginTop: 20,
-                            paddingTop: 10,
-                            paddingBottom: 10,
-                            textAlign: 'center',
-                        }}
+                        fullWidth
                         variant="green"
+                        style={{
+                            marginTop: 20,
+                            padding: '10px 0',
+                        }}
                     >
                         Register
                     </Button>
