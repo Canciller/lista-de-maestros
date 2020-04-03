@@ -2,12 +2,14 @@ import Home from './Home';
 import Lista from './Lista';
 import Login from './Login';
 import Register from './Register';
+import Testing from './Testing';
 
 import {
     faHome, // Home icon
     faStream, // Lista icon
     //faHeart,
     //faEye,
+    faFireAlt
 } from '@fortawesome/free-solid-svg-icons';
 
 export default {
@@ -31,4 +33,10 @@ export default {
         path: '/register',
         component: Register,
     },
+    testing: {
+        path: '/testing',
+        icon: faFireAlt,
+        component: Testing,
+        name: 'Testing'
+    }
 };

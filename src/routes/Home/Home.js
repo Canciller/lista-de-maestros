@@ -13,9 +13,10 @@ class Home extends React.Component {
             <div
                 style={{
                     minHeight: '100%',
+                    display: 'flex',
+                    flexDirection: 'column'
                 }}
             >
-                <br></br>
                 <MainSearch />
             </div>
         );
