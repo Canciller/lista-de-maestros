@@ -1,0 +1,38 @@
+.MainSearch-root {
+    transition: all 0.2s;
+    width: 100%;
+    display: flex;
+}
+
+.MainSearch-text {
+    padding: 15px;
+    // border-bottom-left-radius: 100px;
+    // border-top-left-radius: 100px;
+    border: none;
+    flex: 1;
+}
+
+.MainSearch-text:focus {
+    outline-width: 0;
+}
+
+.MainSearch-button {
+    // border: none;
+    padding: 15px 20px 15px 20px; // top right bottom left
+    // border-bottom-right-radius: 100px;
+    // border-top-right-radius: 100px;
+    border: none;
+    background-color: rgb(165, 238, 165);
+    cursor: pointer;
+    color: rgb(70, 70, 70);
+}
+
+.MainSearch-button:focus {
+    outline-width: 0;
+}
+
+@media (min-width: 800px) {
+    .MainSearch-root {
+      width: 70%;
+    }
+  }
