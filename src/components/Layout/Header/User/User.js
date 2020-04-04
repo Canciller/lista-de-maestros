@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import classNames from 'classnames';
 import { withTheme } from 'components/Theme';
 import './User.scss';
 
 class User extends React.Component {
     render() {
-        const { theme, user, className, ...props } = this.props;
+        const { theme, user } = this.props;
 
         return (
             <div className="Header-User-root">

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import mergeStyles from 'utils/mergeStyles';
+import mergeStyles from 'util/mergeStyles';
 
 const defaultStyles = {
     root: {

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
 import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
 import IconButton from 'components/IconButton';
 import Switch from 'components/Switch';
@@ -36,8 +35,7 @@ class Settings extends React.Component {
     };
 
     render() {
-        const { theme, onClose, open, ...props } = this.props;
-        const { isThemeDark } = this.state;
+        const { theme, onClose, open } = this.props;
 
         return (
             <React.Fragment>

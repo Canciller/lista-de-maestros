@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import { Link as NavLink, useRouteMatch } from 'react-router-dom';
 import { ThemeContext, withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
+import mergeStyles from 'util/mergeStyles';
 
 const defaultStyles = {
     root: {

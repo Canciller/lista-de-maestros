@@ -9,7 +9,7 @@ import {
     faStream, // Lista icon
     //faHeart,
     //faEye,
-    faFireAlt
+    faFireAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default {
@@ -37,6 +37,6 @@ export default {
         path: '/testing',
         icon: faFireAlt,
         component: Testing,
-        name: 'Testing'
-    }
+        name: 'Testing',
+    },
 };

@@ -1,7 +1,7 @@
 @import "styles/util.scss";
 
 @media (min-width: 800px) {
-    .Register-root {
+    .Login-root {
         display: flex;
 
         form {
@@ -11,7 +11,7 @@
     }
 }
 
-.Register-button {
+.Login-button {
     padding: 10px 0;
     margin-top: em(18);
 }

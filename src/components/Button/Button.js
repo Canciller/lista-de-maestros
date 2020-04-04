@@ -3,8 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
 import classNames from 'classnames';
-import mergeStyles from 'utils/mergeStyles';
-import { withRouter } from 'react-router-dom';
+import mergeStyles from 'util/mergeStyles';
 import './Button.scss';
 
 const BaseButton = styled.button`
@@ -41,8 +40,6 @@ class Button extends React.Component {
             style,
             ...props
         } = this.props;
-
-        console.log(this.props);
 
         return (
             <BaseButton

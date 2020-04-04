@@ -4,10 +4,7 @@ import { withTheme, ThemeContext } from 'components/Theme';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Routes from 'routes';
 import Logo from './Logo';
-import IconButton from 'components/IconButton';
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import Link from './Link';
-import mergeStyles from 'utils/mergeStyles';
 import './SideNav.scss';
 
 const Separator = () => {
@@ -25,7 +22,7 @@ const Separator = () => {
 
 class SideNav extends React.Component {
     render() {
-        const { theme, onClose, open, ...props } = this.props;
+        const { theme, onClose, open } = this.props;
 
         return (
             <React.Fragment>
@@ -45,15 +42,6 @@ class SideNav extends React.Component {
                     }}
                 >
                     <div className="SideNav-header" style={theme.layout.header}>
-                        {/* Close IconButton */}
-                        {/*
-                        <IconButton
-                            className="SideNav-close-icon"
-                            icon={faTimes}
-                            onClick={onClose}
-                            variant="white"
-                        />
-                            */}
                         {/* Logo */}
                         <Logo />
                     </div>
@@ -89,7 +77,7 @@ class SideNav extends React.Component {
 
 SideNav.defaultProps = {
     styles: {},
-    onClose: e => {},
+    onClose: () => {},
     open: true,
 };
 

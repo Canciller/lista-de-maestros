@@ -1,6 +1,9 @@
+@import "styles/util.scss";
+
 .TextField-root {
     position: relative;
-    margin-top: 24px;
+    margin-top: 1em + em(10);
+    z-index: 0;
 }
 
 .TextField-label,
@@ -10,6 +13,8 @@
 
 .TextField-label {
     cursor: text;
+    z-index: -1;
+    user-select: none;
     transition: 0.2s;
     position: absolute;
     font-size: 1em;
@@ -25,6 +30,7 @@
     border-bottom-style: solid;
     width: 100%;
     padding-bottom: 3px;
+    transition: 0.2s;
 
     &::placeholder {
         color: transparent;
@@ -43,4 +49,18 @@
         top: -15px;
         font-size: 1em;
     }
+}
+
+.TextField-input:disabled {
+    cursor: not-allowed;
+}
+
+.TextField-input:required {
+    box-shadow: none;
+}
+
+.TextField-optional {
+    font-size: 0.65em;
+    margin-left: 2px;
+    font-style: oblique;
 }

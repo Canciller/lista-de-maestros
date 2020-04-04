@@ -55,7 +55,7 @@ button::-moz-focus-inner {
 }
 
 .Button-root:disabled {
-    cursor: initial;
+    cursor: not-allowed;
 
     &:active::after,
     &::after {

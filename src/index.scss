@@ -1,3 +1,4 @@
+@import "styles/variables";
 @import url('https://fonts.googleapis.com/css?family=Roboto:300,400,700&display=swap');
 
 * {
@@ -8,7 +9,7 @@
 
 html {
   height: 100%;
-  font-size: 12px;
+  font-size: $browser-context + px;
 }
 
 body {

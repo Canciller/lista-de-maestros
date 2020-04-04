@@ -1,36 +1,78 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
 import classNames from 'classnames';
-import mergeStyles from 'utils/mergeStyles';
 import './TextField.scss';
+
+const Input = styled.input`
+    ${({ baseColor }) => `
+        color: ${baseColor.light};
+        border-color: ${baseColor.light};
+
+        &:placeholder-shown {
+            border-color: ${baseColor.dark};
+        }
+
+        &:hover, &:focus {
+            color: ${baseColor.normal};
+            border-color: ${baseColor.light};
+        }
+    `}
+`;
+
+const Label = styled.label`
+    ${({ baseColor }) => `
+        color: ${baseColor.light};
+
+        ${Input}:placeholder-shown ~ & {
+            color: ${baseColor.dark};
+        }
+
+        ${Input}:focus ~ &,
+        ${Input}:hover ~ & {
+            color: ${baseColor.light};
+        }
+    `}
+`;
 
 class TextField extends React.Component {
     render() {
-        const { theme, style, id, label, className, ...props } = this.props;
+        const {
+            theme,
+            variant,
+            id,
+            label,
+            style,
+            className,
+            required,
+            ...props
+        } = this.props;
+
+        const baseColor = theme.colors[variant] || theme.foreground;
 
         return (
             <div
                 className={classNames('TextField-root', className)}
                 style={style}
             >
-                <input
+                <Input
                     className="TextField-input"
                     id={id}
-                    style={{
-                        color: theme.foreground.dark,
-                    }}
+                    required={required}
+                    baseColor={baseColor}
                     {...props}
-                ></input>
-                <label
+                />
+                <Label
+                    baseColor={baseColor}
                     className="TextField-label"
                     htmlFor={id}
-                    style={{
-                        color: theme.foreground.normal,
-                    }}
                 >
-                    {label}
-                </label>
+                    <span>{label}</span>
+                    {!required && (
+                        <span className="TextField-optional">Opcional</span>
+                    )}
+                </Label>
             </div>
         );
     }
@@ -38,8 +80,8 @@ class TextField extends React.Component {
 
 TextField.propTypes = {
     theme: PropTypes.object.isRequired,
-    style: PropTypes.object,
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string,
+    variant: PropTypes.string,
     label: PropTypes.any,
 };
 

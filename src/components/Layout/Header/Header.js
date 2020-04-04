@@ -1,15 +1,14 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme, ThemeContext } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
+import mergeStyles from 'util/mergeStyles';
 import classNames from 'classnames';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faCog,
     faBell,
-    faSignInAlt,
     faBars,
+    //faSignInAlt,
 } from '@fortawesome/free-solid-svg-icons';
 
 import Action from './Action';
@@ -47,7 +46,7 @@ class Header extends React.Component {
             theme,
             onOpenSideNav,
             onOpenSettings,
-            onOpenNotifications,
+            //onOpenNotifications,
         } = this.props;
 
         return (

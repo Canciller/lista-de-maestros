@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
 import SideNav from './SideNav';
 import Header from './Header';
 import Settings from './Settings';
-import Button from 'components/Button';
 import './Layout.scss';
 
 class Layout extends React.Component {

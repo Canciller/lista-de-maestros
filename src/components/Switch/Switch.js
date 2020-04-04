@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
-import mergeStyles from 'utils/mergeStyles';
+import mergeStyles from 'util/mergeStyles';
 
 const Input = styled.input`
     opacity: 0;

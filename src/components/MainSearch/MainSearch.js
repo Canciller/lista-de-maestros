@@ -8,12 +8,8 @@ import './MainSearch.scss';
 function MainSearch() {
     return (
         <form className="MainSearch-root" autocomplete="off">
-                <input className="MainSearch-text" type="text" name="name" />
-            <input
-                className="MainSearch-button"
-                type="submit"
-                value="Buscar"
-            />
+            <input className="MainSearch-text" type="text" name="name" />
+            <input className="MainSearch-button" type="submit" value="Buscar" />
         </form>
     );
 }
