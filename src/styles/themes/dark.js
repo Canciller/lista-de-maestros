@@ -1,5 +1,5 @@
 import { lightTheme } from 'styles/themes/light';
-import { Color } from 'styles/helpers';
+import { Color } from 'styles/util';
 
 const theme = lightTheme;
 

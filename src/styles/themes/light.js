@@ -1,4 +1,4 @@
-import { Theme, Color } from 'styles/helpers';
+import { Theme, Color } from 'styles/util';
 
 let theme = new Theme(
     new Color(41, 72, 255), // primary
