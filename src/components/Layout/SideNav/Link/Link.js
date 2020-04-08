@@ -14,12 +14,14 @@ const Link = ({ to, children }) => {
     const theme = useContext(ThemeContext);
 
     return (
-        <div 
-        className="SideNav-Link" style={
-            match && {
-                background: 'rgba(255, 255, 255, 0.1)'
+        <div
+            className="SideNav-Link"
+            style={
+                match && {
+                    background: 'rgba(255, 255, 255, 0.1)',
+                }
             }
-        }>
+        >
             <NavLink
                 style={mergeStyles(
                     {

@@ -1,12 +1,16 @@
 import React from 'react';
 import Typography from 'components/Typography';
+import View from 'components/View';
+
+import Review from 'components/Review';
 
 class Testing extends React.Component {
     render() {
         return (
-            <div>
+            <View>
                 <Typography component="h1">Testing</Typography>
-            </div>
+                <Review />
+            </View>
         );
     }
 }

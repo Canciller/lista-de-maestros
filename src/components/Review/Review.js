@@ -8,7 +8,7 @@ class Review extends React.Component {
     render() {
         const { theme, data, ...props } = this.props;
 
-        if (!data.user || !data.maestro || !data) return '';
+        if (!data || !data.user || !data.maestro) return '';
 
         return (
             <div
