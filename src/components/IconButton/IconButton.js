@@ -67,6 +67,7 @@ IconButton.propTypes = {
     icon: PropTypes.any.isRequired,
     size: PropTypes.any,
     variant: PropTypes.string,
+    className: PropTypes.string,
 };
 
 export default withTheme(IconButton);

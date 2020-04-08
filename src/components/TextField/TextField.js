@@ -83,6 +83,9 @@ TextField.propTypes = {
     id: PropTypes.string,
     variant: PropTypes.string,
     label: PropTypes.any,
+    style: PropTypes.object,
+    className: PropTypes.string,
+    required: PropTypes.bool,
 };
 
 export default withTheme(TextField);

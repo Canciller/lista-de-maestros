@@ -1,0 +1,18 @@
+.SideNav-Link {
+    transition: 180ms ease-in-out;
+
+    a {
+        display: flex;
+        user-select: none;
+        text-decoration: none;
+        align-items: center;
+        font-size: 1.3em;
+        padding: 10px 25px;
+        transition: 180ms ease-in-out;
+        font-weight: 300;
+    }
+
+    &:hover {
+        background: rgba(255, 255, 255, 0.08);
+    }
+}

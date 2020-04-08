@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import './View.scss';
 
@@ -13,6 +14,9 @@ class View extends Component {
     }
 }
 
-View.propTypes = {};
+View.propTypes = {
+    className: PropTypes.string,
+    children: PropTypes.any,
+};
 
 export default View;

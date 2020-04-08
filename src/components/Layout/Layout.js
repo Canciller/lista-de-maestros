@@ -75,6 +75,7 @@ class Layout extends React.Component {
 
 Layout.propTypes = {
     theme: PropTypes.object.isRequired,
+    children: PropTypes.any,
 };
 
 export default withTheme(Layout);

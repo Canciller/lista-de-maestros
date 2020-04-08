@@ -13,6 +13,7 @@ class Action extends React.Component {
 
 Action.propTypes = {
     icon: PropTypes.any.isRequired,
+    className: PropTypes.string,
 };
 
 export default Action;

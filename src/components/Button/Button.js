@@ -63,6 +63,9 @@ Button.propTypes = {
     theme: PropTypes.object.isRequired,
     variant: PropTypes.string,
     fullWidth: PropTypes.bool,
+    children: PropTypes.any,
+    className: PropTypes.string,
+    style: PropTypes.object,
 };
 
 export default withTheme(Button);

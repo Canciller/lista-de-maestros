@@ -36,6 +36,7 @@ const Separator = ({ className, style, ...props }) => {
                 },
                 style
             )}
+            {...props}
         />
     );
 };
@@ -92,9 +93,9 @@ class Header extends React.Component {
 }
 
 Header.defaultProps = {
-    onOpenSettings: e => {},
-    onOpenSideNav: e => {},
-    onOpenNotifications: e => {},
+    onOpenSettings: () => {},
+    onOpenSideNav: () => {},
+    onOpenNotifications: () => {},
 };
 
 Header.propTypes = {

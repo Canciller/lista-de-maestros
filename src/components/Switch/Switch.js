@@ -100,7 +100,7 @@ Switch.defaultProps = {
     width: 60,
     height: 32,
     variant: 'blue',
-    onChange: e => {},
+    onChange: () => {},
 };
 
 Switch.propTypes = {
@@ -110,6 +110,8 @@ Switch.propTypes = {
     width: PropTypes.any,
     height: PropTypes.any,
     onChange: PropTypes.func,
+    style: PropTypes.object,
+    checked: PropTypes.bool,
 };
 
 export default withTheme(Switch);

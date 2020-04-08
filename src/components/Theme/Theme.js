@@ -56,6 +56,7 @@ Theme.defaultProps = {
 
 Theme.propTypes = {
     theme: PropTypes.string,
+    children: PropTypes.any,
 };
 
 const withTheme = Component => {

@@ -23,6 +23,7 @@ Typography.defaultProps = {
 Typography.propTypes = {
     theme: PropTypes.object.isRequired,
     component: PropTypes.any,
+    children: PropTypes.any,
 };
 
 export default withTheme(Typography);
