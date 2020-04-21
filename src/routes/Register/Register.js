@@ -5,11 +5,43 @@ import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import View from 'components/View';
+import Config from 'Config';
+import Routes from 'routes';
 import './Register.scss';
 
 class Register extends React.Component {
+    state = {
+        username: '',
+        email: '',
+        password: '',
+        repeatPassword: '',
+    };
+
+    onChange = event => {
+        const { value, name } = event.target;
+        this.setState({
+            [name]: value,
+        });
+    };
+
     onSubmit = event => {
         event.preventDefault();
+
+        fetch(`${Config.apiUrl}/auth/register`, {
+            method: 'POST',
+            body: JSON.stringify(this.state),
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        })
+            .then(res => res.json())
+            .then(json => {
+                if (json.error) throw new Error(json.error.message);
+                this.props.history.push(Routes.login.path);
+            })
+            .catch(err => {
+                console.error(err);
+            });
     };
 
     render() {
@@ -21,30 +53,38 @@ class Register extends React.Component {
                         paddingBottom: this.props.theme.layout.header.height,
                     }}
                 >
-                    <Typography component="h1">Register</Typography>
+                    <Typography component="h1">Registrarse</Typography>
                     <TextField
+                        onChange={this.onChange}
+                        value={this.state.username}
                         label="Username"
-                        placeholder="Name"
-                        id="register_name"
+                        placeholder="username"
+                        name="username"
                         required
                     />
                     <TextField
+                        value={this.state.email}
+                        onChange={this.onChange}
                         label="Email"
-                        placeholder="Email"
-                        id="register_email"
+                        placeholder="email"
+                        name="email"
                         required
                     />
                     <TextField
+                        value={this.state.password}
+                        onChange={this.onChange}
                         label="Password"
-                        placeholder="Password"
-                        id="register_password"
+                        placeholder="password"
+                        name="password"
                         type="password"
                         required
                     />
                     <TextField
+                        value={this.state.repeatPassword}
+                        onChange={this.onChange}
                         label="Repeat Password"
-                        placeholder="Password"
-                        id="register_repeat_password"
+                        placeholder="repeatPassword"
+                        name="repeatPassword"
                         type="password"
                         required
                     />
@@ -52,9 +92,9 @@ class Register extends React.Component {
                         className="Register-button"
                         type="submit"
                         fullWidth
-                        variant="green"
+                        variant="blue"
                     >
-                        Register
+                        Registrarse
                     </Button>
                 </form>
             </View>
@@ -64,6 +104,7 @@ class Register extends React.Component {
 
 Register.propTypes = {
     theme: PropTypes.object.isRequired,
+    history: PropTypes.any,
 };
 
 export default withTheme(Register);

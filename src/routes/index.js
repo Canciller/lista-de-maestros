@@ -3,6 +3,7 @@ import Lista from './Lista';
 import Login from './Login';
 import Register from './Register';
 import Testing from './Testing';
+import Profile from './Profile';
 
 import {
     faHome, // Home icon
@@ -26,11 +27,11 @@ export default {
         component: Lista,
     },
     login: {
-        path: '/login',
+        path: '/signin',
         component: Login,
     },
-    Register: {
-        path: '/register',
+    register: {
+        path: '/signup',
         component: Register,
     },
     testing: {
@@ -38,5 +39,10 @@ export default {
         icon: faFireAlt,
         component: Testing,
         name: 'Testing',
+        withAuth: true,
+    },
+    profile: {
+        path: '/user/:username',
+        component: Profile,
     },
 };

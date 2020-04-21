@@ -32,7 +32,7 @@ class User extends React.Component {
                             color: theme.foreground.light,
                         }}
                     >
-                        {user.type}
+                        {user.role}
                     </div>
                 </div>
             </div>
@@ -42,7 +42,7 @@ class User extends React.Component {
 
 User.propTypes = {
     theme: PropTypes.object.isRequired,
-    user: PropTypes.object,
+    user: PropTypes.object.isRequired,
 };
 
 export default withTheme(User);

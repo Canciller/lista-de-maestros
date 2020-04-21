@@ -1,8 +1,12 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme, ThemeContext } from 'components/Theme';
+import { withUser } from 'components/User';
+import { withRouter } from 'react-router-dom';
 import mergeStyles from 'util/mergeStyles';
 import classNames from 'classnames';
+import Button from 'components/Button';
+import Routes from 'routes';
 
 import {
     faCog,
@@ -13,6 +17,7 @@ import {
 
 import Action from './Action';
 import User from './User';
+import Menu from './Menu';
 
 import './Header.scss';
 
@@ -45,6 +50,8 @@ class Header extends React.Component {
     render() {
         const {
             theme,
+            user,
+            history,
             onOpenSideNav,
             onOpenSettings,
             //onOpenNotifications,
@@ -79,13 +86,31 @@ class Header extends React.Component {
                 </Section>
                 <Separator />
                 {/* User Section / Sign up Section or Register Section*/}
-                <Section>
-                    <User
-                        user={{
-                            username: 'Gabriel Emilio',
-                            type: 'Administrador',
-                        }}
-                    />
+                <Section className="Header-Section-user">
+                    {(user.isLoggedIn() && (
+                        <React.Fragment>
+                            <User user={user.current()} />
+                            <Menu />
+                        </React.Fragment>
+                    )) || (
+                        <div>
+                            <Button
+                                onClick={() => history.push(Routes.login.path)}
+                                variant="green"
+                            >
+                                Ingresar
+                            </Button>
+                            <Button
+                                className="Header-button-register"
+                                onClick={() =>
+                                    history.push(Routes.register.path)
+                                }
+                                variant="blue"
+                            >
+                                Registrarse
+                            </Button>
+                        </div>
+                    )}
                 </Section>
             </div>
         );
@@ -100,9 +125,11 @@ Header.defaultProps = {
 
 Header.propTypes = {
     theme: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     onOpenSettings: PropTypes.func,
     onOpenSideNav: PropTypes.func,
     onOpenNotifications: PropTypes.func,
 };
 
-export default withTheme(Header);
+export default withRouter(withUser(withTheme(Header)));

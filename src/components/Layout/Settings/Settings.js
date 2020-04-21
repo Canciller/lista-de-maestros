@@ -57,6 +57,7 @@ class Settings extends React.Component {
                     <div className="Settings-theme-switch">
                         <IconButton icon={faSun} onClick={this.setLightTheme} />
                         <Switch
+                            variant="green"
                             checked={this.state.isThemeDark}
                             onChange={this.toggleTheme}
                             style={{

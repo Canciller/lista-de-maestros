@@ -37,7 +37,7 @@ class SideNav extends React.Component {
                 <div
                     className="SideNav-root"
                     style={{
-                        background: theme.primary.normal,
+                        background: theme.colors.green.normal,
                         width: open ? theme.layout.sideNav.width : 0,
                     }}
                 >
