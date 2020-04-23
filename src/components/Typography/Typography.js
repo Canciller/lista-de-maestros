@@ -5,10 +5,12 @@ import styled from 'styled-components';
 
 class Typography extends React.Component {
     render() {
-        const { theme, component, children, ...props } = this.props;
+        const { theme, component, children, color, ...props } = this.props;
+
+        const fontColor = theme.colors[color] || theme.foreground;
 
         const BaseTypography = styled(component)`
-            color: ${theme.foreground.normal};
+            color: ${fontColor.normal};
             transition: all 150ms ease-in-out;
         `;
 
@@ -22,6 +24,7 @@ Typography.defaultProps = {
 
 Typography.propTypes = {
     theme: PropTypes.object.isRequired,
+    color: PropTypes.string,
     component: PropTypes.any,
     children: PropTypes.any,
 };

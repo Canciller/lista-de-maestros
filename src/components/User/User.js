@@ -9,31 +9,28 @@ class User extends React.Component {
 
     signIn = user => this.setState({ user });
 
-    signOut = () =>
-        this.setState(
-            { user: undefined },
-            () => (localStorage.token = undefined)
-        );
+    signOut = () => this.setState({ user: undefined }, () => {
+        fetch(`${Config.apiUrl}/auth/logout`, {
+            method: 'POST',
+            credentials: 'include',
+        })
+            .catch(error => console.log(error));
+    });
 
     current = () => this.state.user;
 
     isLoggedIn = () => this.state.user != undefined;
 
     componentDidMount() {
-        const token = localStorage.token;
         fetch(`${Config.apiUrl}/users/me`, {
-            headers: {
-                Authorization: `Bearer ${token}`,
-            },
+            credentials: 'include',
         })
             .then(res => res.json())
             .then(json => {
                 if (json.error) throw new Error(json.error.message);
                 this.signIn(json);
             })
-            .catch(err => {
-                console.error(err);
-            });
+            .catch(error => console.log(error));
     }
 
     render() {

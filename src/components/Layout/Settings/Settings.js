@@ -1,10 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
-import { faMoon, faSun } from '@fortawesome/free-solid-svg-icons';
+import { withUser } from 'components/User';
+import { faMoon, faSun, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import IconButton from 'components/IconButton';
+import Button from 'components/Button';
 import Switch from 'components/Switch';
 import './Settings.scss';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Settings extends React.Component {
     state = {
@@ -34,8 +37,13 @@ class Settings extends React.Component {
             );
     };
 
+    onUserSignOut = () => {
+        this.props.user.signOut();
+        this.props.onClose();
+    };
+
     render() {
-        const { theme, onClose, open } = this.props;
+        const { theme, user, onClose, open } = this.props;
 
         return (
             <React.Fragment>
@@ -54,7 +62,7 @@ class Settings extends React.Component {
                         width: open ? theme.layout.sideNav.width : 0,
                     }}
                 >
-                    <div className="Settings-theme-switch">
+                    <div className="Settings-theme-switch Settings-section">
                         <IconButton icon={faSun} onClick={this.setLightTheme} />
                         <Switch
                             variant="green"
@@ -66,6 +74,21 @@ class Settings extends React.Component {
                         />
                         <IconButton icon={faMoon} onClick={this.setDarkTheme} />
                     </div>
+                    {user.isLoggedIn() && (
+                        <React.Fragment>
+                            <div className="Settings-sign-out Settings-section">
+                                <Button
+                                    className="Settings-sign-out-button"
+                                    fullWidth
+                                    variant="red"
+                                    onClick={this.onUserSignOut}
+                                >
+                                    <span>Salir </span>
+                                    <FontAwesomeIcon icon={faSignOutAlt} />
+                                </Button>
+                            </div>
+                        </React.Fragment>
+                    )}
                 </div>
             </React.Fragment>
         );
@@ -79,8 +102,9 @@ Settings.defaultProps = {
 
 Settings.propTypes = {
     theme: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     onClose: PropTypes.func,
     open: PropTypes.bool,
 };
 
-export default withTheme(Settings);
+export default withUser(withTheme(Settings));

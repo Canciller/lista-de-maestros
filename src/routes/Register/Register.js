@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
+import sentenceCase from 'util/sentenceCase';
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
@@ -29,7 +30,12 @@ class Register extends React.Component {
 
         fetch(`${Config.apiUrl}/auth/register`, {
             method: 'POST',
-            body: JSON.stringify(this.state),
+            body: JSON.stringify({
+                username: this.state.username,
+                email: this.state.email,
+                password: this.state.password,
+                repeatPassword: this.state.repeatPassword,
+            }),
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -39,8 +45,8 @@ class Register extends React.Component {
                 if (json.error) throw new Error(json.error.message);
                 this.props.history.push(Routes.login.path);
             })
-            .catch(err => {
-                console.error(err);
+            .catch(error => {
+                this.setState({ error });
             });
     };
 
@@ -57,9 +63,10 @@ class Register extends React.Component {
                     <TextField
                         onChange={this.onChange}
                         value={this.state.username}
-                        label="Username"
+                        label="Nombre de Usuario"
                         placeholder="username"
                         name="username"
+                        id="username"
                         required
                     />
                     <TextField
@@ -68,26 +75,41 @@ class Register extends React.Component {
                         label="Email"
                         placeholder="email"
                         name="email"
+                        id="email"
                         required
                     />
                     <TextField
                         value={this.state.password}
                         onChange={this.onChange}
-                        label="Password"
+                        label="Contraseña"
                         placeholder="password"
                         name="password"
+                        id="password"
                         type="password"
                         required
                     />
                     <TextField
                         value={this.state.repeatPassword}
                         onChange={this.onChange}
-                        label="Repeat Password"
+                        label="Repetir Contraseña"
                         placeholder="repeatPassword"
                         name="repeatPassword"
+                        id="repeatPassword"
                         type="password"
                         required
                     />
+                    <Typography color="red" className="Register-error">
+                        {(this.state.error &&
+                            sentenceCase(this.state.error.message)) || (
+                            <span
+                                style={{
+                                    userSelect: 'none',
+                                }}
+                            >
+                                &nbsp;
+                            </span>
+                        )}
+                    </Typography>
                     <Button
                         className="Register-button"
                         type="submit"

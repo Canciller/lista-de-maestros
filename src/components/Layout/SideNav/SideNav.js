@@ -1,6 +1,7 @@
 import React, { useContext } from 'react';
 import PropTypes from 'prop-types';
 import { withTheme, ThemeContext } from 'components/Theme';
+import { withUser } from 'components/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Routes from 'routes';
 import Logo from './Logo';
@@ -22,7 +23,7 @@ const Separator = () => {
 
 class SideNav extends React.Component {
     render() {
-        const { theme, onClose, open } = this.props;
+        const { theme, user, onClose, open } = this.props;
 
         return (
             <React.Fragment>
@@ -54,10 +55,16 @@ class SideNav extends React.Component {
                     >
                         {Object.keys(Routes).map(key => {
                             const route = Routes[key];
-                            if (route.name === undefined) return undefined;
+                            if (
+                                !route.name ||
+                                (route.hideWithUser && user.isLoggedIn())
+                            )
+                                return undefined;
                             return (
                                 <Link to={route.path} key={key}>
-                                    <FontAwesomeIcon icon={route.icon} />
+                                    {route.icon && (
+                                        <FontAwesomeIcon icon={route.icon} />
+                                    )}
                                     <span
                                         style={{
                                             marginLeft: 18,
@@ -83,8 +90,9 @@ SideNav.defaultProps = {
 
 SideNav.propTypes = {
     theme: PropTypes.object.isRequired,
+    user: PropTypes.object.isRequired,
     onClose: PropTypes.func,
     open: PropTypes.bool,
 };
 
-export default withTheme(SideNav);
+export default withUser(withTheme(SideNav));

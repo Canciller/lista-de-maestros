@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from 'components/Typography';
 import View from 'components/View';
 import Config from 'Config';
+import { withUser } from 'components/User';
 
 class Profile extends React.Component {
     state = {};
@@ -10,28 +11,35 @@ class Profile extends React.Component {
     componentDidMount() {
         const { username } = this.props.match.params;
 
-        fetch(`${Config.serverUrl}/api/user/${username}`, {
+        fetch(`${Config.apiUrl}/users/${username}`, {
             credentials: 'include',
         })
             .then(res => res.json())
-            .then(user => this.setState({ user }))
-            .catch(err => {
-                console.log(err);
-            });
+            .then(json => {
+                if(json.error) throw new Error(json.error.message);
+                this.setState({ user: json });
+            })
+            .catch(error => console.log(error));
     }
 
     render() {
+        const { user } = this.state;
+
+        if(!user) return null;
+
         return (
             <View>
-                <Typography component="h1">Profile</Typography>
-                <Typography>{JSON.stringify(this.state.user)}</Typography>
+                <Typography component="h1">{user.username}</Typography>
+                <Typography component="h2">{user.role}</Typography>
+                <Typography>{user.email}</Typography>
             </View>
         );
     }
 }
 
 Profile.propTypes = {
+    user: PropTypes.any.isRequired,
     match: PropTypes.any,
 };
 
-export default Profile;
+export default withUser(Profile);

@@ -11,6 +11,8 @@ import {
     //faHeart,
     //faEye,
     faFireAlt,
+    faSignInAlt,
+    faUserPlus,
 } from '@fortawesome/free-solid-svg-icons';
 
 export default {
@@ -26,14 +28,6 @@ export default {
         name: 'Lista',
         component: Lista,
     },
-    login: {
-        path: '/signin',
-        component: Login,
-    },
-    register: {
-        path: '/signup',
-        component: Register,
-    },
     testing: {
         path: '/testing',
         icon: faFireAlt,
@@ -42,7 +36,22 @@ export default {
         withAuth: true,
     },
     profile: {
-        path: '/user/:username',
+        path: '/user',
+        param: 'username',
         component: Profile,
+    },
+    login: {
+        path: '/login',
+        icon: faSignInAlt,
+        component: Login,
+        name: 'Ingresar',
+        hideWithUser: true,
+    },
+    register: {
+        path: '/register',
+        icon: faUserPlus,
+        component: Register,
+        name: 'Registrarse',
+        hideWithUser: true,
     },
 };

@@ -23,9 +23,17 @@
     justify-content: center;
 }
 
+.Settings-section {
+    margin: 20px 0;
+}
+
 .Settings-theme-switch {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 20px;
+}
+
+.Settings-sign-out-button {
+    border-left: 0;
+    border-right: 0;
 }

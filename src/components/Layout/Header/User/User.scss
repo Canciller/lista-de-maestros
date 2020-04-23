@@ -28,9 +28,7 @@
 }
 
 .Header-User {
-    &-avatar,
-    &-username,
-    &-type {
+    &-avatar {
         cursor: pointer;
     }
 }
