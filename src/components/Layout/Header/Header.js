@@ -25,7 +25,7 @@ const Section = ({ className, children, ...props }) => {
 Section.propTypes = {
     className: PropTypes.string,
     children: PropTypes.any,
-}
+};
 
 const Separator = ({ className, style, ...props }) => {
     const theme = useContext(ThemeContext);
@@ -47,7 +47,7 @@ const Separator = ({ className, style, ...props }) => {
 Separator.propTypes = {
     className: PropTypes.string,
     style: PropTypes.object,
-}
+};
 
 class Header extends React.Component {
     render() {

@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
 import Routes from 'routes';
+import NotFound from 'components/View/NotFound';
 import Layout from 'components/Layout';
 
 function Router(props) {
@@ -11,7 +12,9 @@ function Router(props) {
                 <Switch>
                     {Object.keys(Routes).map(key => {
                         const route = Routes[key];
-                        const path = route.param ? route.path.concat(`/:${route.param}`): route.path;
+                        const path = route.param
+                            ? route.path.concat(`/:${route.param}`)
+                            : route.path;
                         return (
                             <Route
                                 key={key}
@@ -21,6 +24,8 @@ function Router(props) {
                             />
                         );
                     })}
+                    <Route exact path="/404" component={NotFound} />
+                    <Redirect to="/404" />
                 </Switch>
             </Layout>
         </BrowserRouter>

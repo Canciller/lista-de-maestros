@@ -9,13 +9,13 @@ class User extends React.Component {
 
     signIn = user => this.setState({ user });
 
-    signOut = () => this.setState({ user: undefined }, () => {
-        fetch(`${Config.apiUrl}/auth/logout`, {
-            method: 'POST',
-            credentials: 'include',
-        })
-            .catch(error => console.log(error));
-    });
+    signOut = () =>
+        this.setState({ user: undefined }, () => {
+            fetch(`${Config.apiUrl}/auth/logout`, {
+                method: 'POST',
+                credentials: 'include',
+            }).catch(error => console.log(error));
+        });
 
     current = () => this.state.user;
 

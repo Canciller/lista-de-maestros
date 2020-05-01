@@ -1,9 +1,12 @@
+/* eslint-disable no-constant-condition */
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import Typography from 'components/Typography';
 import View from 'components/View';
-import Config from 'Config';
+import Loading from 'components/View/Loading';
 import { withUser } from 'components/User';
+import fetchAPI from 'util/fetchAPI';
 
 class Profile extends React.Component {
     state = {};
@@ -11,21 +14,17 @@ class Profile extends React.Component {
     componentDidMount() {
         const { username } = this.props.match.params;
 
-        fetch(`${Config.apiUrl}/users/${username}`, {
-            credentials: 'include',
-        })
-            .then(res => res.json())
-            .then(json => {
-                if(json.error) throw new Error(json.error.message);
-                this.setState({ user: json });
-            })
-            .catch(error => console.log(error));
+        fetchAPI(`/users/${username}`)
+            .then(user => this.setState({ loaded: true, user }))
+            .catch(error => this.setState({ loaded: true, error }));
     }
 
     render() {
-        const { user } = this.state;
+        const { user, loaded } = this.state;
 
-        if(!user) return null;
+        if (!loaded) return <Loading />;
+
+        if (!user) return <Redirect to="/404" />;
 
         return (
             <View>
