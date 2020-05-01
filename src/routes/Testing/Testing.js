@@ -4,7 +4,6 @@ import View from 'components/View';
 import ReviewForm from 'components/ReviewForm';
 
 class Testing extends React.Component {
-    
     onSubmit = fields => {
         console.log('EJEMPLO: ', fields);
     };
@@ -13,7 +12,7 @@ class Testing extends React.Component {
         return (
             <View>
                 <Typography component="h1">Testing</Typography>
-                <ReviewForm onSubmit={fields => this.onSubmit(fields)}/>
+                <ReviewForm onSubmit={fields => this.onSubmit(fields)} />
             </View>
         );
     }

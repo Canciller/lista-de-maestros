@@ -27,12 +27,13 @@ class NotFound extends React.Component {
                         404
                     </Typography>
                     <Typography>
-                        <Link 
-                        to={Routes.home.path}
-                        style={{
-                            color: 'inherit',
-                            fontSize: '1.2em',
-                        }}>
+                        <Link
+                            to={Routes.home.path}
+                            style={{
+                                color: 'inherit',
+                                fontSize: '1.2em',
+                            }}
+                        >
                             Regresar al inicio
                         </Link>
                     </Typography>
