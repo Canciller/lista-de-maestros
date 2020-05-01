@@ -12,7 +12,7 @@ const BaseIconButton = styled.span`
     display: flex;
     justify-content: center;
     align-items: center;
-    background: none;
+    background: ${({ background }) => background.dark};
     transition: all 150ms ease-in-out;
     user-select: none;
     -webkit-tap-highlight-color: transparent;
@@ -21,7 +21,7 @@ const BaseIconButton = styled.span`
     width: ${({ dimension }) => dimension + 'px'};
     color: ${({ color }) => color.dark};
     &:hover {
-        background: rgba(0, 0, 0, 0.1);
+        background: ${({ background }) => background.light};
     }
 `;
 
@@ -47,6 +47,10 @@ class IconButton extends Component {
             <BaseIconButton
                 ref={this.ref}
                 color={theme.colors[variant] || theme.foreground}
+                background={{
+                    dark: 'none',
+                    light: 'rgba(0, 0, 0, 0.1)',
+                }}
                 className={classNames(className)}
                 size={size}
                 dimension={this.state.dimension}

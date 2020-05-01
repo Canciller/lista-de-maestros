@@ -1,0 +1,64 @@
+.Profile-root {
+}
+
+.Profile-user-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.Profile-avatar {
+    border-radius: 50%;
+    height: 8em;
+    width: 8em;
+}
+
+.Profile-user {
+    margin-top: 8px;
+}
+
+.Profile-user-role {
+    line-height: 0.5em;
+}
+
+.Profile-reviews-container {
+    .Review-root {
+        margin-bottom: 10px;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.Profile-reviews-options {
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.Profile-about-container {
+    display: none;
+}
+
+.Profile-tabs-container {
+    margin: 10px 0 18px 0;
+    text-transform: uppercase;
+    display: flex;
+
+    span {
+        padding: 8px 0;
+        flex: 1;
+        text-align: center;
+
+        b {
+            cursor: pointer;
+        }
+    }
+}
+
+.Profile-write-review-button {
+    z-index: 9998;
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+}
