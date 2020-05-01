@@ -8,17 +8,18 @@ class Fab extends React.Component {
         const { theme, variant, ...props } = this.props;
 
         return (
-            <IconButton 
+            <IconButton
                 color={theme.background}
                 background={theme.colors[variant] || theme.background}
-            {...props}/>
-        )
+                {...props}
+            />
+        );
     }
 }
 
 Fab.propTypes = {
     theme: PropTypes.object.isRequired,
     variant: PropTypes.string,
-}
+};
 
 export default withTheme(Fab);

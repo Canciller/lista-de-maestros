@@ -34,16 +34,24 @@ class Profile extends React.Component {
 
         return (
             <View className="Profile-root">
-                <Fab icon={faPen} variant="green" size="4em" className="Profile-write-review-button" />
+                <Fab
+                    icon={faPen}
+                    variant="green"
+                    size="4em"
+                    className="Profile-write-review-button"
+                />
                 <div className="Profile-user-container">
-                    <div className="Profile-avatar"
+                    <div
+                        className="Profile-avatar"
                         style={{
-                            background: theme.background.normal
+                            background: theme.background.normal,
                         }}
                     ></div>
                     <div className="Profile-user">
                         <Typography component="h2">{user.username}</Typography>
-                        <Typography className="Profile-user-role">{user.role}</Typography>
+                        <Typography className="Profile-user-role">
+                            {user.role}
+                        </Typography>
                     </div>
                 </div>
                 <div className="Profile-tabs-container">
@@ -59,14 +67,13 @@ class Profile extends React.Component {
                     </span>
                 </div>
                 <div className="Profile-about-container">
-                    <Typography>
-                        Acerca de
-                    </Typography>
+                    <Typography>Acerca de</Typography>
                 </div>
                 <div className="Profile-reviews-container">
-                    <div className="Profile-reviews-options"
+                    <div
+                        className="Profile-reviews-options"
                         style={{
-                            background: theme.background.normal
+                            background: theme.background.normal,
                         }}
                     >
                         <Typography>Options</Typography>
@@ -80,7 +87,8 @@ class Profile extends React.Component {
                                     name: 'Test',
                                 },
                                 recommended: true,
-                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
+                                text:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
                                 date: 'Date',
                                 hour: 'Hour',
                             }}
@@ -93,7 +101,8 @@ class Profile extends React.Component {
                                     name: 'Test',
                                 },
                                 recommended: false,
-                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
+                                text:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
                                 date: 'Date',
                                 hour: 'Hour',
                             }}
@@ -106,7 +115,8 @@ class Profile extends React.Component {
                                     name: 'Test',
                                 },
                                 recommended: true,
-                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
+                                text:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
                                 date: 'Date',
                                 hour: 'Hour',
                             }}
@@ -119,7 +129,8 @@ class Profile extends React.Component {
                                     name: 'Test',
                                 },
                                 recommended: true,
-                                text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
+                                text:
+                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
                                 date: 'Date',
                                 hour: 'Hour',
                             }}
