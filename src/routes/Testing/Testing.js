@@ -2,17 +2,25 @@ import React from 'react';
 import Typography from 'components/Typography';
 import View from 'components/View';
 import ReviewForm from 'components/ReviewForm';
+import './Testing.scss';
 
 class Testing extends React.Component {
-    onSubmit = fields => {
-        console.log('EJEMPLO: ', fields);
+    state = {
+        theme: 'ThemeBgDark ThemeFgDark',
     };
 
     render() {
         return (
             <View>
                 <Typography component="h1">Testing</Typography>
-                <ReviewForm onSubmit={fields => this.onSubmit(fields)} />
+                <button
+                    onClick={() =>
+                        this.setState({ theme: 'ThemeBgLight ThemeFgLight' })
+                    }
+                >
+                    LIGHT
+                </button>
+                <div className={this.state.theme}>{this.state.theme}</div>
             </View>
         );
     }

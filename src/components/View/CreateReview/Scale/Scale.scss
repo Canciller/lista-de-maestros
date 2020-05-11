@@ -1,0 +1,16 @@
+.Scale-root {
+    display: flex;
+    padding: 20px 0;
+    align-items: center;
+    justify-content: center;
+}
+
+.Scale-radio {
+    cursor: pointer;
+}
+
+.Scale-radio-label {
+    margin: 20px;
+    cursor: pointer;
+    user-select: none;
+}

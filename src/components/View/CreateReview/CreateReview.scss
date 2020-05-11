@@ -1,0 +1,43 @@
+.CreateReview-container {
+    margin: auto;
+    flex: 1;
+    max-width: 1200px;
+}
+
+.CreateReview-category {
+    margin-bottom: 20px;
+    padding: 10px 18px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.CreateReview-category-title {
+    margin-bottom: 10px;
+}
+
+.CreateReview-question {
+    margin-bottom: 10px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+.CreateReview-question-text {
+    margin: 0;
+    font-size: 1.1em;
+}
+
+.CreateReview-actions {
+    position: fixed;
+    bottom: 8px;
+    right: 8px;
+    display: flex;
+    align-items: center;
+}
+
+.CreateReview-action {
+    margin-left: 8px;
+}

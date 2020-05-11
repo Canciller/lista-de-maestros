@@ -9,8 +9,8 @@ class Fab extends React.Component {
 
         return (
             <IconButton
-                color={theme.background}
-                background={theme.colors[variant] || theme.background}
+                fontColor={theme.background}
+                background={theme.colors[variant] || theme.foreground}
                 {...props}
             />
         );

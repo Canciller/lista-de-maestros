@@ -5,7 +5,8 @@ import { withTheme } from 'components/Theme';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const BaseIconButton = styled.span`
+const BaseIconButton = styled.button`
+    border: none;
     text-decoration: none;
     cursor: pointer;
     border-radius: 50%;
@@ -19,7 +20,7 @@ const BaseIconButton = styled.span`
     font-size: ${({ size }) => size};
     height: ${({ dimension }) => dimension + 'px'};
     width: ${({ dimension }) => dimension + 'px'};
-    color: ${({ color }) => color.dark};
+    color: ${({ fontColor }) => fontColor.dark};
     &:hover {
         background: ${({ background }) => background.light};
     }
@@ -46,7 +47,7 @@ class IconButton extends Component {
         return (
             <BaseIconButton
                 ref={this.ref}
-                color={theme.colors[variant] || theme.foreground}
+                fontColor={theme.colors[variant] || theme.foreground}
                 background={{
                     dark: 'none',
                     light: 'rgba(0, 0, 0, 0.1)',

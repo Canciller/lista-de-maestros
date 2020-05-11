@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 
-import Routes from 'routes';
+import Routes from 'config/Routes';
 import NotFound from 'components/View/NotFound';
 import Layout from 'components/Layout';
 
