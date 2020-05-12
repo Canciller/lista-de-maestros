@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import RadioButton from 'components/RadioButton';
 import './Scale.scss';
-import Typography from 'components/Typography';
 
 class Scale extends Component {
     createRadios = () => {
@@ -11,15 +11,7 @@ class Scale extends Component {
 
         for (let value = 1; value <= max; ++value)
             radios.push(
-                <label key={value} className="Scale-radio-label">
-                    <Typography>{value}</Typography>
-                    <input
-                        className="Scale-radio"
-                        type="radio"
-                        name={name}
-                        {...props}
-                    />
-                </label>
+                <RadioButton className="Scale-radio" key={value} name={name} label={value} />
             );
 
         return radios;

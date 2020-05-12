@@ -3,14 +3,12 @@
     padding: 20px 0;
     align-items: center;
     justify-content: center;
+
+    @media (min-width: 800px) {
+        justify-content: flex-start;
+    }
 }
 
 .Scale-radio {
-    cursor: pointer;
-}
-
-.Scale-radio-label {
-    margin: 20px;
-    cursor: pointer;
-    user-select: none;
+    margin: 0 10px;
 }

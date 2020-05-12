@@ -4,6 +4,7 @@ import Login from 'routes/Login';
 import Register from 'routes/Register';
 import Testing from 'routes/Testing';
 import Profile from 'routes/Profile';
+import Maestro from 'components/View/Maestro';
 import CreateReview from 'components/View/CreateReview';
 
 import {
@@ -55,5 +56,10 @@ export default {
     review: {
         path: '/review',
         component: CreateReview,
+    },
+    maestro: {
+        path: '/maestro',
+        param: 'id',
+        component: Maestro,
     },
 };

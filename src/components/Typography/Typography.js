@@ -12,6 +12,7 @@ class Typography extends React.Component {
         const BaseTypography = styled(component)`
             color: ${fontColor.normal};
             transition: all 150ms ease-in-out;
+            margin: 0;
         `;
 
         return <BaseTypography {...props}>{children}</BaseTypography>;

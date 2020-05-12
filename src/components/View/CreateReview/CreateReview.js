@@ -30,7 +30,7 @@ class CreateReview extends Component {
 
         if (!loaded) return <Loading />;
 
-        if(error) return <Error error={error} />
+        if (error) return <Error error={error} />;
 
         if (!categories) return <Redirect to="/404" />;
 

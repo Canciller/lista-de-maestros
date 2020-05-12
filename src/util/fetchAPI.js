@@ -7,7 +7,7 @@ function fetchAPI(endpoint, options = {}) {
     })
         .then(res => res.json())
         .then(json => {
-            if (json.error) throw new Error(json.message);
+            if (json.error) throw new Error(json.error.message);
             else return json;
         });
 }
