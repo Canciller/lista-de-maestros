@@ -3,11 +3,13 @@ import Typography from 'components/Typography';
 import Icon from 'components/Icon';
 import View from 'components/View';
 import { faSadCry } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
-import Routes from 'routes';
+import Button from 'components/Button';
+import PropTypes from 'prop-types';
 
 class NotFound extends React.Component {
     render() {
+        const { history } = this.props;
+
         return (
             <View flex direction="column">
                 <div
@@ -26,21 +28,17 @@ class NotFound extends React.Component {
                     >
                         404
                     </Typography>
-                    <Typography>
-                        <Link
-                            to={Routes.home.path}
-                            style={{
-                                color: 'inherit',
-                                fontSize: '1.2em',
-                            }}
-                        >
-                            Regresar al inicio
-                        </Link>
-                    </Typography>
+                    <Button fullWidth onClick={() => history.goBack()}>
+                        Regresar
+                    </Button>
                 </div>
             </View>
         );
     }
 }
+
+NotFound.propTypes = {
+    history: PropTypes.object.isRequired,
+};
 
 export default NotFound;

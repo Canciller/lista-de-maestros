@@ -2,12 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
 import { withUser } from 'components/User';
-import { faMoon, faSun, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { withRouter } from 'react-router-dom';
+
 import IconButton from 'components/IconButton';
 import Button from 'components/Button';
 import Switch from 'components/Switch';
-import './Settings.scss';
+
+import { faMoon, faSun, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import Routes from 'config/Routes';
+
+import './Settings.scss';
 
 class Settings extends React.Component {
     state = {
@@ -38,6 +44,7 @@ class Settings extends React.Component {
     };
 
     onUserSignOut = () => {
+        this.props.history.push(Routes.login.path);
         this.props.user.signOut();
         this.props.onClose();
     };
@@ -103,8 +110,11 @@ Settings.defaultProps = {
 Settings.propTypes = {
     theme: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
+    location: PropTypes.any.isRequired,
+    match: PropTypes.any.isRequired,
     onClose: PropTypes.func,
     open: PropTypes.bool,
 };
 
-export default withUser(withTheme(Settings));
+export default withRouter(withUser(withTheme(Settings)));

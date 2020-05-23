@@ -11,7 +11,7 @@ export default function(str) {
     strSplit[0] = strSplit[0].slice(1);
 
     let lastWordIndex = strSplit.length - 1;
-    const match = strSplit[lastWordIndex].match(/^\w+\.$/);
+    const match = strSplit[lastWordIndex].match(/^.+\.$/);
 
     return firstLetter + strSplit.join() + (match ? '' : '.');
 }

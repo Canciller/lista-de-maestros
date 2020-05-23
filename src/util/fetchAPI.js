@@ -5,9 +5,14 @@ function fetchAPI(endpoint, options = {}) {
         credentials: 'include',
         ...options,
     })
-        .then(res => res.json())
+        .then(res => {
+            const contentType = res.headers.get('content-type');
+            if (contentType && contentType.indexOf('application/json') !== -1)
+                return res.json();
+            else return {};
+        })
         .then(json => {
-            if (json.error) throw new Error(json.error.message);
+            if (json.error) throw json.error;
             else return json;
         });
 }

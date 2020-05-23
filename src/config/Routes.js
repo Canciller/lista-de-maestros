@@ -6,6 +6,10 @@ import Testing from 'routes/Testing';
 import Profile from 'routes/Profile';
 import Maestro from 'components/View/Maestro';
 import CreateReview from 'components/View/CreateReview';
+import CreateMaestro from 'components/View/CreateMaestro';
+import CreateMateria from 'components/View/CreateMateria';
+import CreateUniversidad from 'components/View/CreateUniversidad';
+import CreateFacultad from 'components/View/CreateFacultad';
 
 import {
     faHome, // Home icon
@@ -53,13 +57,29 @@ export default {
         param: 'username',
         component: Profile,
     },
-    review: {
-        path: '/review',
-        component: CreateReview,
-    },
     maestro: {
         path: '/maestro',
         param: 'id',
         component: Maestro,
+    },
+    review: {
+        path: '/new/review',
+        component: CreateReview,
+    },
+    crearMaestro: {
+        path: '/new/maestro',
+        component: CreateMaestro,
+    },
+    createMateria: {
+        path: '/new/materia',
+        component: CreateMateria,
+    },
+    createFacultad: {
+        path: '/new/facultad',
+        component: CreateFacultad,
+    },
+    createUniversidad: {
+        path: '/new/universidad',
+        component: CreateUniversidad,
     },
 };

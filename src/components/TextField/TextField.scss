@@ -1,5 +1,7 @@
 @import "styles/util.scss";
 
+$label-top: -20px;
+
 .TextField-root {
     position: relative;
     margin-top: 1em + em(10);
@@ -18,7 +20,7 @@
     transition: 0.2s;
     position: absolute;
     font-size: 1em;
-    top: -15px;
+    top: $label-top;
     left: 0;
 }
 
@@ -46,7 +48,7 @@
 
 .TextField-input:focus {
     ~ .TextField-label {
-        top: -15px;
+        top: $label-top;
         font-size: 1em;
     }
 }

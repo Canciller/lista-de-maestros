@@ -1,39 +1,37 @@
 /* eslint-disable no-constant-condition */
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import Typography from 'components/Typography';
-import View from 'components/View';
-import Loading from 'components/View/Loading';
+import Fetch from 'components/View/Fetch';
 import { withUser } from 'components/User';
 import { withTheme } from 'components/Theme';
-import fetchAPI from 'util/fetchAPI';
+
 import Review from 'components/Review';
-import './Profile.scss';
 import Fab from 'components/Fab';
+import Typography from 'components/Typography';
 import { faPen } from '@fortawesome/free-solid-svg-icons';
 
+import './Profile.scss';
+
 class Profile extends React.Component {
-    state = {};
-
-    componentDidMount() {
-        const { username } = this.props.match.params;
-
-        fetchAPI(`/users/${username}`)
-            .then(user => this.setState({ loaded: true, user }))
-            .catch(error => this.setState({ loaded: true, error }));
-    }
+    state = {
+        found: false,
+        user: {},
+    };
 
     render() {
-        const { user, loaded } = this.state;
+        const { found, user } = this.state;
+
         const { theme } = this.props;
 
-        if (!loaded) return <Loading />;
-
-        if (!user) return <Redirect to="/404" />;
+        const { username } = this.props.match.params;
 
         return (
-            <View className="Profile-root">
+            <Fetch
+                found={found}
+                endpoint={`/users/${username}`}
+                then={user => this.setState({ user, found: true })}
+                className="Profile-root"
+            >
                 <Fab
                     icon={faPen}
                     variant="green"
@@ -137,7 +135,7 @@ class Profile extends React.Component {
                         />
                     </div>
                 </div>
-            </View>
+            </Fetch>
         );
     }
 }

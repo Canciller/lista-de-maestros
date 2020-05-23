@@ -60,6 +60,7 @@ Theme.propTypes = {
 };
 
 const withTheme = Component => {
+    // eslint-disable-next-line react/display-name
     return props => {
         return (
             <ThemeContext.Consumer>

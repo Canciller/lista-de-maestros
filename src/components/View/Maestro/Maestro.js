@@ -1,40 +1,36 @@
-import React, { Component } from 'react';
-import fetchAPI from 'util/fetchAPI';
-import View from 'components/View';
-import Error from 'components/View/Error';
-import Loading from 'components/View/Loading';
-import { Redirect } from 'react-router-dom';
+import React, { Component, Fragment } from 'react';
 import Typography from 'components/Typography';
+import Fetch from 'components/View/Fetch';
+import PropTypes from 'prop-types';
 
 class Maestro extends Component {
-    state = {}
-
-    componentDidMount() {
-        const { id } = this.props.match.params;
-
-        fetchAPI(`/maestros/${id}`)
-            .then(maestro => this.setState({ loaded: true, maestro}))
-            .catch(error => this.setState({ loaded: true, error }));
-    }
+    state = {
+        found: false,
+        maestro: {},
+    };
 
     render() {
-        const { maestro, loaded, error } = this.state;
+        const { found, maestro } = this.state;
 
-        if(!loaded) return <Loading />
-
-        if(error) return <Error error={error} />
-
-        if(!maestro) return <Redirect to="/404" />
-
-        console.log(maestro);
+        const { id } = this.props.match.params;
 
         return (
-            <View className="Maestro-root">
+            <Fetch
+                found={found}
+                endpoint={`/maestros/${id}`}
+                then={maestro => this.setState({ maestro, found: true })}
+            >
                 <Typography>{maestro.degree}</Typography>
-                <Typography>{[maestro.firstname, maestro.lastname].join(' ')}</Typography>
-            </View>
+                <Typography>
+                    {[maestro.firstname, maestro.lastname].join(' ')}
+                </Typography>
+            </Fetch>
         );
     }
 }
+
+Maestro.propTypes = {
+    match: PropTypes.any.isRequired,
+};
 
 export default Maestro;

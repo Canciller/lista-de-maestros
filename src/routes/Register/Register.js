@@ -1,13 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
-import sentenceCase from 'util/sentenceCase';
+import withToast from 'util/withToast';
+import fetchAPI from 'util/fetchAPI';
+
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import View from 'components/View';
-import Config from 'Config';
-import Routes from 'routes';
+
+import Routes from 'config/Routes';
+import { RegisterStrings } from 'config/Strings';
+
 import './Register.scss';
 
 class Register extends React.Component {
@@ -20,33 +24,77 @@ class Register extends React.Component {
 
     onChange = event => {
         const { value, name } = event.target;
+
+        let errors = {};
+
+        switch (name) {
+            case 'repeatPassword':
+                if (value != this.state.password) {
+                    errors['repeatPasswordError'] = true;
+                    errors['repeatPasswordErrorMessage'] =
+                        RegisterStrings.repeatPassword.noMatch;
+                } else {
+                    errors['repeatPasswordError'] = false;
+                }
+                break;
+            case 'password':
+                if (value != this.state.repeatPassword) {
+                    errors['repeatPasswordError'] = true;
+                    errors['repeatPasswordErrorMessage'] =
+                        RegisterStrings.repeatPassword.noMatch;
+                } else {
+                    errors['repeatPasswordError'] = false;
+                }
+                break;
+        }
+
         this.setState({
             [name]: value,
+            ...errors,
         });
     };
 
     onSubmit = event => {
         event.preventDefault();
 
-        fetch(`${Config.apiUrl}/auth/register`, {
+        fetchAPI('/auth/register', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 username: this.state.username,
                 email: this.state.email,
                 password: this.state.password,
                 repeatPassword: this.state.repeatPassword,
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
         })
-            .then(res => res.json())
-            .then(json => {
-                if (json.error) throw new Error(json.error.message);
+            .then(() => {
+                this.props.toast.success(
+                    'Registro exitoso redirigiendo a pagina de ingreso.'
+                );
                 this.props.history.push(Routes.login.path);
             })
             .catch(error => {
-                this.setState({ error });
+                this.setState(
+                    {
+                        usernameError: false,
+                        emailError: false,
+                        passwordError: false,
+                        repeatPasswordError: false,
+                    },
+                    () => {
+                        if (error.message instanceof Object)
+                            Object.keys(error.message).forEach(key =>
+                                this.setState({
+                                    [`${key}Error`]: true,
+                                    [`${key}ErrorMessage`]: error.message[key],
+                                })
+                            );
+                    }
+                );
+
+                this.props.toast.error(error.message);
             });
     };
 
@@ -63,6 +111,9 @@ class Register extends React.Component {
                     <TextField
                         onChange={this.onChange}
                         value={this.state.username}
+                        error={this.state.usernameError}
+                        errorMessage={this.state.usernameErrorMessage}
+                        requiredMessage={RegisterStrings.username.required}
                         label="Nombre de Usuario"
                         placeholder="username"
                         name="username"
@@ -72,8 +123,11 @@ class Register extends React.Component {
                     <TextField
                         value={this.state.email}
                         onChange={this.onChange}
-                        label="Email"
+                        error={this.state.emailError}
+                        errorMessage={this.state.emailErrorMessage}
+                        requiredMessage={RegisterStrings.email.required}
                         placeholder="email"
+                        label="Email"
                         name="email"
                         id="email"
                         required
@@ -81,6 +135,9 @@ class Register extends React.Component {
                     <TextField
                         value={this.state.password}
                         onChange={this.onChange}
+                        error={this.state.passwordError}
+                        errorMessage={this.state.passwordErrorMessage}
+                        requiredMessage={RegisterStrings.password.required}
                         label="Contraseña"
                         placeholder="password"
                         name="password"
@@ -91,6 +148,8 @@ class Register extends React.Component {
                     <TextField
                         value={this.state.repeatPassword}
                         onChange={this.onChange}
+                        error={this.state.repeatPasswordError}
+                        errorMessage={this.state.repeatPasswordErrorMessage}
                         label="Repetir Contraseña"
                         placeholder="repeatPassword"
                         name="repeatPassword"
@@ -98,23 +157,14 @@ class Register extends React.Component {
                         type="password"
                         required
                     />
-                    <Typography color="red" className="Register-error">
-                        {(this.state.error &&
-                            sentenceCase(this.state.error.message)) || (
-                            <span
-                                style={{
-                                    userSelect: 'none',
-                                }}
-                            >
-                                &nbsp;
-                            </span>
-                        )}
-                    </Typography>
                     <Button
                         className="Register-button"
                         type="submit"
                         fullWidth
                         variant="blue"
+                        style={{
+                            marginTop: 20,
+                        }}
                     >
                         Registrarse
                     </Button>
@@ -126,7 +176,8 @@ class Register extends React.Component {
 
 Register.propTypes = {
     theme: PropTypes.object.isRequired,
-    history: PropTypes.any,
+    toast: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
-export default withTheme(Register);
+export default withToast(withTheme(Register));

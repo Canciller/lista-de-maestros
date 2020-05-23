@@ -2,14 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withTheme } from 'components/Theme';
 import { withUser } from 'components/User';
+import withToast from 'util/withToast';
+import fetchAPI from 'util/fetchAPI';
+
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 import View from 'components/View';
-import { Redirect } from 'react-router-dom';
-import sentenceCase from 'util/sentenceCase';
+
+import Routes from 'config/Routes';
+import { LoginStrings } from 'config/Strings';
+
 import './Login.scss';
-import Config from 'Config';
 
 class Login extends React.Component {
     state = {
@@ -19,6 +23,7 @@ class Login extends React.Component {
 
     onChange = event => {
         const { value, name } = event.target;
+
         this.setState({
             [name]: value,
         });
@@ -27,31 +32,44 @@ class Login extends React.Component {
     onSubmit = event => {
         event.preventDefault();
 
-        fetch(`${Config.apiUrl}/auth/login`, {
+        fetchAPI('/auth/login', {
             method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
             body: JSON.stringify({
                 username: this.state.username,
                 password: this.state.password,
             }),
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            credentials: 'include',
         })
-            .then(res => res.json())
-            .then(json => {
-                if (json.error) throw new Error(json.error.message);
-                this.props.user.signIn({
-                    username: json.username,
-                    role: json.role,
+            .then(user => {
+                this.props.user.signIn(user, () => {
+                    this.props.toast.success('Ingreso exitoso.');
+                    this.props.history.push(Routes.home.path);
                 });
             })
-            .catch(error => this.setState({ error }));
+            .catch(error => {
+                this.setState(
+                    {
+                        usernameError: false,
+                        passwordError: false,
+                    },
+                    () => {
+                        if (error.message instanceof Object)
+                            Object.keys(error.message).forEach(key =>
+                                this.setState({
+                                    [`${key}Error`]: true,
+                                    [`${key}ErrorMessage`]: error.message[key],
+                                })
+                            );
+                    }
+                );
+
+                this.props.toast.error(error.message);
+            });
     };
 
     render() {
-        if (this.props.user.isLoggedIn()) return <Redirect exact to="/" />;
-
         return (
             <View className="Login-root">
                 <form
@@ -62,41 +80,38 @@ class Login extends React.Component {
                 >
                     <Typography component="h1">Ingresar</Typography>
                     <TextField
-                        label="Email o Nombre de Usuario"
+                        value={this.state.username}
+                        onChange={this.onChange}
+                        error={this.state.usernameError}
+                        errorMessage={this.state.usernameErrorMessage}
+                        requiredMessage={LoginStrings.username.required}
+                        label="Email o nombre de usuario"
                         placeholder="username"
                         name="username"
                         id="username"
-                        value={this.state.username}
-                        onChange={this.onChange}
                         required
                     />
                     <TextField
+                        value={this.state.password}
+                        onChange={this.onChange}
+                        error={this.state.passwordError}
+                        errorMessage={this.state.passwordErrorMessage}
+                        requiredMessage={LoginStrings.password.required}
                         label="Contraseña"
                         placeholder="password"
                         name="password"
                         id="password"
                         type="password"
-                        value={this.state.password}
-                        onChange={this.onChange}
                         required
                     />
-                    <Typography color="red" className="Login-error">
-                        {(this.state.error &&
-                            sentenceCase(this.state.error.message)) || (
-                            <span
-                                style={{
-                                    userSelect: 'none',
-                                }}
-                            >
-                                &nbsp;
-                            </span>
-                        )}
-                    </Typography>
                     <Button
                         className="Login-button"
                         type="submit"
                         fullWidth
                         variant="green"
+                        style={{
+                            marginTop: 20,
+                        }}
                     >
                         Ingresar
                     </Button>
@@ -109,7 +124,8 @@ class Login extends React.Component {
 Login.propTypes = {
     theme: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
-    history: PropTypes.any,
+    toast: PropTypes.object.isRequired,
+    history: PropTypes.any.isRequired,
 };
 
-export default withUser(withTheme(Login));
+export default withToast(withUser(withTheme(Login)));

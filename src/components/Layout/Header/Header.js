@@ -4,7 +4,7 @@ import { withTheme, ThemeContext } from 'components/Theme';
 import { withUser } from 'components/User';
 import mergeStyles from 'util/mergeStyles';
 import classNames from 'classnames';
-import { Link } from 'react-router-dom';
+import Button from 'components/Button';
 import Routes from 'routes';
 
 import { faCog, faBell, faBars } from '@fortawesome/free-solid-svg-icons';
@@ -13,6 +13,8 @@ import Action from './Action';
 import User from './User';
 
 import './Header.scss';
+import Typography from 'components/Typography';
+import { withRouter } from 'react-router-dom';
 
 const Section = ({ className, children, ...props }) => {
     return (
@@ -53,9 +55,10 @@ class Header extends React.Component {
     render() {
         const {
             theme,
+            history,
             onOpenSideNav,
             onOpenSettings,
-            //onOpenNotifications,
+            onOpenNotifications,
         } = this.props;
 
         const user = this.props.user.current();
@@ -79,59 +82,52 @@ class Header extends React.Component {
                     <Action onClick={onOpenSideNav} icon={faBars} />
                 </Section>
                 {/* Open Settings and Open Notifications */}
-                <Section className="Header-Section-actions">
-                    <Action className="Header-action" icon={faBell} />
-                    <Action
-                        className="Header-action"
-                        onClick={onOpenSettings}
-                        icon={faCog}
-                    />
-                </Section>
-                <Separator />
+                {user && (
+                    <Section className="Header-Section-actions">
+                        <Action
+                            className="Header-action"
+                            onClick={onOpenNotifications}
+                            icon={faBell}
+                        />
+                        <Action
+                            className="Header-action"
+                            onClick={onOpenSettings}
+                            icon={faCog}
+                        />
+                    </Section>
+                )}
+                {user && <Separator />}
                 {/* User Section / Sign up Section or Register Section*/}
                 <Section className="Header-Section-user">
-                    <User
-                        user={
-                            (user && {
-                                username: (
-                                    <Link
-                                        style={{
-                                            color: theme.foreground.normal,
-                                        }}
-                                        to={Routes.profile.path.concat(
-                                            `/${user.username}`
-                                        )}
-                                    >
-                                        {user.username}
-                                    </Link>
-                                ),
-                                role: user.role,
-                            }) || {
-                                username: (
-                                    <React.Fragment>
-                                        <Link
-                                            style={{
-                                                color: theme.foreground.normal,
-                                            }}
-                                            to={Routes.login.path}
-                                        >
-                                            Ingresar
-                                        </Link>{' '}
-                                        o{' '}
-                                        <Link
-                                            style={{
-                                                color: theme.foreground.normal,
-                                            }}
-                                            to={Routes.register.path}
-                                        >
-                                            Registrarse
-                                        </Link>
-                                    </React.Fragment>
-                                ),
-                                role: 'Invitado',
-                            }
-                        }
-                    />
+                    {(user && <User user={user} />) || (
+                        <div
+                            style={{
+                                display: 'flex',
+                            }}
+                        >
+                            <Button
+                                style={{
+                                    fontSize: '1em',
+                                }}
+                                variant="green"
+                                onClick={() => history.push(Routes.login.path)}
+                            >
+                                Ingresar
+                            </Button>
+                            <Button
+                                style={{
+                                    fontSize: '1em',
+                                    marginLeft: 6,
+                                }}
+                                variant="blue"
+                                onClick={() =>
+                                    history.push(Routes.register.path)
+                                }
+                            >
+                                Registrarse
+                            </Button>
+                        </div>
+                    )}
                 </Section>
             </div>
         );
@@ -147,9 +143,10 @@ Header.defaultProps = {
 Header.propTypes = {
     theme: PropTypes.object.isRequired,
     user: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
     onOpenSettings: PropTypes.func,
     onOpenSideNav: PropTypes.func,
     onOpenNotifications: PropTypes.func,
 };
 
-export default withUser(withTheme(Header));
+export default withRouter(withUser(withTheme(Header)));

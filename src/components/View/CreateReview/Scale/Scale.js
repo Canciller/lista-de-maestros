@@ -11,7 +11,12 @@ class Scale extends Component {
 
         for (let value = 1; value <= max; ++value)
             radios.push(
-                <RadioButton className="Scale-radio" key={value} name={name} label={value} />
+                <RadioButton
+                    className="Scale-radio"
+                    key={value}
+                    name={name}
+                    label={value}
+                />
             );
 
         return radios;

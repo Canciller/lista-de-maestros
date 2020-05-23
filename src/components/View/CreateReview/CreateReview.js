@@ -1,43 +1,40 @@
 import React, { Component } from 'react';
-import fetchAPI from 'util/fetchAPI';
+import PropTypes from 'prop-types';
+import withAuth from 'util/withAuth';
 import { withTheme } from 'components/Theme';
-import View from 'components/View';
-import Loading from 'components/View/Loading';
-import Error from 'components/View/Error';
-import { Redirect } from 'react-router-dom';
+import Fetch from 'components/View/Fetch';
+
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Typography from 'components/Typography';
 import Fab from 'components/Fab';
-import PropTypes from 'prop-types';
-import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
+
 import Scale from './Scale';
+
 import './CreateReview.scss';
 
 class CreateReview extends Component {
-    state = {};
-
-    componentDidMount() {
-        fetchAPI('/categories')
-            .then(categories => this.setState({ loaded: true, categories }))
-            .catch(error => this.setState({ loaded: true, error }));
-    }
+    state = {
+        found: false,
+        categories: {},
+    };
 
     onSubmit = event => {
         event.preventDefault();
     };
 
     render() {
-        const { loaded, categories, error } = this.state;
-
-        if (!loaded) return <Loading />;
-
-        if (error) return <Error error={error} />;
-
-        if (!categories) return <Redirect to="/404" />;
+        const { found, categories } = this.state;
 
         const { theme } = this.props;
 
         return (
-            <View flex className="CreateReview-root">
+            <Fetch
+                found={found}
+                endpoint="/categories"
+                then={categories => this.setState({ categories, found: true })}
+                flex
+                className="CreateReview-root"
+            >
                 <form
                     className="CreateReview-container"
                     onSubmit={this.onSubmit}
@@ -100,13 +97,14 @@ class CreateReview extends Component {
                         );
                     })}
                 </form>
-            </View>
+            </Fetch>
         );
     }
 }
 
 CreateReview.propTypes = {
     theme: PropTypes.object.isRequired,
+    history: PropTypes.object.isRequired,
 };
 
-export default withTheme(CreateReview);
+export default withAuth(withTheme(CreateReview));

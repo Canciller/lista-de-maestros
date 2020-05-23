@@ -1,36 +1,30 @@
 import React, { useReducer } from 'react';
 import PropTypes from 'prop-types';
-import Config from 'Config';
+import fetchAPI from 'util/fetchAPI';
 
 const UserContext = React.createContext();
 
 class User extends React.Component {
     state = {};
 
-    signIn = user => this.setState({ user });
+    signIn = (user, callback) => this.setState({ user }, callback);
 
-    signOut = () =>
-        this.setState({ user: undefined }, () => {
-            fetch(`${Config.apiUrl}/auth/logout`, {
+    signOut = () => {
+        this.setState({ user: null }, () =>
+            fetchAPI('/auth/logout', {
                 method: 'POST',
-                credentials: 'include',
-            }).catch(error => console.log(error));
-        });
+            }).catch(error => console.log(error))
+        );
+    };
 
     current = () => this.state.user;
 
     isLoggedIn = () => this.state.user != undefined;
 
     componentDidMount() {
-        fetch(`${Config.apiUrl}/users/me`, {
-            credentials: 'include',
-        })
-            .then(res => res.json())
-            .then(json => {
-                if (json.error) throw new Error(json.error.message);
-                this.signIn(json);
-            })
-            .catch(error => console.log(error));
+        fetchAPI('/users/me')
+            .then(me => this.signIn(me))
+            .catch(error => {});
     }
 
     render() {
@@ -57,6 +51,7 @@ User.propTypes = {
 };
 
 const withUser = Component => {
+    // eslint-disable-next-line react/display-name
     return props => {
         return (
             <UserContext.Consumer>
