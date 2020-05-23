@@ -18,15 +18,16 @@ class CreateMaestro extends Component {
         lastname: '',
         degree: '',
         gender: '',
-    }
+        facultad: '',
+    };
 
     onChange = event => {
-        const {name, value} = event.target;
+        const { name, value } = event.target;
 
         this.setState({
-            [name]: value
+            [name]: value,
         });
-    }
+    };
 
     render() {
         return (
@@ -38,16 +39,38 @@ class CreateMaestro extends Component {
                         firstname: this.state.firstname,
                         lastname: this.state.lastname,
                         degree: this.state.degree,
-                        gender: this.state.gender
+                        gender: this.state.gender,
+                        facultad: this.state.facultad,
                     }}
-                    onSuccess={maestro => {
-                        console.log(maestro);
+                    onFailure={error => {
+                        this.setState(
+                            {
+                                firstnameError: false,
+                                lastnameError: false,
+                                degreeError: false,
+                                genderError: false,
+                                facultadError: false,
+                            },
+                            () => {
+                                error.message instanceof Object &&
+                                    Object.keys(error.message).forEach(key =>
+                                        this.setState({
+                                            [`${key}Error`]: true,
+                                            [`${key}ErrorMessage`]: error
+                                                .message[key],
+                                        })
+                                    );
+                            }
+                        );
                     }}
                     failureMessage={MaestroStrings.create.failure}
+                    successMessage={MaestroStrings.create.success}
                 >
                     <TextField
                         onChange={this.onChange}
                         value={this.state.firstname}
+                        error={this.state.firstnameError}
+                        errorMessage={this.state.firstnameErrorMessage}
                         label="Nombre"
                         placeholder="Nombre"
                         name="firstname"
@@ -56,6 +79,8 @@ class CreateMaestro extends Component {
                     <TextField
                         onChange={this.onChange}
                         value={this.state.lastname}
+                        error={this.state.lastnameError}
+                        errorMessage={this.state.lastnameErrorMessage}
                         label="Apellido"
                         placeholder="Apellido"
                         name="lastname"
@@ -64,6 +89,8 @@ class CreateMaestro extends Component {
                     <TextField
                         onChange={this.onChange}
                         value={this.state.degree}
+                        error={this.state.degreeError}
+                        errorMessage={this.state.degreeErrorMessage}
                         label="Título"
                         placeholder="Título"
                         name="degree"
@@ -72,9 +99,21 @@ class CreateMaestro extends Component {
                     <TextField
                         onChange={this.onChange}
                         value={this.state.gender}
+                        error={this.state.genderError}
+                        errorMessage={this.state.genderErrorMessage}
                         label="Género"
                         placeholder="Género"
                         name="gender"
+                        required
+                    />
+                    <TextField
+                        onChange={this.onChange}
+                        value={this.state.facultad}
+                        error={this.state.facultadError}
+                        errorMessage={this.state.facultadErrorMessage}
+                        label="Facultad"
+                        placeholder="Facultad"
+                        name="facultad"
                         required
                     />
                     <Button

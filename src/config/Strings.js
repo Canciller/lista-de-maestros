@@ -28,8 +28,9 @@ const AuthStrings = {
 
 const MaestroStrings = {
     create: {
-        failure: 'Hubo un error al tratar de añadir el maestro.'
-    }
-}
+        failure: 'Hubo un error al tratar de añadir el maestro.',
+        success: 'El maestro fue añadido exitosamente.',
+    },
+};
 
 export { LoginStrings, RegisterStrings, AuthStrings, MaestroStrings };

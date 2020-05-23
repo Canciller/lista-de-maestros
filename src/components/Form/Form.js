@@ -24,7 +24,7 @@ class Form extends Component {
                 if (this.props.failureMessage)
                     this.props.toast.error(this.props.failureMessage);
                 this.props.toast.error(error.message);
-                
+
                 this.props.onFailure(error);
             });
     };
