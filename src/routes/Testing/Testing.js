@@ -9,7 +9,6 @@ class Testing extends React.Component {
             <View>
                 <Typography component="h1">Testing</Typography>
                 <br />
-
             </View>
         );
     }

@@ -42,7 +42,7 @@ class CreateMaestro extends Component {
                         gender: this.state.gender,
                         facultad: this.state.facultad,
                     }}
-                    onFailure={error => {
+                    onSubmit={callback =>
                         this.setState(
                             {
                                 firstnameError: false,
@@ -51,17 +51,17 @@ class CreateMaestro extends Component {
                                 genderError: false,
                                 facultadError: false,
                             },
-                            () => {
-                                error.message instanceof Object &&
-                                    Object.keys(error.message).forEach(key =>
-                                        this.setState({
-                                            [`${key}Error`]: true,
-                                            [`${key}ErrorMessage`]: error
-                                                .message[key],
-                                        })
-                                    );
-                            }
-                        );
+                            callback
+                        )
+                    }
+                    onFailure={error => {
+                        error.message instanceof Object &&
+                            Object.keys(error.message).forEach(key =>
+                                this.setState({
+                                    [`${key}Error`]: true,
+                                    [`${key}ErrorMessage`]: error.message[key],
+                                })
+                            );
                     }}
                     failureMessage={MaestroStrings.create.failure}
                     successMessage={MaestroStrings.create.success}

@@ -7,26 +7,28 @@ class Form extends Component {
     onSubmit = event => {
         event.preventDefault();
 
-        fetchAPI(this.props.action, {
-            method: this.props.method,
-            headers: {
-                Accept: 'application/json',
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(this.props.body),
-        })
-            .then(data => {
-                if (this.props.successMessage)
-                    this.props.toast.success(this.props.successMessage);
-                this.props.onSuccess(data);
+        this.props.onSubmit(() => {
+            fetchAPI(this.props.action, {
+                method: this.props.method,
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(this.props.body),
             })
-            .catch(error => {
-                if (this.props.failureMessage)
-                    this.props.toast.error(this.props.failureMessage);
-                this.props.toast.error(error.message);
+                .then(data => {
+                    if (this.props.successMessage)
+                        this.props.toast.success(this.props.successMessage);
+                    this.props.onSuccess(data);
+                })
+                .catch(error => {
+                    if (this.props.failureMessage)
+                        this.props.toast.error(this.props.failureMessage);
+                    this.props.toast.error(error.message);
 
-                this.props.onFailure(error);
-            });
+                    this.props.onFailure(error);
+                });
+        });
     };
 
     render() {
@@ -54,7 +56,9 @@ class Form extends Component {
 Form.defaultProps = {
     method: 'POST',
     body: {},
-    onSubmit() {},
+    onSubmit(callback) {
+        callback();
+    },
     onSuccess() {},
     onFailure() {},
 };

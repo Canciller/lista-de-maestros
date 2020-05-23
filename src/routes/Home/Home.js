@@ -1,15 +1,11 @@
 import React from 'react';
 import View from 'components/View';
 import HomeSearch from 'components/HomeSearch';
-import './Home.scss'
+import './Home.scss';
 
 class Home extends React.Component {
     render() {
-        return (
-            <View>
-                {<HomeSearch/>}
-            </View>
-        );
+        return <View>{<HomeSearch />}</View>;
     }
 }
 
