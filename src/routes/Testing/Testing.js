@@ -8,6 +8,8 @@ class Testing extends React.Component {
         return (
             <View>
                 <Typography component="h1">Testing</Typography>
+                <br />
+
             </View>
         );
     }
