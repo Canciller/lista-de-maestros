@@ -1,0 +1,43 @@
+$search-font-size: 17px;
+
+.root {
+    transition: all 0.2s;
+    margin-left: 5vw;
+    margin-top: 35vh;
+}
+
+$search-font-size: 17px;
+
+.text {
+    padding-left: 15px;
+    border: none;
+    font-size: $search-font-size;
+    font-weight: lighter;
+    width: 70vw;
+    height: 40px;
+}
+
+.text:focus {
+    outline-width: 0;
+}
+
+.button {
+    height: 40px;
+    width: 30px;
+    border: none;
+    background-color: rgb(255, 255, 255);
+    cursor: pointer;
+    color: rgb(70, 70, 70);
+}
+
+.button:focus {
+    outline-width: 0;
+}
+
+// Cuando pase de 801px se ajustará a el tamaño indicado aquí.
+@media (min-width: 801px) {
+    .text {
+        width: 700px;
+        margin-left: 29%;
+    }
+}

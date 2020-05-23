@@ -1,12 +1,13 @@
 import React from 'react';
-import Typography from 'components/Typography';
 import View from 'components/View';
+import HomeSearch from 'components/HomeSearch';
+import './Home.scss'
 
 class Home extends React.Component {
     render() {
         return (
             <View>
-                <Typography component="h1">Inicio</Typography>
+                {<HomeSearch/>}
             </View>
         );
     }
