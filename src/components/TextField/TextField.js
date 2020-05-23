@@ -93,7 +93,7 @@ class TextField extends React.Component {
                     },
                 })
             );
-        else this.setState({ currentValue: this.props.value });
+        //else this.setState({ currentValue: this.props.value });
     }
 
     onOpen = () => this.setState({ open: !this.state.open }, this.props.onOpen);
@@ -166,7 +166,7 @@ class TextField extends React.Component {
                         placeholder={placeholder}
                         type="text"
                         {...props}
-                        value={currentValue}
+                        value={value}
                         ref={this.input}
                     />
                     <div

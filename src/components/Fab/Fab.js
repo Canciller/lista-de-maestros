@@ -19,8 +19,8 @@ class Fab extends React.Component {
 }
 
 Fab.defaultProps = {
-    type: 'button'
-}
+    type: 'button',
+};
 
 Fab.propTypes = {
     theme: PropTypes.object.isRequired,

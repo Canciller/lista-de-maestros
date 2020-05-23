@@ -28,16 +28,14 @@ class Scale extends Component {
 
     render() {
         const {
-            props: {
-                className,
-                onChange,
-                name,
-                max,
-                ...props
-            }
+            props: { className, onChange, name, max, ...props },
         } = this;
 
-        return <div className={classNames(className, 'Scale-root')} {...props}>{this.createRadios()}</div>;
+        return (
+            <div className={classNames(className, 'Scale-root')} {...props}>
+                {this.createRadios()}
+            </div>
+        );
     }
 }
 
