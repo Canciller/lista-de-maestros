@@ -1,16 +1,30 @@
 import React, { Component } from 'react';
 import withAuth from 'util/withAuth';
-import withToast from 'util/withToast';
 import { withTheme } from 'components/Theme';
-import fetchAPI from 'util/fetchAPI';
 
 import Typography from 'components/Typography';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
+import FetchAutocomplete from 'components/AutocompleteDatabase';
 import View from 'components/View';
 import Form from 'components/Form';
 
 import { MaestroStrings } from 'config/Strings';
+import Autocomplete from 'components/Autocomplete';
+
+import Routes from 'config/Routes';
+import { withRouter } from 'react-router-dom';
+
+const GoCreateButton = props => (
+    <div
+        style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+        }}
+    >
+        {this.state.showCreateFacultad && <Button>Añadir facultad</Button>}
+    </div>
+);
 
 class CreateMaestro extends Component {
     state = {
@@ -30,6 +44,8 @@ class CreateMaestro extends Component {
     };
 
     render() {
+        const initialValues = this.props.location.state || {};
+
         return (
             <View>
                 <Typography component="h1">Añadir nuevo maestro</Typography>
@@ -65,70 +81,120 @@ class CreateMaestro extends Component {
                     }}
                     failureMessage={MaestroStrings.create.failure}
                     successMessage={MaestroStrings.create.success}
+                    id="createMaestro"
                 >
+                    <FetchAutocomplete
+                        initialValue={initialValues.facultad}
+                        hideClearIcon={true}
+                        endpoint="/facultades"
+                        onChange={this.onChange}
+                        onSelect={facultad => this.setState({ facultad })}
+                        getSuggestion={facultad => facultad.name}
+                        noSuggestionsMessage={
+                            <Button
+                                fullWidth
+                                variant="blue"
+                                style={{
+                                    marginTop: 8,
+                                }}
+                                onClick={() => {
+                                    this.props.history.push({
+                                        pathname: Routes.createFacultad.path,
+                                        state: {
+                                            facultad: this.state.facultad,
+                                        },
+                                    });
+                                }}
+                            >
+                                Añadir facultad
+                            </Button>
+                        }
+                        requiredMessage={MaestroStrings.facultad.required}
+                        label="Facultad"
+                        placeholder="Facultad"
+                        name="facultad"
+                        required
+                    />
                     <TextField
+                        initialValue={initialValues.firtname}
                         onChange={this.onChange}
                         value={this.state.firstname}
                         error={this.state.firstnameError}
                         errorMessage={this.state.firstnameErrorMessage}
+                        requiredMessage={MaestroStrings.firstname.required}
                         label="Nombre"
                         placeholder="Nombre"
                         name="firstname"
                         required
                     />
                     <TextField
+                        initialValue={initialValues.lastname}
                         onChange={this.onChange}
                         value={this.state.lastname}
                         error={this.state.lastnameError}
                         errorMessage={this.state.lastnameErrorMessage}
+                        requiredMessage={MaestroStrings.lastname.required}
                         label="Apellido"
                         placeholder="Apellido"
                         name="lastname"
                         required
                     />
-                    <TextField
+                    <Autocomplete
+                        initialValue={initialValues.degree}
+                        hideClearIcon={true}
                         onChange={this.onChange}
-                        value={this.state.degree}
-                        error={this.state.degreeError}
-                        errorMessage={this.state.degreeErrorMessage}
+                        onSelect={degree => this.setState({ degree })}
+                        requiredMessage={MaestroStrings.degree.required}
+                        noSuggestionsMessage={MaestroStrings.degree.invalid}
+                        suggestions={MaestroStrings.degree.enum}
                         label="Título"
                         placeholder="Título"
                         name="degree"
                         required
                     />
-                    <TextField
+                    <Autocomplete
+                        initialValue={initialValues.gender}
+                        hideClearIcon={true}
                         onChange={this.onChange}
-                        value={this.state.gender}
-                        error={this.state.genderError}
-                        errorMessage={this.state.genderErrorMessage}
+                        onSelect={gender => this.setState({ gender })}
+                        requiredMessage={MaestroStrings.gender.required}
+                        noSuggestionsMessage={MaestroStrings.gender.invalid}
+                        suggestions={MaestroStrings.gender.enum}
                         label="Género"
                         placeholder="Género"
                         name="gender"
                         required
                     />
-                    <TextField
-                        onChange={this.onChange}
-                        value={this.state.facultad}
-                        error={this.state.facultadError}
-                        errorMessage={this.state.facultadErrorMessage}
-                        label="Facultad"
-                        placeholder="Facultad"
-                        name="facultad"
-                        required
-                    />
-                    <Button
-                        variant="green"
+                    <div
                         style={{
                             marginTop: 20,
+                            display: 'flex',
                         }}
-                        fullWidth
                     >
-                        Añadir
-                    </Button>
+                        <Button
+                            type="button"
+                            variant="red"
+                            style={{
+                                flex: 1,
+                            }}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="green"
+                            style={{
+                                marginLeft: 8,
+                                flex: 1,
+                            }}
+                        >
+                            Añadir
+                        </Button>
+                    </div>
                 </Form>
             </View>
         );
     }
 }
 
-export default withAuth(withTheme(CreateMaestro));
+export default withRouter(withAuth(withTheme(CreateMaestro)));

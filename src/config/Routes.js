@@ -16,7 +16,9 @@ import {
     faStream, // Lista icon
     faSignInAlt, // Login icon
     faUserPlus, // Register icon
-    faFireAlt, // Testing icon
+    faFireAlt,
+    faUserGraduate,
+    faEdit, // Testing icon
 } from '@fortawesome/free-solid-svg-icons';
 
 export default {
@@ -31,6 +33,40 @@ export default {
         icon: faStream,
         name: 'Lista',
         component: Lista,
+    },
+    profile: {
+        path: '/user',
+        param: 'username',
+        component: Profile,
+    },
+    maestro: {
+        path: '/maestro',
+        param: 'id',
+        component: Maestro,
+    },
+    review: {
+        path: '/new/review',
+        name: 'Calificar maestro',
+        icon: faEdit,
+        component: CreateReview,
+    },
+    crearMaestro: {
+        path: '/new/maestro',
+        name: 'Añadir maestro',
+        icon: faUserGraduate,
+        component: CreateMaestro,
+    },
+    createMateria: {
+        path: '/new/materia',
+        component: CreateMateria,
+    },
+    createFacultad: {
+        path: '/new/facultad',
+        component: CreateFacultad,
+    },
+    createUniversidad: {
+        path: '/new/universidad',
+        component: CreateUniversidad,
     },
     login: {
         path: '/login',
@@ -51,35 +87,5 @@ export default {
         icon: faFireAlt,
         component: Testing,
         name: 'Testing',
-    },
-    profile: {
-        path: '/user',
-        param: 'username',
-        component: Profile,
-    },
-    maestro: {
-        path: '/maestro',
-        param: 'id',
-        component: Maestro,
-    },
-    review: {
-        path: '/new/review',
-        component: CreateReview,
-    },
-    crearMaestro: {
-        path: '/new/maestro',
-        component: CreateMaestro,
-    },
-    createMateria: {
-        path: '/new/materia',
-        component: CreateMateria,
-    },
-    createFacultad: {
-        path: '/new/facultad',
-        component: CreateFacultad,
-    },
-    createUniversidad: {
-        path: '/new/universidad',
-        component: CreateUniversidad,
     },
 };

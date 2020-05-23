@@ -7,6 +7,8 @@ class Form extends Component {
     onSubmit = event => {
         event.preventDefault();
 
+        const { id, successMessage, failureMessage } = this.props;
+
         this.props.onSubmit(() => {
             fetchAPI(this.props.action, {
                 method: this.props.method,
@@ -17,14 +19,19 @@ class Form extends Component {
                 body: JSON.stringify(this.props.body),
             })
                 .then(data => {
-                    if (this.props.successMessage)
-                        this.props.toast.success(this.props.successMessage);
+                    if (successMessage)
+                        this.props.toast.success(successMessage, {
+                            id: id && `${id}SuccessMessage`,
+                        });
                     this.props.onSuccess(data);
                 })
                 .catch(error => {
-                    if (this.props.failureMessage)
-                        this.props.toast.error(this.props.failureMessage);
                     this.props.toast.error(error.message);
+
+                    if (failureMessage)
+                        this.props.toast.error(failureMessage, {
+                            id: id && `${id}FailureMessage`,
+                        });
 
                     this.props.onFailure(error);
                 });
@@ -42,6 +49,7 @@ class Form extends Component {
             successMessage,
             children,
             toast,
+            body,
             ...props
         } = this.props;
 
@@ -74,6 +82,7 @@ Form.propTypes = {
     successMessage: PropTypes.any,
     failureMessage: PropTypes.any,
     children: PropTypes.any,
+    id: PropTypes.string,
 };
 
 export default withToast(Form);

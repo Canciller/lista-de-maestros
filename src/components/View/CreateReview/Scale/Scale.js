@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import RadioButton from 'components/RadioButton';
+import classNames from 'classnames';
+
 import './Scale.scss';
 
 class Scale extends Component {
     createRadios = () => {
-        const { name, max, ...props } = this.props;
+        const { name, max, onChange, ...props } = this.props;
 
         const radios = [];
 
@@ -14,8 +16,10 @@ class Scale extends Component {
                 <RadioButton
                     className="Scale-radio"
                     key={value}
+                    value={value}
                     name={name}
                     label={value}
+                    onChange={onChange}
                 />
             );
 
@@ -23,7 +27,17 @@ class Scale extends Component {
     };
 
     render() {
-        return <div className="Scale-root">{this.createRadios()}</div>;
+        const {
+            props: {
+                className,
+                onChange,
+                name,
+                max,
+                ...props
+            }
+        } = this;
+
+        return <div className={classNames(className, 'Scale-root')} {...props}>{this.createRadios()}</div>;
     }
 }
 

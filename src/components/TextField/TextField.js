@@ -4,6 +4,12 @@ import styled from 'styled-components';
 import { withTheme } from 'components/Theme';
 import classNames from 'classnames';
 import Typography from 'components/Typography';
+import Icon from 'components/Icon';
+import {
+    faTimes,
+    faChevronDown,
+    faChevronUp,
+} from '@fortawesome/free-solid-svg-icons';
 
 import './TextField.scss';
 
@@ -41,9 +47,10 @@ const Label = styled.label`
 class TextField extends React.Component {
     state = {
         requiredError: false,
+        currentValue: '',
     };
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (prevProps.value != this.props.value) {
             if (
                 this.props.required &&
@@ -56,6 +63,47 @@ class TextField extends React.Component {
                 this.setState({ requiredError: false });
             }
         }
+
+        if (!prevProps.giveFocus && this.props.giveFocus)
+            this.input.current.focus();
+
+        if (
+            this.state.requiredError != prevState.requiredError ||
+            prevProps.error != this.props.error
+        ) {
+            if (this.hasError()) {
+                this.props.onError();
+            } else {
+                this.props.onFixed();
+            }
+        }
+
+        if (prevProps.value != this.props.value) {
+            this.setState({ currentValue: this.props.value });
+        }
+    }
+
+    componentDidMount() {
+        if (this.props.initialValue)
+            this.setState({ currentValue: this.props.initialValue }, () =>
+                this.props.onChange({
+                    target: {
+                        name: this.props.name,
+                        value: this.props.initialValue,
+                    },
+                })
+            );
+        else this.setState({ currentValue: this.props.value });
+    }
+
+    onOpen = () => this.setState({ open: !this.state.open }, this.props.onOpen);
+
+    hasError = () => this.props.error || this.state.requiredError;
+
+    constructor() {
+        super();
+
+        this.input = React.createRef();
     }
 
     render() {
@@ -71,42 +119,96 @@ class TextField extends React.Component {
             error,
             errorMessage,
             requiredMessage,
+            onClear,
+            onOpen,
+            open,
+            children,
+            hideClearIcon,
+            onError,
+            onFixed,
+            value,
+            initialValue,
             ...props
         } = this.props;
 
-        const hasError = error || this.state.requiredError;
-        const hasErrorMessage = this.state.requiredError
-            ? requiredMessage
-            : error
-            ? errorMessage
-            : '';
+        const { currentValue } = this.state;
+
+        const hasError = this.hasError();
+        let hasErrorMessage = '';
+
+        if (this.state.requiredError) hasErrorMessage = requiredMessage;
+        else if (error) hasErrorMessage = errorMessage;
 
         let baseColor = theme.colors[variant] || theme.foreground;
         baseColor = (hasError && theme.colors['red']) || baseColor;
+
+        const iconStyle = {
+            cursor: 'pointer',
+            color: baseColor.normal,
+            margin: '0 8px',
+        };
 
         return (
             <div
                 className={classNames('TextField-root', className)}
                 style={style}
             >
-                <Input
-                    className="TextField-input"
-                    id={id}
-                    required={required}
-                    baseColor={baseColor}
-                    placeholder={placeholder}
-                    {...props}
-                />
-                <Label
-                    baseColor={baseColor}
-                    className="TextField-label"
-                    htmlFor={id}
+                <div
+                    style={{
+                        display: 'flex',
+                    }}
                 >
-                    <span>{label}</span>
-                    {!required && (
-                        <span className="TextField-optional">Opcional</span>
-                    )}
-                </Label>
+                    <Input
+                        className="TextField-input"
+                        id={id}
+                        required={required}
+                        baseColor={baseColor}
+                        placeholder={placeholder}
+                        type="text"
+                        {...props}
+                        value={currentValue}
+                        ref={this.input}
+                    />
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            borderBottom: '1px solid',
+                            borderColor: baseColor.normal,
+                        }}
+                    >
+                        {!hideClearIcon && onClear && (
+                            <Icon
+                                onClick={onClear}
+                                icon={faTimes}
+                                size="0.8em"
+                                style={iconStyle}
+                            />
+                        )}
+                        {onOpen && (
+                            <Icon
+                                onClick={this.onOpen}
+                                icon={!open ? faChevronDown : faChevronUp}
+                                size="1.2em"
+                                style={{
+                                    ...iconStyle,
+                                    marginLeft: 0,
+                                }}
+                            />
+                        )}
+                    </div>
+                    <Label
+                        baseColor={baseColor}
+                        className="TextField-label"
+                        htmlFor={id}
+                    >
+                        <span>{label}</span>
+                        {!required && (
+                            <span className="TextField-optional">Opcional</span>
+                        )}
+                    </Label>
+                </div>
+                {children}
                 {hasError && hasErrorMessage.length !== 0 && (
                     <Typography
                         color="red"
@@ -126,6 +228,12 @@ class TextField extends React.Component {
 TextField.defaultProps = {
     errorMessage: '',
     requiredMessage: '',
+    open: false,
+    hideCleanIcon: false,
+    giveFocus: false,
+    onError() {},
+    onFixed() {},
+    onChange() {},
 };
 
 TextField.propTypes = {
@@ -137,10 +245,22 @@ TextField.propTypes = {
     style: PropTypes.object,
     className: PropTypes.string,
     required: PropTypes.bool,
-    requiredMessage: PropTypes.string,
+    requiredMessage: PropTypes.any,
     error: PropTypes.bool,
-    errorMessage: PropTypes.string,
+    errorMessage: PropTypes.any,
     value: PropTypes.string,
+    onClear: PropTypes.func,
+    onOpen: PropTypes.func,
+    open: PropTypes.bool,
+    clear: PropTypes.bool,
+    hideClearIcon: PropTypes.bool,
+    giveFocus: PropTypes.bool,
+    children: PropTypes.any,
+    onError: PropTypes.func,
+    onFixed: PropTypes.func,
+    initialValue: PropTypes.string,
+    onChange: PropTypes.func,
+    name: PropTypes.string,
 };
 
 export default withTheme(TextField);

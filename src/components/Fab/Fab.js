@@ -5,16 +5,21 @@ import { withTheme, ThemeContext } from 'components/Theme';
 
 class Fab extends React.Component {
     render() {
-        const { theme, variant, ...props } = this.props;
+        const { theme, variant, type, ...props } = this.props;
 
         return (
             <IconButton
+                type={type}
                 fontColor={theme.background}
                 background={theme.colors[variant] || theme.foreground}
                 {...props}
             />
         );
     }
+}
+
+Fab.defaultProps = {
+    type: 'button'
 }
 
 Fab.propTypes = {

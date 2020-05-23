@@ -9,6 +9,10 @@ import View from 'components/View';
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
+import AutocompleteDatabase from 'components/AutocompleteDatabase';
+
+import Routes from 'config/Routes';
+import { withRouter } from 'react-router-dom';
 
 class CreateFacultad extends Component {
     state = {
@@ -30,11 +34,13 @@ class CreateFacultad extends Component {
                 universidad: this.state.universidad,
             }),
         })
-            .then(facultad =>
+            .then(facultad => {
                 this.props.toast.success(
                     `La facultad '${facultad.name}' fue añadida exitosamente.`
-                )
-            )
+                );
+
+                this.props.history.goBack();
+            })
             .catch(error => this.props.toast.error(error.message));
     };
 
@@ -43,17 +49,44 @@ class CreateFacultad extends Component {
     };
 
     render() {
+        const { location } = this.props;
+
+        const initialValues = location.state || {};
+
         return (
             <View>
                 <Typography component="h1">Añadir nueva facultad</Typography>
                 <form onSubmit={this.onSubmit}>
-                    <TextField
+                    <AutocompleteDatabase
                         required
                         placeholder="Universidad"
                         label="Universidad"
                         name="universidad"
                         onChange={this.onChange}
-                        value={this.state.universidad}
+                        onSelect={universidad => this.setState({ universidad })}
+                        hideClearIcon={true}
+                        endpoint="/universidades"
+                        getSuggestion={universidad => universidad.name}
+                        initialValue={initialValues.universidad}
+                        noSuggestionsMessage={
+                            <Button
+                                fullWidth
+                                variant="blue"
+                                style={{
+                                    marginTop: 8,
+                                }}
+                                onClick={() => {
+                                    this.props.history.push({
+                                        pathname: Routes.createUniversidad.path,
+                                        state: {
+                                            universidad: this.state.universidad,
+                                        },
+                                    });
+                                }}
+                            >
+                                Añadir universidad
+                            </Button>
+                        }
                     />
                     <TextField
                         required
@@ -62,24 +95,52 @@ class CreateFacultad extends Component {
                         name="facultad"
                         onChange={this.onChange}
                         value={this.state.facultad}
+                        initialValue={initialValues.facultad}
                     />
-                    <Button
-                        variant="green"
+                    <div
                         style={{
                             marginTop: 20,
+                            display: 'flex',
                         }}
-                        fullWidth
                     >
-                        Añadir
-                    </Button>
+                        <Button
+                            type="button"
+                            variant="red"
+                            style={{
+                                flex: 1,
+                            }}
+                            onClick={() => this.props.history.goBack()}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="green"
+                            style={{
+                                marginLeft: 8,
+                                flex: 1,
+                            }}
+                        >
+                            Añadir
+                        </Button>
+                    </div>
                 </form>
             </View>
         );
     }
 }
 
-CreateFacultad.propTypes = {
-    toast: PropTypes.any,
+CreateFacultad.defaultProps = {
+    location: {
+        state: {},
+    },
 };
 
-export default withToast(withAuth(CreateFacultad));
+CreateFacultad.propTypes = {
+    toast: PropTypes.any.isRequired,
+    history: PropTypes.any.isRequired,
+    location: PropTypes.any.isRequired,
+    match: PropTypes.any.isRequired,
+};
+
+export default withRouter(withToast(withAuth(CreateFacultad)));

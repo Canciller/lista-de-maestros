@@ -38,6 +38,7 @@ class Button extends React.Component {
             children,
             className,
             style,
+            type,
             ...props
         } = this.props;
 
@@ -51,6 +52,7 @@ class Button extends React.Component {
                 )}
                 className={classNames('Button-root', className)}
                 baseColor={theme.colors[variant] || theme.foreground}
+                type={type}
                 {...props}
             >
                 {children}
@@ -59,9 +61,14 @@ class Button extends React.Component {
     }
 }
 
+Button.defaultProps = {
+    type: 'button',
+};
+
 Button.propTypes = {
     theme: PropTypes.object.isRequired,
     variant: PropTypes.string,
+    type: PropTypes.string,
     fullWidth: PropTypes.bool,
     children: PropTypes.any,
     className: PropTypes.string,

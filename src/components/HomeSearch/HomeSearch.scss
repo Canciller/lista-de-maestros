@@ -1,43 +1,37 @@
-$search-font-size: 17px;
-
-.root {
+.HomeSearch-root {
     transition: all 0.2s;
-    margin-left: 5vw;
-    margin-top: 35vh;
+    display: flex;
+    width: 100%;
+    margin: auto;
 }
 
-$search-font-size: 17px;
-
-.text {
-    padding-left: 15px;
+.HomeSearch-query {
+    flex: 1;
+    padding: 12px;
     border: none;
-    font-size: $search-font-size;
-    font-weight: lighter;
-    width: 70vw;
-    height: 40px;
+    font-size: 1.1em;
 }
 
-.text:focus {
+.HomeSearch-query {
     outline-width: 0;
 }
 
-.button {
-    height: 40px;
-    width: 30px;
+.HomeSearch-search-button {
     border: none;
-    background-color: rgb(255, 255, 255);
     cursor: pointer;
-    color: rgb(70, 70, 70);
+    padding: 0 16px;
+    transition: all 0.15s;
 }
 
-.button:focus {
+.HomeSearch-search-button:focus {
     outline-width: 0;
 }
 
-// Cuando pase de 801px se ajustará a el tamaño indicado aquí.
-@media (min-width: 801px) {
-    .text {
-        width: 700px;
-        margin-left: 29%;
-    }
+::-webkit-input-placeholder,
+:-moz-placeholder,
+::-moz-placeholder,
+:-ms-input-placeholder,
+::-ms-input-placeholder,
+::placeholder { 
+    color: inherit;
 }

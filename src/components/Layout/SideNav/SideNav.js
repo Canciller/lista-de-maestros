@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withTheme, ThemeContext } from 'components/Theme';
 import { withUser } from 'components/User';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Routes from 'routes';
+import Routes from 'config/Routes';
 import Logo from './Logo';
 import Link from './Link';
 import './SideNav.scss';

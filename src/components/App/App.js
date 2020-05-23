@@ -13,8 +13,6 @@ export const CustomToast = ({ children, appearance, ...props }) => {
             appearance={appearance}
             style={{
                 boxShadow: 'none',
-                border: '1px solid',
-                borderLeft: 0,
             }}
         >
             {children}
