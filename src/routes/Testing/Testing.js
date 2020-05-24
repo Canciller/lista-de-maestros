@@ -6,12 +6,71 @@ import './Testing.scss';
 import TableTest from 'components/TableTest';
 
 class Testing extends React.Component {
+    state = {};
+
+    constructor() {
+        super();
+
+        this.container = React.createRef();
+    }
+
+    resize = () => {
+        const node = this.container.current;
+
+        if (node) {
+            this.setState({
+                width: node.clientWidth,
+                height: node.clientHeight,
+            });
+        }
+    };
+
+    componentDidMount() {
+        window.addEventListener('resize', () => {
+            this.resize();
+        });
+
+        this.resize();
+    }
+
+    componentWillUnmount() {
+        window.removeEventListener('resize', () => {
+            this.resize();
+        });
+    }
+
     render() {
         return (
-            <View>
-                <Typography component="h1">Testing</Typography>
-                <br />
-                <TableTest />
+            <View flex direction='column'>
+                <Typography
+                    component="h1"
+                    style={{
+                        marginBottom: 18,
+                    }}
+                >
+                    Testing
+                </Typography>
+                <div
+                    ref={this.container}
+                    style={{
+                        width: '100%',
+                        height: '100%',
+                        flex: 1,
+                        position: 'relative',
+                    }}
+                >
+                    <div
+                        style={{
+                            width: this.state.width,
+                            height: this.state.height,
+                            overflow: 'auto',
+                            position: 'absolute',
+                            zIndex: 1,
+                        }}
+                    >
+                        <TableTest />
+                    </div>
+                </div>
             </View>
         );
     }

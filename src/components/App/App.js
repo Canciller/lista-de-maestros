@@ -25,7 +25,7 @@ function App() {
         <Theme>
             <ToastProvider
                 autoDismiss
-                placement="bottom-right"
+                placement="bottom-center"
                 components={{ Toast: CustomToast }}
             >
                 <User>

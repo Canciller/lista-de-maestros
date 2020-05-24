@@ -1,8 +1,10 @@
+/* eslint-disable react/jsx-key */
 import React from 'react';
 import PropTypes from 'prop-types';
+import fetchAPI from 'util/fetchAPI';
+
 import Typography from 'components/Typography';
 import { withTheme } from 'components/Theme';
-import './TableTest.scss';
 
 import { useTable } from 'react-table';
 import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
@@ -23,41 +25,296 @@ import {
     faSmileBeam,
 } from '@fortawesome/free-solid-svg-icons';
 
-function TableTest() {
-    const data = React.useMemo(
-        () => [
-            {
-                col1: 'Hello',
-                col2: 'World',
-            },
-            {
-                col1: 'react-table',
-                col2: 'rocks',
-            },
-            {
-                col1: 'whatever',
-                col2: 'you want',
-            },
-        ],
-        []
-    );
+import './TableTest.scss';
+
+function TableTest(props) {
+    const data = React.useMemo(() => [
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+        {
+            fullName: 'Test test test test test',
+            degree: 'Licenciatura',
+            facultad: 'Facultad de ingenieraia mecanica t meaasldksal',
+            dominio_de_la_asignatura: 5,
+            planificación_del_curso: 3,
+            ambientes_de_aprendizaje: 5,
+            estrategias_métodos_y_tecnicas: 1,
+            motivacion: 2,
+            evaluacion: 5,
+            comunicacion: 3,
+            gestion_del_curso: 5,
+            tecnologias_de_la_información_y_la_comunicacion: 2,
+            satisfaccion_general: 2,
+        },
+    ]);
 
     const columns = React.useMemo(
         () => [
             {
-                Header: 'Nombre',
-                accessor: 'firstname', // accessor is the "key" in the data
+                Header: 'Nombre y Apellido',
+                accessor: 'fullName', // accessor is the "key" in the data
             },
             {
-                Header: 'Apellido',
-                accessor: 'lastname', // accessor is the "key" in the data
-            },
-            {
-                Header: <Icon icon={faGraduationCap} />,
+                //Header: <Icon icon={faGraduationCap} />,
+                Header: 'Titulo',
                 accessor: 'degree', // accessor is the "key" in the data
             },
             {
-                Header: <Icon icon={faSchool} />,
+                //Header: <Icon icon={faSchool} />,
+                Header: 'Facultad',
                 accessor: 'facultad',
             },
             {
@@ -78,11 +335,11 @@ function TableTest() {
             },
             {
                 Header: <Icon icon={faBookReader} />,
-                accessor: 'motivación',
+                accessor: 'motivacion',
             },
             {
                 Header: <Icon icon={faUserCheck} />,
-                accessor: 'evaluación',
+                accessor: 'evaluacion',
             },
             {
                 Header: <Icon icon={faComments} />,
@@ -98,7 +355,7 @@ function TableTest() {
             },
             {
                 Header: <Icon icon={faSmileBeam} />,
-                accessor: 'gender',
+                accessor: 'satisfaccion_general',
             },
         ],
         []
@@ -112,8 +369,17 @@ function TableTest() {
         prepareRow,
     } = useTable({ columns, data });
 
+    const { theme } = props;
+
     return (
-        <table {...getTableProps()} style={{ border: 'solid 1px blue' }}>
+        <table
+            {...getTableProps()}
+            style={{
+                background: theme.background.light,
+                borderCollapse: 'collapse',
+                width: '100%',
+            }}
+        >
             <thead>
                 {headerGroups.map(headerGroup => (
                     <tr {...headerGroup.getHeaderGroupProps()}>
@@ -121,10 +387,14 @@ function TableTest() {
                             <th
                                 {...column.getHeaderProps()}
                                 style={{
-                                    borderBottom: 'solid 3px red',
-                                    background: 'aliceblue',
-                                    color: 'black',
+                                    textAlign: 'left',
+                                    color: theme.colors.green.foreground,
+                                    background: theme.colors.green.light,
                                     fontWeight: 'bold',
+                                    padding: '8px 12px',
+                                    whiteSpace: 'nowrap',
+                                    top: 0,
+                                    position: 'sticky',
                                 }}
                             >
                                 {column.render('Header')}
@@ -137,15 +407,16 @@ function TableTest() {
                 {rows.map(row => {
                     prepareRow(row);
                     return (
-                        <tr {...row.getRowProps()}>
+                        <tr {...row.getRowProps()} className='Lista-row'>
                             {row.cells.map(cell => {
                                 return (
                                     <td
                                         {...cell.getCellProps()}
                                         style={{
-                                            padding: '10px',
-                                            border: 'solid 1px gray',
-                                            background: 'papayawhip',
+                                            padding: '8px 12px',
+                                            fontSize: '0.9em',
+                                            color: theme.foreground.normal,
+                                            whiteSpace: 'nowrap',
                                         }}
                                     >
                                         {cell.render('Cell')}
@@ -160,4 +431,4 @@ function TableTest() {
     );
 }
 
-export default TableTest;
+export default withTheme(TableTest);

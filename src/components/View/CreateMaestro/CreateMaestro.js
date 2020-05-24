@@ -70,6 +70,9 @@ class CreateMaestro extends Component {
                             callback
                         )
                     }
+                    onSuccess={() => {
+                        this.props.history.goBack();
+                    }}
                     onFailure={error => {
                         error.message instanceof Object &&
                             Object.keys(error.message).forEach(key =>
@@ -176,6 +179,9 @@ class CreateMaestro extends Component {
                             variant="red"
                             style={{
                                 flex: 1,
+                            }}
+                            onClick={() => {
+                                this.props.history.goBack();
                             }}
                         >
                             Cancelar

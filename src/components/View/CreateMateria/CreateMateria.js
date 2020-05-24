@@ -10,6 +10,8 @@ import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
 
+import { withRouter } from 'react-router-dom';
+
 class CreateMateria extends Component {
     state = {
         materia: '',
@@ -26,11 +28,13 @@ class CreateMateria extends Component {
             },
             body: JSON.stringify({ name: this.state.materia }),
         })
-            .then(universidad =>
+            .then(materia => {
                 this.props.toast.success(
-                    `La materia '${universidad.name}' fue añadida exitosamente.`
-                )
-            )
+                    `La materia '${materia.name}' fue añadida exitosamente.`
+                );
+
+                this.props.history.goBack();
+            })
             .catch(error => this.props.toast.error(error.message));
     };
 
@@ -39,6 +43,10 @@ class CreateMateria extends Component {
     };
 
     render() {
+        const { location } = this.props;
+        console.log(location);
+        const initialValues = location.state || {};
+
         return (
             <View>
                 <Typography component="h1">Añadir nueva materia</Typography>
@@ -50,16 +58,37 @@ class CreateMateria extends Component {
                         name="materia"
                         onChange={this.onChange}
                         value={this.state.materia}
+                        initialValue={initialValues.materia}
                     />
-                    <Button
-                        variant="green"
+                    <div
                         style={{
                             marginTop: 20,
+                            display: 'flex',
                         }}
-                        fullWidth
                     >
-                        Añadir
-                    </Button>
+                        <Button
+                            type="button"
+                            variant="red"
+                            style={{
+                                flex: 1,
+                            }}
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}
+                        >
+                            Cancelar
+                        </Button>
+                        <Button
+                            type="submit"
+                            variant="green"
+                            style={{
+                                marginLeft: 8,
+                                flex: 1,
+                            }}
+                        >
+                            Añadir
+                        </Button>
+                    </div>
                 </form>
             </View>
         );
@@ -70,4 +99,4 @@ CreateMateria.propTypes = {
     toast: PropTypes.any,
 };
 
-export default withToast(withAuth(CreateMateria));
+export default withRouter(withToast(withAuth(CreateMateria)));

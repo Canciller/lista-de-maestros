@@ -50,7 +50,7 @@ export default {
         icon: faEdit,
         component: CreateReview,
     },
-    crearMaestro: {
+    createMaestro: {
         path: '/new/maestro',
         name: 'Añadir maestro',
         icon: faUserGraduate,

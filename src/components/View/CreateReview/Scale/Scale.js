@@ -7,7 +7,7 @@ import './Scale.scss';
 
 class Scale extends Component {
     createRadios = () => {
-        const { name, max, onChange, ...props } = this.props;
+        const { name, max, onChange, required, ...props } = this.props;
 
         const radios = [];
 
@@ -20,6 +20,7 @@ class Scale extends Component {
                     name={name}
                     label={value}
                     onChange={onChange}
+                    required={required}
                 />
             );
 

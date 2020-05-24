@@ -3,20 +3,86 @@ import PropTypes from 'prop-types';
 import withAuth from 'util/withAuth';
 import { withTheme } from 'components/Theme';
 import Fetch from 'components/View/Fetch';
+import fetchAPI from 'util/fetchAPI';
 
-import {
-    faTimes,
-    faCheck,
-    faChevronUp,
-} from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faCheck } from '@fortawesome/free-solid-svg-icons';
 import Typography from 'components/Typography';
 import Fab from 'components/Fab';
+import Button from 'components/Button';
 
 import Scale from './Scale';
 
-import './CreateReview.scss';
 import FetchAutocomplete from 'components/AutocompleteDatabase';
 import { withRouter } from 'react-router-dom';
+import withToast from 'util/withToast';
+import Routes from 'config/Routes';
+
+import './CreateReview.scss';
+
+class Review extends Component {
+    shouldComponentUpdate() {
+        return false;
+    }
+
+    render() {
+        const { categories, theme, onChange } = this.props;
+
+        return (
+            <React.Fragment>
+                {Object.keys(categories).map(key => {
+                    const category = categories[key];
+                    const questions = category.questions;
+
+                    return (
+                        <div
+                            className="CreateReview-category"
+                            key={category.name}
+                        >
+                            <Typography
+                                className="CreateReview-category-title"
+                                component="h2"
+                            >
+                                {category.text}
+                            </Typography>
+                            <div className="CreateReview-questions">
+                                {Object.keys(questions).map(key => {
+                                    const question = questions[key];
+                                    return (
+                                        <Fragment key={key}>
+                                            <div className="CreateReview-question">
+                                                <div className="CreateReview-question-header">
+                                                    <Typography className="CreateReview-question-number">
+                                                        {`${parseInt(key) + 1}`}
+                                                    </Typography>
+                                                    <Typography className="CreateReview-question-text">
+                                                        {question.text}
+                                                    </Typography>
+                                                </div>
+                                                <Scale
+                                                    onChange={onChange}
+                                                    className="CreateReview-question-scale"
+                                                    max={5}
+                                                    name={`${category.name} ${key}`}
+                                                    required
+                                                />
+                                            </div>
+                                        </Fragment>
+                                    );
+                                })}
+                            </div>
+                            <div
+                                className="CreateReview-separator"
+                                style={{
+                                    borderColor: theme.foreground.normal,
+                                }}
+                            />
+                        </div>
+                    );
+                })}
+            </React.Fragment>
+        );
+    }
+}
 
 class CreateReview extends Component {
     state = {
@@ -26,10 +92,34 @@ class CreateReview extends Component {
         materia: '',
         fullName: '',
         categories: {},
+        review: {},
     };
 
     onSubmit = event => {
         event.preventDefault();
+
+        const { facultad, universidad, materia, fullName, review } = this.state;
+
+        fetchAPI('/reviews', {
+            method: 'POST',
+            headers: {
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                facultad,
+                universidad,
+                materia,
+                fullName,
+                review,
+            }),
+        })
+            .then(review => {
+                this.props.toast.success(`La reseña fue añadida exitosamente.`);
+
+                this.props.history.goBack();
+            })
+            .catch(error => this.props.toast.error(error.message));
     };
 
     onChange = e => {
@@ -40,13 +130,20 @@ class CreateReview extends Component {
     };
 
     onChangeRadio = e => {
-        const { categories } = this.state;
+        const { review } = this.state;
 
         const { name, value } = e.target;
         const category = name.split(' ');
 
         const categoryName = category[0];
-        const categoryIndex = category.length && category[1];
+        const categoryIndex = category.length ? category[1] : undefined;
+
+        if (categoryName && categoryIndex) {
+            if (!review[categoryName]) review[categoryName] = {};
+            review[categoryName][categoryIndex] = value;
+
+            this.setState({ review });
+        }
     };
 
     render() {
@@ -81,6 +178,9 @@ class CreateReview extends Component {
                             size="3em"
                             variant="red"
                             icon={faTimes}
+                            onClick={() => {
+                                this.props.history.goBack();
+                            }}
                         />
                         <Fab
                             className="CreateReview-action"
@@ -94,7 +194,7 @@ class CreateReview extends Component {
                         endpoint="/maestros"
                         hideClearIcon={true}
                         onChange={this.onChange}
-                        onSelect={maestro => this.setState({ maestro })}
+                        onSelect={fullName => this.setState({ fullName })}
                         getSuggestion={maestro =>
                             `${maestro.firstname} ${maestro.lastname}`
                         }
@@ -103,6 +203,22 @@ class CreateReview extends Component {
                         label="Nombre y apellido del maestro"
                         initialValue={initialValues.fullName}
                         required
+                        noSuggestionsMessage={
+                            <Button
+                                fullWidth
+                                variant="blue"
+                                style={{
+                                    marginTop: 8,
+                                }}
+                                onClick={() => {
+                                    this.props.history.push({
+                                        pathname: Routes.createMaestro.path,
+                                    });
+                                }}
+                            >
+                                Añadir maestro
+                            </Button>
+                        }
                     />
                     <FetchAutocomplete
                         endpoint="/universidades"
@@ -134,6 +250,25 @@ class CreateReview extends Component {
                         onSelect={materia => this.setState({ materia })}
                         getSuggestion={materia => materia.name}
                         initialValue={initialValues.materia}
+                        noSuggestionsMessage={
+                            <Button
+                                fullWidth
+                                variant="blue"
+                                style={{
+                                    marginTop: 8,
+                                }}
+                                onClick={() => {
+                                    this.props.history.push({
+                                        pathname: Routes.createMateria.path,
+                                        state: {
+                                            materia: this.state.materia,
+                                        },
+                                    });
+                                }}
+                            >
+                                Añadir materia
+                            </Button>
+                        }
                         hideClearIcon={true}
                         placeholder="Materia"
                         name="materia"
@@ -143,61 +278,11 @@ class CreateReview extends Component {
                             marginBottom: 20,
                         }}
                     />
-                    {Object.keys(categories).map(key => {
-                        const category = categories[key];
-                        const questions = category.questions;
-
-                        return (
-                            <div
-                                className="CreateReview-category"
-                                key={category.name}
-                            >
-                                <Typography
-                                    className="CreateReview-category-title"
-                                    component="h2"
-                                >
-                                    {category.text}
-                                </Typography>
-                                <div className="CreateReview-questions">
-                                    {Object.keys(questions).map(key => {
-                                        const question = questions[key];
-                                        return (
-                                            <Fragment key={key}>
-                                                <div className="CreateReview-question">
-                                                    <div className="CreateReview-question-header">
-                                                        <Typography className="CreateReview-question-number">
-                                                            {`${parseInt(key) +
-                                                                1}`}
-                                                        </Typography>
-                                                        <Typography className="CreateReview-question-text">
-                                                            {question.text}
-                                                        </Typography>
-                                                    </div>
-                                                    <Scale
-                                                        onChange={
-                                                            this.onChangeRadio
-                                                        }
-                                                        className="CreateReview-question-scale"
-                                                        max={5}
-                                                        name={`${category.name} ${key}`}
-                                                        required
-                                                    />
-                                                </div>
-                                                <div
-                                                    className="CreateReview-separator"
-                                                    style={{
-                                                        borderColor:
-                                                            theme.foreground
-                                                                .normal,
-                                                    }}
-                                                />
-                                            </Fragment>
-                                        );
-                                    })}
-                                </div>
-                            </div>
-                        );
-                    })}
+                    <Review
+                        categories={categories}
+                        theme={theme}
+                        onChange={this.onChangeRadio}
+                    />
                 </form>
             </Fetch>
         );
@@ -211,4 +296,4 @@ CreateReview.propTypes = {
     match: PropTypes.any.isRequired,
 };
 
-export default withRouter(withAuth(withTheme(CreateReview)));
+export default withToast(withRouter(withAuth(withTheme(CreateReview))));

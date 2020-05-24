@@ -9,9 +9,11 @@
     left: 0;
     height: 100vh;
     
+    /*
     @media (min-width: 800px) {
         position: sticky;
     }
+    */
 }
 
 .SideNav-click-outside {
@@ -24,9 +26,11 @@
     right: 0;
     z-index: 9996;
 
+    /*
     @media (min-width: 800px) {
         display: none;
     }
+    */
 }
 
 .SideNav-header {
@@ -40,9 +44,11 @@
     margin-top: -16px;
     top: 50%;
 
+    /*
     @media (min-width: 800px) {
         display: none !important;
     }
+    */
 }
 
 .SideNav-Separator {

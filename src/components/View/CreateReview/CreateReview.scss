@@ -37,10 +37,13 @@
     background: transparent;
     border-top: 1px solid;
     margin: auto;
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     
-    &:last-child {
-        //display: none;
+}
+
+.CreateReview-category:last-child {
+    .CreateReview-separator {
+        display: none;
     }
 }
 
