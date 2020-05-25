@@ -76,64 +76,7 @@ class Profile extends React.Component {
                     >
                         <Typography>Options</Typography>
                     </div>
-                    <div>
-                        <Review
-                            data={{
-                                user,
-                                materia: 'Test',
-                                maestro: {
-                                    name: 'Test',
-                                },
-                                recommended: true,
-                                text:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
-                                date: 'Date',
-                                hour: 'Hour',
-                            }}
-                        />
-                        <Review
-                            data={{
-                                user,
-                                materia: 'Test',
-                                maestro: {
-                                    name: 'Test',
-                                },
-                                recommended: false,
-                                text:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
-                                date: 'Date',
-                                hour: 'Hour',
-                            }}
-                        />
-                        <Review
-                            data={{
-                                user,
-                                materia: 'Test',
-                                maestro: {
-                                    name: 'Test',
-                                },
-                                recommended: true,
-                                text:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
-                                date: 'Date',
-                                hour: 'Hour',
-                            }}
-                        />
-                        <Review
-                            data={{
-                                user,
-                                materia: 'Test',
-                                maestro: {
-                                    name: 'Test',
-                                },
-                                recommended: true,
-                                text:
-                                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam vel dui ac ipsum sollicitudin posuere id quis dolor. Aenean vel est eu ipsum vehicula vehicula et eu leo. Mauris leo lorem, efficitur quis neque ac, faucibus maximus dolor. Fusce pretium ut nisl porttitor luctus. Donec lacus eros, suscipit non arcu sit amet, gravida mollis dui. Etiam eu ante eget sapien volutpat hendrerit. Ut tincidunt libero ut velit rhoncus, at cursus libero vehicula.',
-                                date: 'Date',
-                                hour: 'Hour',
-                            }}
-                        />
-                    </div>
+                    <div></div>
                 </div>
             </Fetch>
         );

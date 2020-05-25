@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import withAuth from 'util/withAuth';
 import { withTheme } from 'components/Theme';
@@ -5,7 +6,7 @@ import { withTheme } from 'components/Theme';
 import Typography from 'components/Typography';
 import Button from 'components/Button';
 import TextField from 'components/TextField';
-import FetchAutocomplete from 'components/AutocompleteDatabase';
+import FetchAutocomplete from 'components/FetchAutocomplete';
 import View from 'components/View';
 import Form from 'components/Form';
 
@@ -14,17 +15,6 @@ import Autocomplete from 'components/Autocomplete';
 
 import Routes from 'config/Routes';
 import { withRouter } from 'react-router-dom';
-
-const GoCreateButton = props => (
-    <div
-        style={{
-            display: 'flex',
-            justifyContent: 'flex-end',
-        }}
-    >
-        {this.state.showCreateFacultad && <Button>Añadir facultad</Button>}
-    </div>
-);
 
 class CreateMaestro extends Component {
     state = {

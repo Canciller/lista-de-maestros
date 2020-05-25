@@ -9,7 +9,7 @@ import View from 'components/View';
 import Typography from 'components/Typography';
 import TextField from 'components/TextField';
 import Button from 'components/Button';
-import AutocompleteDatabase from 'components/AutocompleteDatabase';
+import AutocompleteDatabase from 'components/FetchAutocomplete';
 
 import Routes from 'config/Routes';
 import { withRouter } from 'react-router-dom';

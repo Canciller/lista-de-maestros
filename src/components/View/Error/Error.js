@@ -50,6 +50,7 @@ class Error extends Component {
                         <Button
                             onClick={onReturn}
                             style={{
+                                marginTop: 20,
                                 marginRight: 8,
                             }}
                         >

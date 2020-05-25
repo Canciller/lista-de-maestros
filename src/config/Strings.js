@@ -57,10 +57,25 @@ const ConnectionStrings = {
     noConnection: 'No hay conexión con el servidor, inténtelo más tarde.',
 };
 
+const CategoryStrings = {
+    dominio_de_la_asignatura: 'Dominio de la asignatura',
+    planificacion_del_curso: 'Planificación del curso',
+    ambientes_de_aprendizaje: 'Ambientes de aprendizaje',
+    estrategias_metodos_y_tecnicas: 'Estrategias, métodos y técnicas',
+    motivacion: 'Motivación',
+    evaluacion: 'Evaluación',
+    comunicacion: 'Comunicación',
+    gestion_del_curso: 'Gestión del curso',
+    tecnologias_de_la_informacion_y_comunicacion:
+        'Tecnologías de la información y comunicación',
+    satisfaccion_general: 'Satisfacción general',
+};
+
 export {
     LoginStrings,
     RegisterStrings,
     AuthStrings,
     MaestroStrings,
     ConnectionStrings,
+    CategoryStrings,
 };

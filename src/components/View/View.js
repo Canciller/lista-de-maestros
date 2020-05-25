@@ -12,6 +12,7 @@ class View extends Component {
             children,
             flex,
             direction,
+            fluid,
             ...props
         } = this.props;
 
@@ -20,6 +21,7 @@ class View extends Component {
                 className={classNames('View-root', className)}
                 style={mergeStyles(
                     flex && { display: 'flex', flexDirection: direction },
+                    !fluid && { maxWidth: 960, margin: '0 auto' },
                     style
                 )}
                 {...props}
@@ -40,6 +42,7 @@ View.propTypes = {
     style: PropTypes.object,
     children: PropTypes.any,
     flex: PropTypes.bool,
+    fluid: PropTypes.bool,
     direction: PropTypes.string,
 };
 

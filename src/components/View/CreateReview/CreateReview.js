@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import withAuth from 'util/withAuth';
@@ -12,9 +13,10 @@ import Button from 'components/Button';
 
 import Scale from './Scale';
 
-import FetchAutocomplete from 'components/AutocompleteDatabase';
+import FetchAutocomplete from 'components/FetchAutocomplete';
 import { withRouter } from 'react-router-dom';
 import withToast from 'util/withToast';
+import { withUser } from 'components/User';
 import Routes from 'config/Routes';
 
 import './CreateReview.scss';
@@ -98,7 +100,19 @@ class CreateReview extends Component {
     onSubmit = event => {
         event.preventDefault();
 
-        const { facultad, universidad, materia, fullName, review } = this.state;
+        const { materia, maestro, review, comment } = this.state;
+
+        const { user } = this.props;
+
+        let currentUser = user.current();
+
+        let username;
+        if (currentUser) username = currentUser.username;
+
+        let maestroId, materiaId;
+        if (maestro) maestroId = maestro['_id'];
+
+        if (materia) materiaId = materia['_id'];
 
         fetchAPI('/reviews', {
             method: 'POST',
@@ -107,10 +121,10 @@ class CreateReview extends Component {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                facultad,
-                universidad,
-                materia,
-                fullName,
+                username,
+                maestro: maestroId,
+                materia: materiaId,
+                comment,
                 review,
             }),
         })
@@ -122,11 +136,13 @@ class CreateReview extends Component {
             .catch(error => this.props.toast.error(error.message));
     };
 
-    onChange = e => {
+    onChange = (e, data) => {
+        /*
         const { name, value } = e.target;
         this.setState({
             [name]: value,
         });
+        */
     };
 
     onChangeRadio = e => {
@@ -191,63 +207,11 @@ class CreateReview extends Component {
                         />
                     </div>
                     <FetchAutocomplete
-                        endpoint="/maestros"
-                        hideClearIcon={true}
-                        onChange={this.onChange}
-                        onSelect={fullName => this.setState({ fullName })}
-                        getSuggestion={maestro =>
-                            `${maestro.firstname} ${maestro.lastname}`
-                        }
-                        placeholder="Nombre y apellido del maestro"
-                        name="fullName"
-                        label="Nombre y apellido del maestro"
-                        initialValue={initialValues.fullName}
-                        required
-                        noSuggestionsMessage={
-                            <Button
-                                fullWidth
-                                variant="blue"
-                                style={{
-                                    marginTop: 8,
-                                }}
-                                onClick={() => {
-                                    this.props.history.push({
-                                        pathname: Routes.createMaestro.path,
-                                    });
-                                }}
-                            >
-                                Añadir maestro
-                            </Button>
-                        }
-                    />
-                    <FetchAutocomplete
-                        endpoint="/universidades"
-                        onChange={this.onChange}
-                        onSelect={universidad => this.setState({ universidad })}
-                        getSuggestion={universidad => universidad.name}
-                        hideClearIcon={true}
-                        placeholder="Universidad"
-                        name="universidad"
-                        label="Universidad"
-                        initialValue={initialValues.universidad}
-                        required
-                    />
-                    <FetchAutocomplete
-                        endpoint="/facultades"
-                        onChange={this.onChange}
-                        onSelect={facultad => this.setState({ facultad })}
-                        getSuggestion={facultad => facultad.name}
-                        hideClearIcon={true}
-                        placeholder="Facultad"
-                        name="facultad"
-                        label="Facultad"
-                        initialValue={initialValues.facultad}
-                        required
-                    />
-                    <FetchAutocomplete
                         endpoint="/materias"
                         onChange={this.onChange}
-                        onSelect={materia => this.setState({ materia })}
+                        onSelect={(suggestion, materia) =>
+                            this.setState({ materia })
+                        }
                         getSuggestion={materia => materia.name}
                         initialValue={initialValues.materia}
                         noSuggestionsMessage={
@@ -274,9 +238,96 @@ class CreateReview extends Component {
                         name="materia"
                         label="Materia"
                         required
+                    />
+                    <FetchAutocomplete
+                        endpoint="/maestros"
+                        hideClearIcon={true}
+                        onChange={this.onChange}
+                        onSelect={(fullName, maestro) =>
+                            this.setState({ maestro })
+                        }
+                        getSuggestion={maestro =>
+                            `${maestro.firstname} ${maestro.lastname}`
+                        }
+                        placeholder="Nombre y apellido del maestro"
+                        name="fullName"
+                        label="Nombre y apellido del maestro"
+                        initialValue={initialValues.fullName}
+                        required
+                        noSuggestionsMessage={
+                            <Button
+                                fullWidth
+                                variant="blue"
+                                style={{
+                                    marginTop: 8,
+                                }}
+                                onClick={() => {
+                                    this.props.history.push({
+                                        pathname: Routes.createMaestro.path,
+                                    });
+                                }}
+                            >
+                                Añadir maestro
+                            </Button>
+                        }
                         style={{
                             marginBottom: 20,
                         }}
+                    />
+                    {/*
+                    <FetchAutocomplete
+                        endpoint="/universidades"
+                        onChange={this.onChange}
+                        onSelect={universidad => this.setState({ universidad })}
+                        getSuggestion={universidad => universidad.name}
+                        hideClearIcon={true}
+                        placeholder="Universidad"
+                        name="universidad"
+                        label="Universidad"
+                        initialValue={initialValues.universidad}
+                        required
+                    />
+                    <FetchAutocomplete
+                        endpoint="/facultades"
+                        onChange={this.onChange}
+                        onSelect={facultad => this.setState({ facultad })}
+                        getSuggestion={facultad => facultad.name}
+                        hideClearIcon={true}
+                        placeholder="Facultad"
+                        name="facultad"
+                        label="Facultad"
+                        initialValue={initialValues.facultad}
+                        required
+                    />*/}
+                    <Typography
+                        style={{
+                            fontSize: '1.2em',
+                            marginBottom: 4,
+                        }}
+                    >
+                        Comentarios
+                    </Typography>
+                    <textarea
+                        name="comment"
+                        value={this.state.comment}
+                        onChange={e =>
+                            this.setState({ comment: e.target.value })
+                        }
+                        style={{
+                            resize: 'none',
+                            width: '100%',
+                            height: 170,
+                            marginBottom: 20,
+                            fontFamily: 'inherit',
+                            padding: 8,
+                            fontSize: '1.2em',
+                            color: theme.foreground.normal,
+                            background: theme.background.light,
+                            border: 'none',
+                            transiton: 'all 250ms',
+                        }}
+                        placeholder="Escribe aquí tu opinión acerca del maestro."
+                        required
                     />
                     <Review
                         categories={categories}
@@ -296,4 +347,6 @@ CreateReview.propTypes = {
     match: PropTypes.any.isRequired,
 };
 
-export default withToast(withRouter(withAuth(withTheme(CreateReview))));
+export default withUser(
+    withToast(withRouter(withAuth(withTheme(CreateReview))))
+);

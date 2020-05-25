@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import Theme from 'components/Theme';
 import User from 'components/User';

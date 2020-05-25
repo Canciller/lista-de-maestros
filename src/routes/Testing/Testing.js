@@ -3,7 +3,7 @@ import Typography from 'components/Typography';
 import View from 'components/View';
 import './Testing.scss';
 
-import TableTest from 'components/TableTest';
+import MaestrosTable from 'components/MaestrosTable';
 
 class Testing extends React.Component {
     state = {};
@@ -41,7 +41,7 @@ class Testing extends React.Component {
 
     render() {
         return (
-            <View flex direction='column'>
+            <View flex direction="column" fluid>
                 <Typography
                     component="h1"
                     style={{
@@ -68,7 +68,7 @@ class Testing extends React.Component {
                             zIndex: 1,
                         }}
                     >
-                        <TableTest />
+                        <MaestrosTable />
                     </div>
                 </div>
             </View>

@@ -25,6 +25,7 @@ Fab.defaultProps = {
 Fab.propTypes = {
     theme: PropTypes.object.isRequired,
     variant: PropTypes.string,
+    type: PropTypes.string,
 };
 
 export default withTheme(Fab);

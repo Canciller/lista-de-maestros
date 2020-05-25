@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import fetchAPI from 'util/fetchAPI';
 import PropTypes from 'prop-types';

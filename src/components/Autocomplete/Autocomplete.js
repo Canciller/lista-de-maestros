@@ -46,7 +46,7 @@ class Autocomplete extends Component {
 
     // Event fired when the input value is changed
     onChange = e => {
-        const { suggestions, onChange, getSuggestion } = this.props;
+        const { suggestions, onChange, getSuggestion, onSelect } = this.props;
         const userInput = e.currentTarget.value;
 
         // Filter our suggestions that don't contain the user's input
@@ -58,6 +58,12 @@ class Autocomplete extends Component {
         );
 
         const hasError = filteredSuggestions.length == 0;
+
+        let savedSuggestion;
+        if (filteredSuggestions.length)
+            savedSuggestion = {
+                ...filteredSuggestions[0],
+            };
 
         // Update the user input and filtered suggestions, reset the active
         // suggestion and make sure the suggestions are shown
@@ -72,11 +78,23 @@ class Autocomplete extends Component {
         });
 
         onChange(e);
+        const text = savedSuggestion ? getSuggestion(savedSuggestion) : '';
+        onSelect(text, savedSuggestion);
     };
 
     // Event fired when the user clicks on a suggestion
     onClick = e => {
-        const { onSelect } = this.props;
+        const { onSelect, getSuggestion } = this.props;
+        const { filteredSuggestions } = this.state;
+
+        const suggestion = e.currentTarget.innerText;
+
+        const index = filteredSuggestions.findIndex(value => {
+            return getSuggestion(value) === suggestion;
+        });
+
+        let savedSuggestion;
+        if (index !== -1) savedSuggestion = filteredSuggestions[index];
 
         // Update the user input and reset the rest of the state
         this.setState({
@@ -84,12 +102,12 @@ class Autocomplete extends Component {
             filteredSuggestions: [],
             showSuggestions: false,
             hasError: false,
-            userInput: e.currentTarget.innerText,
+            userInput: suggestion,
             giveFocus: false,
             selected: true,
         });
 
-        onSelect(e.currentTarget.innerText);
+        onSelect(e.currentTarget.innerText, savedSuggestion);
     };
 
     onClear = () => {
@@ -170,7 +188,7 @@ class Autocomplete extends Component {
                 hasError: false,
             });
 
-            onSelect(suggestion);
+            onSelect(suggestion, filteredSuggestions[activeSuggestion]);
         }
         // User pressed the up arrow, decrement the index
         else if (e.keyCode === 38) {
@@ -277,6 +295,7 @@ class Autocomplete extends Component {
                     onKeyDown={onKeyDown}
                     value={userInput}
                     giveFocus={giveFocus}
+                    autoComplete="off"
                 >
                     {suggestionsListComponent}
                 </TextField>
