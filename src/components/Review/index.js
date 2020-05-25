@@ -1,3 +1,4 @@
-import Review from './Review';
+import Review, { Score } from './Review';
 
+export { Score };
 export default Review;

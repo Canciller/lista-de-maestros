@@ -11,7 +11,7 @@ let theme = new Theme(
         blue: new Color(57, 106, 252),
         green: new Color(17, 153, 142),
         gray: new Color(184, 184, 184),
-        yellow: new Color(144, 153, 21),
+        yellow: new Color(214, 157, 0),
     }
 );
 

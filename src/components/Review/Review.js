@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import Typography from 'components/Typography';
@@ -19,43 +20,75 @@ class TagBase extends React.Component {
         const {
             props: {
                 children,
-                theme: { colors, background, foreground },
+                theme: { colors, foreground },
                 variant,
                 label,
                 ...props
             },
         } = this;
 
-        const backgroundColor = colors[variant] || foreground;
-        const color = colors[variant] || { foreground: background };
+        const color = colors[variant] || foreground;
 
         return (
             <span
                 style={{
-                    background: backgroundColor.normal,
-                    color: color.foreground.normal,
-                    padding: '2px 5px',
-                    borderRadius: 2,
-                    display: 'inline-block',
+                    border: '1px solid',
+                    borderColor: color.dark,
+                    color: color.dark,
+                    display: 'flex',
+                    alignItems: 'center',
                 }}
                 {...props}
             >
                 {label && (
                     <span
                         style={{
-                            marginRight: 4,
+                            padding: '4px 8px',
                         }}
                     >
                         {label}
                     </span>
                 )}
-                {children}
+                <span
+                    style={{
+                        padding: '4px 8px',
+                        borderColor: color.dark,
+                        borderLeft: '1px solid',
+                    }}
+                >
+                    {children}
+                </span>
             </span>
         );
     }
 }
 
 const Tag = withTheme(TagBase);
+
+const getVariant = value => {
+    let variant = 'green';
+    if (value <= 2) variant = 'red';
+    else if (value < 4) variant = 'yellow';
+
+    return variant;
+}
+
+const Score = ({ value, children, ...props }) => {
+    let variant = getVariant(value);
+
+    return (
+        <span
+            style={{
+                margin: 2,
+                display: 'inline-block',
+            }}
+        >
+            <Tag {...props} variant={variant}>
+                {value.toFixed(1)}
+            </Tag>
+        </span>
+    );
+};
 
 class Review extends React.Component {
     render() {
@@ -68,56 +101,63 @@ class Review extends React.Component {
             className,
             ...props
         } = this.props;
+        
+        let variant = getVariant(review.mean);
 
         return (
             <div
                 className={classNames('Review-root', className)}
                 style={{
-                    borderColor: theme.background.normal,
                     background: theme.background.normal,
+                    borderColor: theme.colors[variant].normal,
                     ...style,
                 }}
                 {...props}
             >
-                <div className="Review-descripcion">
-                    <Typography>Comentarios</Typography>
-                    <Typography style={{
-                        fontSize: '0.9em'
-                    }}>{children}</Typography>
-                </div>
-                <div className="Review-data" style={{
-                    marginBottom: 8
-                }}>
-                    <Typography>
-                        Maestro: {[maestro.firstname, maestro.lastname].join(' ')}
-                    </Typography>
-                    <Typography>Materia: {review.materia}</Typography>
+                <div
+                    className="Review-comment"
+                    style={{
+                        marginBottom: 8,
+                    }}
+                >
                     <Typography
+                        style={{
+                            fontSize: '1em',
+                            textAlign: 'justify',
+                        }}
                     >
-                        Fecha: {review.createdAt}
+                        {children}
                     </Typography>
                 </div>
-                    <div
-                    >
-                        {Object.keys(review).map(key => {
-                            if (!(key in CategoryStrings)) return;
-                            return (
-                                <span
-                                    key={key}
-                                    style={{
-                                        margin: 2,
-                                        display: 'inline-block'
-                                    }}
-                                >
-                                    <Tag>
-                                        {CategoryStrings[key]}:{' '}
-                                        {review[key].toFixed(1)}
-                                    </Tag>
-                                </span>
-                            );
-                        })}
-                    </div>
+                <div
+                    className="Review-data"
+                    style={{
+                        marginBottom: 8,
+                        fontSize: '0.85em',
+                    }}
+                >
+                    <Typography>Materia: {review.materia.name}</Typography>
+                    <Typography>
+                        Maestro:{' '}
+                        {[maestro.firstname, maestro.lastname].join(' ')}
+                    </Typography>
+                    <Typography>
+                        Fecha: {new Date(review.createdAt).toLocaleDateString()}
+                    </Typography>
                 </div>
+                <div>
+                    {Object.keys(review).map(key => {
+                        if (!(key in CategoryStrings)) return;
+                        return (
+                            <Score
+                                key={key}
+                                label={CategoryStrings[key]}
+                                value={review[key]}
+                            />
+                        );
+                    })}
+                </div>
+            </div>
         );
     }
 }
@@ -136,4 +176,5 @@ Review.propTypes = {
     className: PropTypes.object,
 };
 
+export { Score };
 export default withTheme(Review);

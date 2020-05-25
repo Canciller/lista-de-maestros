@@ -10,6 +10,7 @@ import { FontAwesomeIcon as Icon } from '@fortawesome/react-fontawesome';
 
 import { withRouter } from 'react-router-dom';
 import Routes from 'config/Routes';
+import { CategoryStrings, CategoryIcons } from 'config/Strings';
 
 import {
     faGlasses,
@@ -23,10 +24,14 @@ import {
     faLaptopCode,
     faSmileBeam,
 } from '@fortawesome/free-solid-svg-icons';
+import Typography from 'components/Typography';
 
 import './MaestrosTable.scss';
 
 function MaestrosTable(props) {
+    if(!props.maestros || (props.maestros instanceof Array && props.maestros.length === 0)) return <Typography style={{
+    }}>Aun no se crea ningun maestro.</Typography>
+
     const data = React.useMemo(() => props.maestros);
 
     const columns = React.useMemo(
@@ -37,17 +42,29 @@ function MaestrosTable(props) {
                 show: false,
             },
             {
+                Header: 'Nombre completo',
+                columns: [
+            {
                 Header: 'Nombre',
-                accessor: 'firstname', // accessor is the "key" in the data
+                accessor: 'firstname',
+                headerClassName: 'MaestrosTable-header'
             },
             {
                 Header: 'Apellido',
                 accessor: 'lastname',
+                className: '',
+            },
+                ]
             },
             {
                 //Header: <Icon icon={faGraduationCap} />,
                 Header: 'Título',
                 accessor: 'degree', // accessor is the "key" in the data
+            },
+            {
+                //Header: <Icon icon={faGraduationCap} />,
+                Header: 'Facultad',
+                accessor: 'facultad', // accessor is the "key" in the data
             },
             {
                 Header: <Icon icon={faGlasses} />,
@@ -126,6 +143,8 @@ function MaestrosTable(props) {
                 background: theme.background.light,
                 borderCollapse: 'collapse',
                 width: '100%',
+                                    border: '1px solid',
+                                    borderColor: theme.background.dark
             }}
         >
             <thead>

@@ -1,3 +1,18 @@
+import React from 'react';
+
+import {
+    faGlasses,
+    faBook,
+    faUsers,
+    faChess,
+    faBookReader,
+    faUserCheck,
+    faChalkboardTeacher,
+    faComments,
+    faLaptopCode,
+    faSmileBeam,
+} from '@fortawesome/free-solid-svg-icons';
+
 const RegisterStrings = {
     username: {
         required: 'El nombre de usuario es requerido.',
@@ -71,6 +86,19 @@ const CategoryStrings = {
     satisfaccion_general: 'Satisfacción general',
 };
 
+const CategoryIcons = {
+    dominio_de_la_asignatura: faGlasses,
+    planificacion_del_curso: faBook,
+    ambientes_de_aprendizaje: faUsers,
+    estrategias_metodos_y_tecnicas: faChess,
+    motivacion: faBookReader,
+    evaluacion: faUserCheck,
+    comunicacion: faComments,
+    gestion_del_curso: faChalkboardTeacher,
+    tecnologias_de_la_informacion_y_comunicacion: faLaptopCode,
+    satisfaccion_general: faSmileBeam,
+};
+
 export {
     LoginStrings,
     RegisterStrings,
@@ -78,4 +106,5 @@ export {
     MaestroStrings,
     ConnectionStrings,
     CategoryStrings,
+    CategoryIcons
 };

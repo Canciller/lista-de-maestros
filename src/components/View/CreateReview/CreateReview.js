@@ -54,7 +54,7 @@ class Review extends Component {
                                             <div className="CreateReview-question">
                                                 <div className="CreateReview-question-header">
                                                     <Typography className="CreateReview-question-number">
-                                                        {`${parseInt(key) + 1}`}
+                                                        {`${parseInt(key) + 1}`}.
                                                     </Typography>
                                                     <Typography className="CreateReview-question-text">
                                                         {question.text}
@@ -302,7 +302,7 @@ class CreateReview extends Component {
                     <Typography
                         style={{
                             fontSize: '1.2em',
-                            marginBottom: 4,
+                            marginBottom: 8,
                         }}
                     >
                         Comentarios
@@ -316,13 +316,13 @@ class CreateReview extends Component {
                         style={{
                             resize: 'none',
                             width: '100%',
-                            height: 170,
+                            height: 256,
                             marginBottom: 20,
                             fontFamily: 'inherit',
-                            padding: 8,
+                            padding: '8px 12px',
                             fontSize: '1.2em',
                             color: theme.foreground.normal,
-                            background: theme.background.light,
+                            background: theme.background.normal,
                             border: 'none',
                             transiton: 'all 250ms',
                         }}
